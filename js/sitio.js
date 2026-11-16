@@ -62,6 +62,21 @@
       </div></header>`;
     const b = $("#boton-menu"), m = $("#menu");
     b.addEventListener("click", () => b.setAttribute("aria-expanded", m.classList.toggle("abierto")));
+    // Más fina al bajar; en móvil se esconde al bajar y reaparece al subir
+    const cab = $(".cabecera");
+    let ultima = window.scrollY, pendiente = false;
+    const alDesplazar = () => {
+      pendiente = false;
+      const y = Math.max(0, window.scrollY), dif = y - ultima;
+      cab.classList.toggle("compacta", y > 40);
+      if (m.classList.contains("abierto") || y < 120 || cab.contains(document.activeElement)) cab.classList.remove("oculta");
+      else if (dif > 6) cab.classList.add("oculta");
+      else if (dif < -6) cab.classList.remove("oculta");
+      if (Math.abs(dif) > 6) ultima = y;
+    };
+    window.addEventListener("scroll", () => { if (!pendiente) { pendiente = true; requestAnimationFrame(alDesplazar); } }, { passive: true });
+    cab.addEventListener("focusin", () => cab.classList.remove("oculta"));
+    alDesplazar();
   }
 
   function redes(aj) {

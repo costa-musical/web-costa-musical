@@ -287,3 +287,15 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
   .menu.abierto{display:flex}
   .menu a{display:block;padding:12px 0;font-size:18px}
 }
+
+/* Cabecera fija: más fina al bajar y, en móvil, se esconde al bajar y vuelve al subir */
+#cabecera{display:contents}
+.cabecera{transition:transform .3s ease,box-shadow .3s ease}
+.cabecera .envoltorio{transition:min-height .3s ease}
+.logo,.logo-img{transition:font-size .3s ease,width .3s ease,height .3s ease,color .2s ease}
+.cabecera.compacta{box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.cabecera.compacta .envoltorio{min-height:56px}
+.cabecera.compacta .logo{font-size:23px}
+.cabecera.compacta .logo-img{width:27px;height:35px}
+@media (max-width:820px){.cabecera.oculta{transform:translateY(-100%)}}
+@media (prefers-reduced-motion:reduce){.cabecera,.cabecera .envoltorio,.logo,.logo-img{transition:none}}

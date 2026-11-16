@@ -52,7 +52,7 @@
         <a class="logo" href="index.html" aria-label="Costa Musical, inicio">COSTA<span>MUSICAL</span></a>
         <button class="boton-menu" id="boton-menu" aria-expanded="false" aria-controls="menu">Menú</button>
         <ul class="menu" id="menu">${enlaces.map(([h, t, p]) => `<li><a href="${h}"${p === pagina ? ' aria-current="page"' : ""}>${t}</a></li>`).join("")}</ul>
-        <a class="boton marino peq enlace-ensembli" href="asociacion.html#socios">Área de socios<span class="socios-txt" aria-hidden="true"> →</span></a>
+        <a class="boton marino peq enlace-ensembli" href="asociacion.html#socios" aria-label="Área de socios"><span class="socios-largo">Área de socios</span><span class="socios-corto" aria-hidden="true">Socios</span><span class="socios-txt" aria-hidden="true"> →</span></a>
       </div></header>`;
     const b = $("#boton-menu"), m = $("#menu");
     b.addEventListener("click", () => b.setAttribute("aria-expanded", m.classList.toggle("abierto")));

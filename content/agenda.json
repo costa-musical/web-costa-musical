@@ -33,13 +33,13 @@
       ]
     },
     {
-      "titulo": "Concierto de Navidad con el coro infantil",
-      "fecha": "2026-12-22",
+      "titulo": "Musical Disney de Navidad",
+      "fecha": "2026-12-20",
       "fecha_texto": "",
       "agrupacion": "banda",
-      "hora": "",
-      "lugar": "",
-      "descripcion": "Música de películas de animación con alumnos de primaria.",
+      "hora": "12:00",
+      "lugar": "Teatro del Mar",
+      "descripcion": "Música de películas de animación con el coro de alumnos de primaria.",
       "gratis": true,
       "programa": []
     },

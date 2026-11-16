@@ -61,10 +61,14 @@
   "colaboradores": [
     {
       "nombre": "Ayuntamiento de Punta Umbría",
+      "logo": "/img/subidas/logo punta horizontal.webp",
+      "web": "https://www.puntaumbria.es",
       "detalle": "Institución colaboradora"
     },
     {
       "nombre": "Escuela Municipal de Música",
+      "logo": "/img/subidas/905679491_2082662583136845_1616848238968669150_n.webp",
+      "web": "https://www.puntaumbria.es/musica",
       "detalle": "«Francisco Rodríguez Cermeño»"
     }
   ]

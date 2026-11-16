@@ -4,8 +4,9 @@ backend:
   name: github
   repo: costa-musical/web-costa-musical
   branch: main
-  # Si configuras el inicio de sesión con GitHub (ver LEEME.md), añade aquí:
-  # base_url: https://tu-worker-de-autenticacion.workers.dev
+  # Inicio de sesión con GitHub a través de la propia web (functions/api/*.js en Cloudflare Pages)
+  base_url: https://web-costa-musical.pages.dev
+  auth_endpoint: api/auth
 
 locale: es
 media_folder: img/subidas

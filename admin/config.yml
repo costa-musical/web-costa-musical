@@ -167,6 +167,6 @@ collections:
           - { name: facebook, label: "Facebook (enlace)", widget: string, required: false }
           - { name: cif, label: CIF, widget: string, required: false }
           - { name: lugar_ensayos, label: "Lugar de ensayos", widget: string }
-          - { name: cuota_socio, label: "Cuota anual de socio (€)", widget: string, required: false }
+          - { name: cuota_socio, label: "Cuota anual de socio (€)", widget: string, required: false, hint: "Pon 0 si hacerse socio es gratis." }
           - { name: ensembli_url, label: "Dirección del área de socios (Ensembli)", widget: string, required: false }
           - { name: ensembli_feed, label: "Enlace del calendario público de Ensembli (JSON)", widget: string, required: false, hint: "Si lo rellenas, la agenda añade sola los eventos públicos de Ensembli." }

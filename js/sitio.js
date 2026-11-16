@@ -259,7 +259,8 @@
 
     asociacion(d) {
       const aj = d.ajustes;
-      $("#cuota").textContent = aj.cuota_socio ? `Cuota anual: ${aj.cuota_socio} €` : "Escríbenos y te contamos la cuota de este año.";
+      const cuota = String(aj.cuota_socio ?? "").trim();
+      $("#cuota").textContent = /^0+([.,]0+)?$/.test(cuota) ? "Hacerse socio o socia es gratis." : cuota ? `Cuota anual: ${cuota} €` : "Escríbenos y te contamos la cuota de este año.";
       const datos = [["Correo", aj.correo && `<a href="mailto:${esc(aj.correo)}">${esc(aj.correo)}</a>`], ["Teléfono", aj.telefono && `<a href="tel:${esc(String(aj.telefono).replace(/[^\d+]/g, ""))}">${esc(aj.telefono)}</a>`],
         ...redes(aj).map(([red, url, txt]) => [red, `<a href="${esc(url)}" rel="noopener">${esc(red === "Facebook" ? "Ver página" : txt)}</a>`]),
         ["Ensayos", esc(aj.lugar_ensayos)]].filter(([, v]) => v);

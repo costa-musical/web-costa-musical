@@ -243,7 +243,7 @@
     (cursos || []).forEach(c => encuentrosDe(c).forEach((e, i, todos) => lista.push({
       fecha: e.fecha, titulo: e.titulo ? `${c.titulo}: ${e.titulo}` : (todos.length > 1 ? `${c.titulo} (encuentro ${i + 1})` : c.titulo),
       hora: [e.fecha_fin && e.fecha_fin !== e.fecha ? "Hasta el " + rangoFechas({ ini: e.fin, fin: e.fin }) : "", e.horario].filter(Boolean).join(" · "),
-      lugar: e.lugar || c.lugar, quien: "Curso", enlace: `cursos.html#${c.id}`, agrupacion: ""
+      lugar: e.lugar || c.lugar, quien: "Curso", tipo: "curso", cartel: e.cartel || "", enlace: `cursos.html#${c.id}`, agrupacion: ""
     })));
     return lista;
   }
@@ -258,7 +258,8 @@
       ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
       ${ev.entradas_url ? `<p><a class="boton amarillo peq" href="${esc(ev.entradas_url)}" rel="noopener" target="_blank">Comprar entradas</a></p>` : ""}
       ${ev.enlace ? `<p><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : `<p><a class="mas-info" href="agenda.html#${esc(idEvento(ev))}">Más información →</a></p>`}
-      ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div></li>`;
+      ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div>
+      ${ev.cartel ? `<a class="cartel-mini" href="${esc(ev.enlace || "agenda.html#" + idEvento(ev))}" tabindex="-1" aria-hidden="true"><img src="${esc(encodeURI(ev.cartel))}" alt="" loading="lazy"></a>` : ""}</li>`;
   }
   function pintarEventos(destino, lista, porId, vacio) {
     destino.innerHTML = lista.length ? lista.map(ev => tarjetaEvento(ev, porId)).join("")
@@ -379,9 +380,10 @@
       const usadas = ens.filter(e => e.estado !== "proyecto");
       let filtro = "todas";
       function pintarLista() {
-        $("#filtros").innerHTML = [["todas", "Todo"], ...usadas.map(e => [e.id, e.corto])]
+        const hayCursos = eventos.some(e => e.tipo === "curso");
+        $("#filtros").innerHTML = [["todas", "Todo"], ...usadas.map(e => [e.id, e.corto]), ...(hayCursos ? [["cursos", "Cursos"]] : [])]
           .map(([id, t]) => `<button type="button" class="filtro" data-f="${esc(id)}" aria-pressed="${filtro === id}">${esc(t)}</button>`).join("");
-        const f = e => filtro === "todas" || e.agrupacion === filtro;
+        const f = e => filtro === "todas" || (filtro === "cursos" ? e.tipo === "curso" : e.agrupacion === filtro);
         pintarEventos($("#agenda-completa"), lista.filter(f), porId, "Próximas actuaciones por anunciar. ¡Atento a Instagram!");
         const ant = anteriores.filter(f).slice(0, 12);
         $("#bloque-anteriores").hidden = !ant.length;
@@ -393,7 +395,7 @@
         $("#vista-agenda").hidden = !!ev; $("#cab-agenda").hidden = !!ev; $("#evento").hidden = !ev;
         if (ev) { pintarEvento(ev, d); window.scrollTo(0, 0); return; }
         document.title = "Agenda · Costa Musical";
-        if (porId[h]) filtro = h;
+        if (porId[h] || h === "cursos") filtro = h;
         pintarLista();
       }
       $("#filtros").addEventListener("click", ev => { const b = ev.target.closest("[data-f]"); if (b) { filtro = b.dataset.f; pintarLista(); } });

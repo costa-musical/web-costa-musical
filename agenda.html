@@ -16,13 +16,20 @@
 <a class="oculto" href="#contenido">Saltar al contenido</a>
 <div id="cabecera"></div>
 <main id="contenido">
-<section class="banda-azul con-borde" style="border-top:none"><div class="envoltorio pila" style="padding-top:56px;padding-bottom:56px">
+<section class="banda-azul con-borde" style="border-top:none" id="cab-agenda"><div class="envoltorio pila" style="padding-top:56px;padding-bottom:56px">
   <h1 class="titulo-xl">Agenda</h1>
   <p class="entradilla">Apúntatelo: casi todos nuestros conciertos son gratis y en la calle.</p>
 </div></section>
 <section class="seccion"><div class="envoltorio">
-  <div class="filtros" id="filtros" role="group" aria-label="Filtrar por agrupación"></div>
-  <ul class="entradas" id="agenda-completa"></ul>
+  <div id="vista-agenda">
+    <div class="filtros" id="filtros" role="group" aria-label="Filtrar por agrupación"></div>
+    <ul class="entradas" id="agenda-completa"></ul>
+    <div id="bloque-anteriores" class="pila" style="margin-top:64px" hidden>
+      <h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Actuaciones anteriores</h2>
+      <ul class="entradas anteriores" id="agenda-anteriores"></ul>
+    </div>
+  </div>
+  <article id="evento" class="evento" hidden></article>
 </div></section>
 </main>
 <div id="pie"></div>

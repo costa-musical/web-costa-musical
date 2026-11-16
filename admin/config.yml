@@ -43,7 +43,9 @@ collections:
                   - { label: Música de cámara, value: camara }
               - { name: hora, label: "Hora (opcional)", widget: string, required: false, hint: "Por ejemplo 20:30" }
               - { name: lugar, label: "Lugar (opcional)", widget: string, required: false }
-              - { name: descripcion, label: "Descripción corta", widget: text, required: false }
+              - { name: descripcion, label: "Descripción corta", widget: text, required: false, hint: "Sale en la tarjeta de la agenda y arriba en la página del evento." }
+              - { name: cartel, label: "Cartel (opcional)", widget: image, required: false }
+              - { name: texto, label: "Texto completo (opcional)", widget: text, required: false, hint: "Para la página del evento: director, solistas, colaboradores, historia del concierto… Deja una línea en blanco entre párrafos." }
               - { name: gratis, label: "Entrada libre", widget: boolean, default: true }
               - { name: precio, label: "Precio (si no es gratis)", widget: string, required: false, hint: "Por ejemplo «8 € · niños gratis»" }
               - { name: entradas_url, label: "Enlace para comprar entradas", widget: string, required: false, hint: "El enlace de la plataforma de venta. Aparecerá un botón «Comprar entradas»." }
@@ -55,6 +57,9 @@ collections:
                 fields:
                   - { name: obra, label: Obra, widget: string }
                   - { name: autor, label: "Autor / arreglista", widget: string, required: false }
+              - { name: video, label: "Vídeo de YouTube (opcional)", widget: string, required: false, hint: "Un adelanto o, cuando ya se haya celebrado, la grabación." }
+              - { name: album, label: "Álbum de fotos de la galería (opcional)", widget: string, required: false, hint: "La «dirección corta» del álbum, por ejemplo cuaresma-2026. Aparece un botón «Ver fotos»." }
+              - { name: mapa_url, label: "Enlace al mapa (opcional)", widget: string, required: false, hint: "Si lo dejas vacío, el botón «Cómo llegar» busca el lugar en Google Maps." }
 
       - name: noticias
         label: Noticias

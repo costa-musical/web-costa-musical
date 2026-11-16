@@ -133,6 +133,72 @@
     const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
     return eventos.filter(e => e.fecha && fechaLocal(e.fecha) >= hoy).sort((a, b) => a.fecha.localeCompare(b.fecha));
   }
+  /* ---------- Página de cada evento ---------- */
+  function horaDe(ev) { const m = String(ev.hora || "").match(/(\d{1,2})[:.h](\d{2})/); return m ? [+m[1], +m[2]] : null; }
+  function icsEvento(ev) {
+    const f = fechaLocal(ev.fecha), p2 = n => String(n).padStart(2, "0"), dia = `${f.getFullYear()}${p2(f.getMonth() + 1)}${p2(f.getDate())}`;
+    const h = horaDe(ev); let ini, fin;
+    if (h) { const e = new Date(f); e.setHours(h[0] + 2, h[1]); ini = `DTSTART;TZID=Europe/Madrid:${dia}T${p2(h[0])}${p2(h[1])}00`; fin = `DTEND;TZID=Europe/Madrid:${e.getFullYear()}${p2(e.getMonth() + 1)}${p2(e.getDate())}T${p2(e.getHours())}${p2(e.getMinutes())}00`; }
+    else { const e = new Date(f); e.setDate(e.getDate() + 1); ini = `DTSTART;VALUE=DATE:${dia}`; fin = `DTEND;VALUE=DATE:${e.getFullYear()}${p2(e.getMonth() + 1)}${p2(e.getDate())}`; }
+    const t = x => String(x || "").replace(/[\\,;]/g, m => "\\" + m).replace(/\n/g, "\\n");
+    return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Costa Musical//Web//ES", "BEGIN:VEVENT", `UID:${idEvento(ev)}@costamusical`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
+      ini, fin, `SUMMARY:${t(ev.titulo)}`, ev.lugar ? `LOCATION:${t(ev.lugar)}` : "", `DESCRIPTION:${t(ev.descripcion)}${ev.descripcion ? "\\n\\n" : ""}${location.href}`, "END:VEVENT", "END:VCALENDAR"].filter(Boolean).join("\r\n");
+  }
+  function pintarEvento(ev, d) {
+    const e = d.porId[ev.agrupacion] || { corto: "Costa Musical", nombre: "Costa Musical" };
+    const pasado = fechaLocal(ev.fecha) < hoy0();
+    const album = ev.album && (d.albumes || []).find(a => a.id === ev.album);
+    const yt = idYoutube(ev.video);
+    const cuando = ev.fecha_texto ? `${ev.fecha_texto} · ${fechaLocal(ev.fecha).getFullYear()}` : fechaLarga(ev.fecha);
+    const mapa = ev.mapa_url || (ev.lugar ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.lugar)}` : "");
+    document.title = `${ev.titulo} · Agenda · Costa Musical`;
+    $("#evento").innerHTML = `<a href="agenda.html" style="font-weight:700">← Toda la agenda</a>
+      <div class="evento-rejilla">
+        <div class="pila evento-info">
+          <span class="quien-evento">${esc(e.nombre || e.corto)}${pasado ? " · Ya celebrado" : ""}</span>
+          <h1 class="titulo-xl" style="font-size:clamp(40px,6.5vw,76px)">${esc(ev.titulo)}</h1>
+          ${ev.descripcion ? `<p class="entradilla">${esc(ev.descripcion)}</p>` : ""}
+          <dl class="ficha-datos">
+            <div><dt>Cuándo</dt><dd>${esc(cuando)}${ev.hora ? `<br>${esc(ev.hora)}` : ""}</dd></div>
+            ${ev.lugar ? `<div><dt>Dónde</dt><dd>${esc(ev.lugar)}${mapa ? `<br><a href="${esc(mapa)}" target="_blank" rel="noopener">Cómo llegar →</a>` : ""}</dd></div>` : ""}
+            <div><dt>Entrada</dt><dd>${ev.gratis ? "Libre hasta completar aforo" : esc(ev.precio || "Consultar")}</dd></div>
+          </dl>
+          <div class="acciones">
+            ${ev.entradas_url && !pasado ? `<a class="boton amarillo" href="${esc(ev.entradas_url)}" target="_blank" rel="noopener">Comprar entradas</a>` : ""}
+            ${!pasado ? `<button type="button" class="boton blanco" id="ev-calendario">Añadir a mi calendario</button>` : ""}
+            <button type="button" class="boton blanco" id="ev-compartir">Compartir</button>
+            ${album ? `<a class="boton marino" href="galeria.html#${esc(album.id)}">Ver fotos</a>` : ""}
+          </div>
+          <p class="aviso" id="ev-aviso" role="status" hidden></p>
+          ${ev.texto ? `<div class="texto pila">${parrafos(ev.texto)}</div>` : ""}
+          ${(ev.programa || []).length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Programa</h2>
+            <ol class="programa-lista">${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol>` : ""}
+          ${yt ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">${pasado ? "Vídeo" : "Adelanto"}</h2>
+            <div class="video"><button type="button" class="video-lite" data-yt="${esc(yt)}" style="background-image:url('https://i.ytimg.com/vi/${esc(yt)}/hqdefault.jpg')" aria-label="Reproducir: ${esc(ev.titulo)}"><span class="play" aria-hidden="true">▶</span></button></div>` : ""}
+        </div>
+        ${ev.cartel ? `<aside class="evento-cartel"><a href="${esc(encodeURI(ev.cartel))}" target="_blank" rel="noopener"><img src="${esc(encodeURI(ev.cartel))}" alt="Cartel: ${esc(ev.titulo)}"></a><p class="suave">Pulsa para verlo en grande</p></aside>` : ""}
+      </div>`;
+    const aviso = $("#ev-aviso");
+    const cal = $("#ev-calendario");
+    if (cal) cal.addEventListener("click", () => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([icsEvento(ev)], { type: "text/calendar" }));
+      a.download = `${slug(ev.titulo) || "evento"}.ics`; document.body.appendChild(a); a.click(); a.remove();
+    });
+    $("#ev-compartir").addEventListener("click", async () => {
+      const datos = { title: ev.titulo, text: `${ev.titulo} · ${cuando}${ev.lugar ? " · " + ev.lugar : ""}`, url: location.href };
+      try {
+        if (navigator.share) { await navigator.share(datos); return; }
+        await navigator.clipboard.writeText(location.href); aviso.hidden = false; aviso.textContent = "Enlace copiado. Pégalo donde quieras.";
+      } catch (_) { /* cancelado */ }
+    });
+    const v = $("#evento .video-lite");
+    if (v) v.addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.src = `https://www.youtube-nocookie.com/embed/${v.dataset.yt}?autoplay=1`; f.title = ev.titulo;
+      f.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"; f.allowFullscreen = true; v.replaceWith(f);
+    });
+  }
   /* ---------- Cursos: fechas y estado automático ---------- */
   const MESES_L = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   function hoy0() { const h = new Date(); h.setHours(0, 0, 0, 0); return h; }
@@ -181,16 +247,17 @@
     })));
     return lista;
   }
+  const idEvento = ev => ev.id || `${ev.fecha}-${slug(ev.titulo)}`;
   function tarjetaEvento(ev, porId) {
     const e = porId[ev.agrupacion] || { corto: "Costa Musical", color: "#ffcc29" };
     const f = etiquetaFecha(ev);
     const detalles = [ev.hora, ev.lugar].filter(Boolean).join(" · ");
     return `<li class="entrada" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
       <div class="dia"><b>${esc(f.grande)}</b><span>${esc(f.peq)}</span></div>
-      <div class="info"><span class="quien">${esc(ev.quien || e.corto)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${esc(ev.titulo)}</h3>
+      <div class="info"><span class="quien">${esc(ev.quien || e.corto)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${ev.enlace ? esc(ev.titulo) : `<a class="enlace-evento" href="agenda.html#${esc(idEvento(ev))}">${esc(ev.titulo)}</a>`}</h3>
       ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
       ${ev.entradas_url ? `<p><a class="boton amarillo peq" href="${esc(ev.entradas_url)}" rel="noopener" target="_blank">Comprar entradas</a></p>` : ""}
-      ${ev.enlace ? `<p><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : ""}
+      ${ev.enlace ? `<p><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : `<p><a class="mas-info" href="agenda.html#${esc(idEvento(ev))}">Más información →</a></p>`}
       ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div></li>`;
   }
   function pintarEventos(destino, lista, porId, vacio) {
@@ -307,14 +374,30 @@
     agenda(d) {
       const { ens, porId, eventos } = d;
       const lista = proximos(eventos);
+      const hoy = hoy0();
+      const anteriores = eventos.filter(e => e.fecha && !e.enlace && fechaLocal(e.fecha) < hoy).sort((a, b) => b.fecha.localeCompare(a.fecha));
       const usadas = ens.filter(e => e.estado !== "proyecto");
-      let filtro = porId[location.hash.slice(1)] ? location.hash.slice(1) : "todas";
-      function pintar() {
+      let filtro = "todas";
+      function pintarLista() {
         $("#filtros").innerHTML = [["todas", "Todo"], ...usadas.map(e => [e.id, e.corto])]
           .map(([id, t]) => `<button type="button" class="filtro" data-f="${esc(id)}" aria-pressed="${filtro === id}">${esc(t)}</button>`).join("");
-        pintarEventos($("#agenda-completa"), lista.filter(e => filtro === "todas" || e.agrupacion === filtro), porId, "Próximas actuaciones por anunciar. ¡Atento a Instagram!");
+        const f = e => filtro === "todas" || e.agrupacion === filtro;
+        pintarEventos($("#agenda-completa"), lista.filter(f), porId, "Próximas actuaciones por anunciar. ¡Atento a Instagram!");
+        const ant = anteriores.filter(f).slice(0, 12);
+        $("#bloque-anteriores").hidden = !ant.length;
+        $("#agenda-anteriores").innerHTML = ant.map(ev => tarjetaEvento(ev, porId)).join("");
       }
-      $("#filtros").addEventListener("click", ev => { const b = ev.target.closest("[data-f]"); if (b) { filtro = b.dataset.f; pintar(); } });
+      function pintar() {
+        const h = decodeURIComponent(location.hash.slice(1));
+        const ev = eventos.find(e => !e.enlace && idEvento(e) === h);
+        $("#vista-agenda").hidden = !!ev; $("#cab-agenda").hidden = !!ev; $("#evento").hidden = !ev;
+        if (ev) { pintarEvento(ev, d); window.scrollTo(0, 0); return; }
+        document.title = "Agenda · Costa Musical";
+        if (porId[h]) filtro = h;
+        pintarLista();
+      }
+      $("#filtros").addEventListener("click", ev => { const b = ev.target.closest("[data-f]"); if (b) { filtro = b.dataset.f; pintarLista(); } });
+      window.addEventListener("hashchange", pintar);
       pintar();
     },
 

@@ -47,6 +47,7 @@
     const enlaces = [
       ["agrupacion.html#banda", "Agrupaciones", "agrupacion"],
       ["agenda.html", "Agenda", "agenda"],
+      ["cursos.html", "Cursos", "cursos"],
       ["galeria.html", "Galería", "galeria"],
       ["unete.html", "Únete", "unete"],
       ["contrataciones.html", "Contrátanos", "contrataciones"],
@@ -125,7 +126,8 @@
     return `<li class="entrada" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
       <div class="dia"><b>${esc(f.grande)}</b><span>${esc(f.peq)}</span></div>
       <div class="info"><span class="quien">${esc(e.corto)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${esc(ev.titulo)}</h3>
-      ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}
+      ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
+      ${ev.entradas_url ? `<p><a class="boton amarillo peq" href="${esc(ev.entradas_url)}" rel="noopener" target="_blank">Comprar entradas</a></p>` : ""}
       ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div></li>`;
   }
   function pintarEventos(destino, lista, porId, vacio) {
@@ -147,7 +149,10 @@
         fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: datos.toString() })
           .then(r => {
             if (!r.ok) throw new Error();
-            form.reset(); aviso.hidden = false; aviso.textContent = "¡Recibido! Te contestamos lo antes posible.";
+            const pago = form.dataset.pago, curso = form.curso && form.curso.value;
+            form.reset(); if (form.curso) form.curso.value = curso; aviso.hidden = false;
+            if (pago) { aviso.innerHTML = `¡Inscripción recibida! Para reservar tu plaza, completa el pago: <a class="boton amarillo peq" href="${esc(pago)}" target="_blank" rel="noopener">Pagar inscripción</a>`; }
+            else aviso.textContent = "¡Recibido! Te contestamos lo antes posible.";
           })
           .catch(() => {
             const texto = [...new FormData(form)].filter(([k]) => !["form-name", "bot-field", "privacidad"].includes(k)).map(([k, v]) => `${k}: ${v}`).join("\n");
@@ -164,11 +169,16 @@
       const { inicio: ini, porId, ens, eventos, noticias } = d;
       $("#titular").innerHTML = `${esc(ini.titular)}<br><span>${esc(ini.titular_destacado)}</span>`;
       $("#entradilla").textContent = ini.entradilla;
-      $("#cinta").innerHTML = (ini.cinta || []).map((t, i) => (i ? "<span aria-hidden=\"true\">·</span>" : "") + `<a href="galeria.html#categoria-${slug(t)}">${esc(t)}</a>`).join("");
+      $("#cinta").innerHTML = (ini.cinta || []).map((c, i) => {
+        const t = typeof c === "string" ? c : c.texto, h = typeof c === "string" ? `galeria.html#categoria-${slug(c)}` : (c.enlace || "#");
+        return (i ? "<span aria-hidden=\"true\">·</span>" : "") + `<a href="${esc(h)}">${esc(t)}</a>`;
+      }).join("");
       const alb = (d.albumes || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha)).slice(0, 4);
       if (alb.length && $("#galeria-inicio")) { $("#bloque-galeria").hidden = false; $("#galeria-inicio").innerHTML = alb.map(tarjetaAlbum).join(""); }
       const foto = $("#foto-portada");
-      if (ini.foto_portada) { foto.classList.remove("sin-foto"); foto.style.backgroundImage = `url("${encodeURI(ini.foto_portada)}")`; foto.setAttribute("aria-label", ini.pie_foto || "Foto de la banda"); }
+      const diapos = (ini.carrusel || []).filter(x => x.imagen);
+      if (!diapos.length && ini.foto_portada) diapos.push({ imagen: ini.foto_portada, pie: ini.pie_foto || "" });
+      if (diapos.length) carrusel(foto, diapos);
       const t = ini.testimonio || {};
       if (t.texto) $("#cita").innerHTML = `<p>«${esc(t.texto)}»</p><footer>${esc([t.nombre, t.instrumento].filter(Boolean).join(", "))}${t.desde ? ", en la banda desde " + esc(t.desde) : ""}</footer>`;
       $("#rejilla-ens").innerHTML = ens.map(e => `
@@ -277,6 +287,42 @@
       $$(".d-correo").forEach(n => n.textContent = aj.correo || "nuestro correo");
     },
 
+    cursos(d) {
+      const cursos = d.cursos || [];
+      const form = $("#form-inscripcion"), hueco = $("#hueco-form");
+      const ESTADO = { abierto: "Inscripción abierta", proximamente: "Próximamente", finalizado: "Edición finalizada" };
+      function pintar() {
+        const c = cursos.find(x => x.id === location.hash.slice(1));
+        $("#lista-cursos").hidden = !!c; $("#curso").hidden = !c;
+        if (c) {
+          document.title = `${c.titulo} · Cursos · Costa Musical`;
+          const datos = [["Fechas", c.fechas], ["Lugar", c.lugar], ["Dirigido a", c.dirigido], ["Precio", c.precio], ["Plazas", c.plazas]].filter(([, v]) => v);
+          $("#curso-info").innerHTML = `<a href="cursos.html" style="font-weight:700">← Todos los cursos</a>
+            <span class="estado-curso ${esc(c.estado)}">${esc(ESTADO[c.estado] || "")}</span>
+            <h1 class="titulo-xl" style="font-size:clamp(40px,7vw,80px)">${esc(c.titulo)}</h1>
+            ${c.foto ? `<img class="foto-curso" src="${esc(encodeURI(c.foto))}" alt="">` : ""}
+            ${datos.length ? `<dl class="ficha-datos">${datos.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
+            <div class="pila">${parrafos(c.descripcion)}</div>
+            ${(c.profesorado || []).length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Profesorado</h2><div class="rejilla">${c.profesorado.map(p => `<div class="caja"><h3>${esc(p.nombre)}</h3><p>${esc(p.descripcion || "")}</p></div>`).join("")}</div>` : ""}`;
+          if (c.inscripcion_abierta) {
+            form.hidden = false; form.curso.value = c.titulo; form.dataset.pago = c.enlace_pago || ""; hueco.hidden = false; $("#cerrado").hidden = true;
+          } else { form.hidden = true; hueco.hidden = true; $("#cerrado").hidden = false; }
+        } else {
+          document.title = "Cursos · Costa Musical";
+          const orden = { abierto: 0, proximamente: 1, finalizado: 2 };
+          $("#cursos").innerHTML = cursos.length ? cursos.slice().sort((a, b) => (orden[a.estado] ?? 3) - (orden[b.estado] ?? 3)).map(c => `
+            <a class="noticia" href="#${esc(c.id)}">
+              <div class="img${c.foto ? "" : " sin-foto-curso"}" style="${c.foto ? `background-image:url('${esc(encodeURI(c.foto))}')` : ""}"></div>
+              <div class="cuerpo"><span class="estado-curso ${esc(c.estado)}">${esc(ESTADO[c.estado] || "")}</span><h3>${esc(c.titulo)}</h3>
+              <p class="suave">${esc([c.tipo, c.fechas].filter(Boolean).join(" · "))}</p><p>${esc(c.resumen || "")}</p></div></a>`).join("")
+            : `<p class="vacio">Pronto publicaremos nuestros próximos cursos.</p>`;
+        }
+        window.scrollTo(0, 0);
+      }
+      window.addEventListener("hashchange", pintar);
+      pintar();
+    },
+
     galeria(d) {
       const albumes = (d.albumes || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha));
       const cats = [...new Set(albumes.map(a => a.categoria).filter(Boolean))];
@@ -360,6 +406,34 @@
     const f = fechaLocal(iso);
     return `${f.getDate()} de ${["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"][f.getMonth()]} de ${f.getFullYear()}`;
   }
+  function carrusel(caja, diapos) {
+    caja.classList.remove("sin-foto"); caja.classList.add("carrusel");
+    caja.removeAttribute("role"); caja.setAttribute("aria-roledescription", "carrusel"); caja.setAttribute("aria-label", "Fotos de la banda");
+    caja.innerHTML = diapos.map((d, i) => `<figure class="diapo${i ? "" : " activa"}" aria-hidden="${i ? "true" : "false"}"><img src="${esc(encodeURI(d.imagen))}" alt="${esc(d.pie || "")}" ${i ? 'loading="lazy"' : ""}>${d.pie ? `<figcaption>${esc(d.pie)}</figcaption>` : ""}</figure>`).join("") +
+      (diapos.length > 1 ? `<button type="button" class="carr-btn ant" aria-label="Foto anterior">‹</button><button type="button" class="carr-btn sig" aria-label="Foto siguiente">›</button>
+      <div class="carr-puntos">${diapos.map((_, i) => `<button type="button" aria-label="Ver foto ${i + 1}"${i ? "" : ' aria-current="true"'}></button>`).join("")}</div>` : "");
+    if (diapos.length < 2) return;
+    const figs = $$(".diapo", caja), puntos = $$(".carr-puntos button", caja);
+    let i = 0, temp = null;
+    const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function ir(n) {
+      figs[i].classList.remove("activa"); figs[i].setAttribute("aria-hidden", "true"); puntos[i].removeAttribute("aria-current");
+      i = (n + figs.length) % figs.length;
+      figs[i].classList.add("activa"); figs[i].setAttribute("aria-hidden", "false"); puntos[i].setAttribute("aria-current", "true");
+    }
+    function auto() { clearInterval(temp); if (!quieto) temp = setInterval(() => ir(i + 1), 6000); }
+    $(".ant", caja).addEventListener("click", () => { ir(i - 1); auto(); });
+    $(".sig", caja).addEventListener("click", () => { ir(i + 1); auto(); });
+    puntos.forEach((p, n) => p.addEventListener("click", () => { ir(n); auto(); }));
+    caja.addEventListener("mouseenter", () => clearInterval(temp));
+    caja.addEventListener("mouseleave", auto);
+    caja.addEventListener("focusin", () => clearInterval(temp));
+    let x0 = null;
+    caja.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+    caja.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) { ir(i + (dx < 0 ? 1 : -1)); auto(); } x0 = null; });
+    auto();
+  }
+
   function tarjetaAlbum(a) {
     const portada = a.portada || (a.fotos && a.fotos[0] && a.fotos[0].imagen) || "";
     const nf = (a.fotos || []).length, nv = (a.videos || []).filter(v => idYoutube(v.url)).length;
@@ -377,13 +451,13 @@
   }
 
   /* ---------- Arranque ---------- */
-  Promise.all(["ajustes", "agrupaciones", "agenda", "inicio", "noticias", "contrataciones", "galeria"].map(n => cargar(n).catch(() => ({}))))
-    .then(([ajustes, agr, agenda, inicio, not, contr, gal]) => {
+  Promise.all(["ajustes", "agrupaciones", "agenda", "inicio", "noticias", "contrataciones", "galeria", "cursos"].map(n => cargar(n).catch(() => ({}))))
+    .then(([ajustes, agr, agenda, inicio, not, contr, gal, cur]) => {
       const ens = agr.agrupaciones || [];
       const porId = Object.fromEntries(ens.map(e => [e.id, e]));
       cabecera(ajustes); pie(ajustes, ens); enlacesEnsembli(ajustes); prepararFormularios(ajustes);
       return eventosEnsembli(ajustes).then(extra => {
-        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [] };
+        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [], cursos: cur.cursos || [] };
         if (paginas[pagina]) paginas[pagina](datos);
       });
     });

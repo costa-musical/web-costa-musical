@@ -101,8 +101,13 @@ body{background:var(--cielo)}
 .ficha-ens:first-child .etq{color:var(--amarillo)}
 
 /* Logo y galería en el tema institucional */
-.logo .logo-img{color:var(--amarillo)}
-.logo-txt{display:inline;color:#fff}
-.logo-txt span{color:var(--amarillo)}
+/* Logo blanco (dibujo y letras); dorado al pasar por encima */
+.logo,.logo .logo-img,.logo .logo-txt,.logo .logo-txt span{color:#fff}
+.logo:hover .logo-img,.logo:focus-visible .logo-img,.logo:hover,.logo:focus-visible,.logo:hover .logo-txt,.logo:hover .logo-txt span,.logo:focus-visible .logo-txt,.logo:focus-visible .logo-txt span{color:var(--amarillo)}
+.logo .logo-txt,.logo .logo-txt span{transition:color .2s}
 .etq-album{color:#8a6d1f}
 .cinta a:hover{color:#8a6d1f}
+
+@media (max-width:1180px){.menu{background:var(--marino)}}
+.carr-btn{background:rgba(18,38,74,.75);color:#fff}
+.estado-curso{background:#efe8d4;color:#6d5517}

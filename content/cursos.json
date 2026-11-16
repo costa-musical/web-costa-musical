@@ -1,0 +1,21 @@
+{
+  "cursos": [
+    {
+      "id": "trumpet-academy",
+      "titulo": "Punta Umbría Trumpet Academy",
+      "tipo": "Durante el curso",
+      "estado": "proximamente",
+      "resumen": "Academia de trompeta que organizamos desde 2025 en Punta Umbría.",
+      "descripcion": "La Punta Umbría Trumpet Academy reúne a estudiantes de trompeta con profesorado especializado a lo largo del curso.\n\nMuy pronto publicaremos aquí las fechas, el profesorado y la inscripción de la próxima edición.",
+      "fechas": "",
+      "lugar": "Punta Umbría",
+      "dirigido": "",
+      "precio": "",
+      "plazas": "",
+      "foto": "",
+      "profesorado": [],
+      "enlace_pago": "",
+      "inscripcion_abierta": false
+    }
+  ]
+}

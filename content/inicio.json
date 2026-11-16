@@ -5,11 +5,26 @@
   "foto_portada": "/img/subidas/cibm-valencia-2018-4.jpg",
   "pie_foto": "La banda en el CIBM de Valencia, 2018",
   "cinta": [
-    "Conciertos",
-    "Procesiones",
-    "Cursos",
-    "Festival de Bandas",
-    "Eventos"
+    {
+      "texto": "Conciertos",
+      "enlace": "agenda.html"
+    },
+    {
+      "texto": "Procesiones",
+      "enlace": "contrataciones.html"
+    },
+    {
+      "texto": "Cursos",
+      "enlace": "cursos.html"
+    },
+    {
+      "texto": "Festival de Bandas",
+      "enlace": "galeria.html#categoria-festival-de-bandas"
+    },
+    {
+      "texto": "Eventos",
+      "enlace": "galeria.html#categoria-eventos"
+    }
   ],
   "testimonio": {
     "texto": "",
@@ -29,6 +44,32 @@
     {
       "nombre": "Hermandades de Punta Umbría",
       "detalle": "Semana Santa y patronales"
+    }
+  ],
+  "carrusel": [
+    {
+      "imagen": "/img/subidas/cibm-valencia-2018-2.jpg",
+      "pie": "La banda en el CIBM de Valencia, 2018"
+    },
+    {
+      "imagen": "/img/subidas/img_5255.jpg",
+      "pie": ""
+    },
+    {
+      "imagen": "/img/subidas/cibm-valencia-2018-3.jpg",
+      "pie": "CIBM de Valencia, 2018"
+    },
+    {
+      "imagen": "/img/subidas/13098132.jpg",
+      "pie": ""
+    },
+    {
+      "imagen": "/img/subidas/img_4746.jpg",
+      "pie": ""
+    },
+    {
+      "imagen": "/img/subidas/cibm-valencia-2018-1.jpg",
+      "pie": "Palau de la Música de València, 2018"
     }
   ]
 }

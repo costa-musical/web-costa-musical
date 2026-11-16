@@ -44,6 +44,8 @@ collections:
               - { name: lugar, label: "Lugar (opcional)", widget: string, required: false }
               - { name: descripcion, label: "Descripción corta", widget: text, required: false }
               - { name: gratis, label: "Entrada libre", widget: boolean, default: true }
+              - { name: precio, label: "Precio (si no es gratis)", widget: string, required: false, hint: "Por ejemplo «8 € · niños gratis»" }
+              - { name: entradas_url, label: "Enlace para comprar entradas", widget: string, required: false, hint: "El enlace de la plataforma de venta. Aparecerá un botón «Comprar entradas»." }
               - name: programa
                 label: "Programa (opcional)"
                 widget: list
@@ -69,6 +71,38 @@ collections:
               - { name: foto, label: Foto, widget: image, required: false }
               - { name: resumen, label: "Resumen (una o dos frases)", widget: text }
               - { name: texto, label: "Texto completo", widget: text, hint: "Deja una línea en blanco entre párrafos." }
+
+      - name: cursos
+        label: Cursos e inscripciones
+        file: content/cursos.json
+        fields:
+          - name: cursos
+            label: Cursos
+            label_singular: curso
+            widget: list
+            summary: "{{fields.titulo}} ({{fields.estado}})"
+            fields:
+              - { name: titulo, label: Nombre del curso, widget: string }
+              - { name: id, label: "Dirección corta", widget: string, hint: "Sin espacios ni tildes, por ejemplo curso-verano-2027." }
+              - { name: tipo, label: Tipo, widget: select, options: ["Curso de verano", "Durante el curso", "Clase magistral", "Encuentro"] }
+              - { name: estado, label: Estado, widget: select, options: [{ label: "Inscripción abierta", value: abierto }, { label: Próximamente, value: proximamente }, { label: "Edición finalizada", value: finalizado }] }
+              - { name: inscripcion_abierta, label: "Mostrar el formulario de inscripción", widget: boolean, default: false }
+              - { name: resumen, label: "Resumen (una frase)", widget: string }
+              - { name: descripcion, label: Descripción, widget: text, hint: "Deja una línea en blanco entre párrafos." }
+              - { name: fechas, label: Fechas, widget: string, required: false }
+              - { name: lugar, label: Lugar, widget: string, required: false }
+              - { name: dirigido, label: "Dirigido a", widget: string, required: false }
+              - { name: precio, label: Precio, widget: string, required: false }
+              - { name: plazas, label: Plazas, widget: string, required: false }
+              - { name: foto, label: Foto, widget: image, required: false }
+              - name: profesorado
+                label: Profesorado
+                widget: list
+                required: false
+                fields:
+                  - { name: nombre, label: Nombre, widget: string }
+                  - { name: descripcion, label: "Breve currículum", widget: text, required: false }
+              - { name: enlace_pago, label: "Enlace de pago (opcional)", widget: string, required: false, hint: "Si lo pones, al enviar la inscripción aparece un botón «Pagar inscripción» con este enlace (por ejemplo, un enlace de pago de Stripe)." }
 
       - name: galeria
         label: Galería (fotos y vídeos)
@@ -115,9 +149,23 @@ collections:
           - { name: titular, label: "Titular (primera línea)", widget: string }
           - { name: titular_destacado, label: "Titular (línea en amarillo)", widget: string }
           - { name: entradilla, label: Entradilla, widget: text }
-          - { name: foto_portada, label: "Foto grande", widget: image, required: false }
+          - name: carrusel
+            label: "Carrusel de fotos de portada"
+            label_singular: foto
+            widget: list
+            summary: "{{fields.pie}}"
+            fields:
+              - { name: imagen, label: Foto, widget: image, hint: "Mejor fotos horizontales de menos de 1 MB." }
+              - { name: pie, label: "Pie de foto (opcional)", widget: string, required: false }
+          - { name: foto_portada, label: "Foto fija (solo si el carrusel está vacío)", widget: image, required: false }
           - { name: pie_foto, label: "Descripción de la foto", widget: string, required: false, hint: "Para personas que usan lector de pantalla." }
-          - { name: cinta, label: "Palabras de la cinta (enlazan a la galería)", widget: list, field: { name: palabra, label: Palabra, widget: string }, hint: "Cada palabra lleva a la galería filtrada por ese tipo. Usa los mismos nombres que en «Tipo» de la galería: Conciertos, Certámenes, Procesiones, Pasacalles, Festival de Bandas, Cursos o Eventos." }
+          - name: cinta
+            label: "Cinta de portada (palabras con enlace)"
+            widget: list
+            summary: "{{fields.texto}} → {{fields.enlace}}"
+            fields:
+              - { name: texto, label: Palabra, widget: string }
+              - { name: enlace, label: "Lleva a", widget: string, hint: "Por ejemplo agenda.html, cursos.html, contrataciones.html o galeria.html#categoria-eventos" }
           - name: testimonio
             label: "Cita de un músico"
             widget: object

@@ -30,7 +30,9 @@
           "obra": "Punta Umbría",
           "autor": "Emilio Molero Monis"
         }
-      ]
+      ],
+      "precio": "",
+      "entradas_url": ""
     },
     {
       "titulo": "Musical Disney de Navidad",
@@ -41,7 +43,9 @@
       "lugar": "Teatro del Mar, Punta Umbría",
       "descripcion": "Música de películas de animación con el coro de alumnos de primaria.",
       "gratis": true,
-      "programa": []
+      "programa": [],
+      "precio": "",
+      "entradas_url": ""
     },
     {
       "titulo": "Concierto de Viernes de Dolores",
@@ -52,7 +56,9 @@
       "lugar": "",
       "descripcion": "Nuestro tradicional concierto de marchas procesionales.",
       "gratis": true,
-      "programa": []
+      "programa": [],
+      "precio": "",
+      "entradas_url": ""
     },
     {
       "titulo": "Semana Santa",
@@ -63,7 +69,9 @@
       "lugar": "",
       "descripcion": "Acompañamiento musical a las hermandades de Punta Umbría.",
       "gratis": true,
-      "programa": []
+      "programa": [],
+      "precio": "",
+      "entradas_url": ""
     },
     {
       "titulo": "Festival de Bandas «Manuel Retamales Martín»",
@@ -74,7 +82,9 @@
       "lugar": "Punta Umbría",
       "descripcion": "El festival de verano de Punta Umbría, con banda invitada.",
       "gratis": true,
-      "programa": []
+      "programa": [],
+      "precio": "",
+      "entradas_url": ""
     }
   ]
 }

@@ -159,10 +159,24 @@
         if (priv && !priv.checked) { aviso.hidden = false; aviso.textContent = "Marca la casilla de privacidad para poder enviarlo."; return; }
         const obligatorio = $$("[required]", form).find(i => !i.value.trim());
         if (obligatorio) { obligatorio.focus(); aviso.hidden = false; aviso.textContent = "Rellena los campos marcados como obligatorios."; return; }
-        const datos = new URLSearchParams(new FormData(form));
-        fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: datos.toString() })
-          .then(r => {
-            if (!r.ok) throw new Error();
+        const fd = new FormData(form);
+        if (fd.get("bot-field")) return; // trampa para robots
+        const asuntos = { "ensayo-prueba": "Ensayo de prueba", presupuesto: "Petición de presupuesto", contacto: "Contacto", "inscripcion-curso": "Inscripción a curso" };
+        let envio;
+        if (aj.formularios_clave) {
+          // Envío por correo con Web3Forms (clave pública en Ajustes del panel)
+          fd.append("access_key", aj.formularios_clave);
+          fd.append("subject", `Web Costa Musical · ${asuntos[fd.get("form-name")] || "Formulario"}${fd.get("curso") ? " · " + fd.get("curso") : ""}`);
+          fd.append("from_name", "Web Costa Musical");
+          ["form-name", "bot-field", "privacidad"].forEach(k => fd.delete(k));
+          envio = fetch("https://api.web3forms.com/submit", { method: "POST", headers: { Accept: "application/json" }, body: fd })
+            .then(r => r.json()).then(j => { if (!j.success) throw new Error(); });
+        } else {
+          envio = fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(fd).toString() })
+            .then(r => { if (!r.ok) throw new Error(); });
+        }
+        envio
+          .then(() => {
             const pago = form.dataset.pago, curso = form.curso && form.curso.value;
             form.reset(); if (form.curso) form.curso.value = curso; aviso.hidden = false;
             if (pago) { aviso.innerHTML = `¡Inscripción recibida! Para reservar tu plaza, completa el pago: <a class="boton amarillo peq" href="${esc(pago)}" target="_blank" rel="noopener">Pagar inscripción</a>`; }

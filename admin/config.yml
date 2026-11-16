@@ -252,6 +252,7 @@ collections:
           - { name: youtube, label: "YouTube (con @)", widget: string, required: false }
           - { name: facebook, label: "Facebook (enlace)", widget: string, required: false }
           - { name: cif, label: CIF, widget: string, required: false }
+          - { name: formularios_clave, label: "Clave de formularios (Web3Forms)", hint: "La clave que llega al correo de la asociación desde web3forms.com. Sin ella los formularios no envían.", widget: string, required: false }
           - { name: lugar_ensayos, label: "Lugar de ensayos", widget: string }
           - { name: cuota_socio, label: "Cuota anual de socio (€)", widget: string, required: false, hint: "Pon 0 si hacerse socio es gratis." }
           - { name: ensembli_url, label: "Dirección del área de socios (Ensembli)", widget: string, required: false }

@@ -8,6 +8,11 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const parrafos = t => String(t || "").split(/\n\s*\n/).filter(Boolean).map(p => `<p>${esc(p).replace(/\n/g, "<br>")}</p>`).join("");
+  const slug = t => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  function idYoutube(url) {
+    const m = String(url || "").match(/(?:youtu\.be\/|v=|embed\/|shorts\/|live\/)([\w-]{11})/);
+    return m ? m[1] : (/^[\w-]{11}$/.test(url) ? url : "");
+  }
   const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
   const pagina = document.body.dataset.pagina;
 
@@ -42,6 +47,7 @@
     const enlaces = [
       ["agrupacion.html#banda", "Agrupaciones", "agrupacion"],
       ["agenda.html", "Agenda", "agenda"],
+      ["galeria.html", "Galería", "galeria"],
       ["unete.html", "Únete", "unete"],
       ["contrataciones.html", "Contrátanos", "contrataciones"],
       ["noticias.html", "Noticias", "noticias"],
@@ -49,7 +55,7 @@
     ];
     $("#cabecera").innerHTML = `
       <header class="cabecera"><div class="envoltorio">
-        <a class="logo" href="index.html" aria-label="Costa Musical, inicio">COSTA<span>MUSICAL</span></a>
+        <a class="logo" href="index.html" aria-label="Costa Musical, inicio"><span class="logo-img" aria-hidden="true"></span><span class="logo-txt">COSTA<span>MUSICAL</span></span></a>
         <button class="boton-menu" id="boton-menu" aria-expanded="false" aria-controls="menu">Menú</button>
         <ul class="menu" id="menu">${enlaces.map(([h, t, p]) => `<li><a href="${h}"${p === pagina ? ' aria-current="page"' : ""}>${t}</a></li>`).join("")}</ul>
         <a class="boton marino peq enlace-ensembli" href="asociacion.html#socios" aria-label="Área de socios"><span class="socios-largo">Área de socios</span><span class="socios-corto" aria-hidden="true">Socios</span><span class="socios-txt" aria-hidden="true"> →</span></a>
@@ -158,7 +164,9 @@
       const { inicio: ini, porId, ens, eventos, noticias } = d;
       $("#titular").innerHTML = `${esc(ini.titular)}<br><span>${esc(ini.titular_destacado)}</span>`;
       $("#entradilla").textContent = ini.entradilla;
-      $("#cinta").innerHTML = (ini.cinta || []).map((t, i) => (i ? "<span aria-hidden=\"true\">·</span>" : "") + `<span>${esc(t)}</span>`).join("");
+      $("#cinta").innerHTML = (ini.cinta || []).map((t, i) => (i ? "<span aria-hidden=\"true\">·</span>" : "") + `<a href="galeria.html#categoria-${slug(t)}">${esc(t)}</a>`).join("");
+      const alb = (d.albumes || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha)).slice(0, 4);
+      if (alb.length && $("#galeria-inicio")) { $("#bloque-galeria").hidden = false; $("#galeria-inicio").innerHTML = alb.map(tarjetaAlbum).join(""); }
       const foto = $("#foto-portada");
       if (ini.foto_portada) { foto.classList.remove("sin-foto"); foto.style.backgroundImage = `url("${encodeURI(ini.foto_portada)}")`; foto.setAttribute("aria-label", ini.pie_foto || "Foto de la banda"); }
       const t = ini.testimonio || {};
@@ -269,6 +277,62 @@
       $$(".d-correo").forEach(n => n.textContent = aj.correo || "nuestro correo");
     },
 
+    galeria(d) {
+      const albumes = (d.albumes || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha));
+      const cats = [...new Set(albumes.map(a => a.categoria).filter(Boolean))];
+      const canal = d.ajustes.youtube ? "https://www.youtube.com/@" + encodeURIComponent(String(d.ajustes.youtube).replace(/^@/, "")) : "";
+      if (canal) { $("#canal-youtube").hidden = false; $("#canal-youtube a").href = canal; }
+      let fotosVisor = [], iVisor = 0;
+      const visor = $("#visor");
+      function verFoto(i) {
+        iVisor = (i + fotosVisor.length) % fotosVisor.length;
+        const f = fotosVisor[iVisor];
+        $("#visor img").src = encodeURI(f.imagen); $("#visor img").alt = f.pie || "";
+        $("#visor-pie").textContent = (f.pie ? f.pie + " · " : "") + `${iVisor + 1} de ${fotosVisor.length}`;
+      }
+      $("#visor-cerrar").addEventListener("click", () => visor.close());
+      $("#visor-ant").addEventListener("click", () => verFoto(iVisor - 1));
+      $("#visor-sig").addEventListener("click", () => verFoto(iVisor + 1));
+      visor.addEventListener("keydown", e => { if (e.key === "ArrowLeft") verFoto(iVisor - 1); if (e.key === "ArrowRight") verFoto(iVisor + 1); });
+      visor.addEventListener("click", e => { if (e.target === visor) visor.close(); });
+
+      function pintar() {
+        const h = location.hash.slice(1);
+        const album = albumes.find(a => a.id === h);
+        $("#lista-albumes").hidden = !!album; $("#album").hidden = !album;
+        if (album) {
+          document.title = `${album.titulo} · Galería · Costa Musical`;
+          fotosVisor = album.fotos || [];
+          const vids = (album.videos || []).map(v => ({ ...v, id: idYoutube(v.url) })).filter(v => v.id);
+          $("#album").innerHTML = `<a href="galeria.html" style="font-weight:700">← Toda la galería</a>
+            <p class="etq-album">${esc(album.categoria || "")}${album.fecha ? " · " + String(album.fecha).slice(0, 4) : ""}</p>
+            <h1 class="titulo">${esc(album.titulo)}</h1>
+            ${album.descripcion ? `<p class="entradilla">${esc(album.descripcion)}</p>` : ""}
+            ${vids.length ? `<div class="videos">${vids.map(v => `<div class="video"><button type="button" class="video-lite" data-yt="${esc(v.id)}" style="background-image:url('https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg')" aria-label="Reproducir: ${esc(v.titulo || "vídeo")}"><span class="play" aria-hidden="true">▶</span></button>${v.titulo ? `<p>${esc(v.titulo)}</p>` : ""}</div>`).join("")}</div>` : ""}
+            ${fotosVisor.length ? `<div class="fotos">${fotosVisor.map((f, i) => `<button type="button" class="miniatura" data-i="${i}" aria-label="Ampliar foto ${i + 1}${f.pie ? ": " + esc(f.pie) : ""}"><img src="${esc(encodeURI(f.imagen))}" alt="${esc(f.pie || "")}" loading="lazy"></button>`).join("")}</div>` : ""}`;
+          $$("#album .miniatura").forEach(b => b.addEventListener("click", () => { verFoto(+b.dataset.i); try { visor.showModal(); } catch (_) { visor.setAttribute("open", ""); } }));
+          $$("#album .video-lite").forEach(b => b.addEventListener("click", () => {
+            const f = document.createElement("iframe");
+            f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1`;
+            f.title = b.getAttribute("aria-label").replace("Reproducir: ", "");
+            f.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+            b.replaceWith(f);
+          }));
+        } else {
+          document.title = "Galería · Costa Musical";
+          const filtro = h.startsWith("categoria-") ? h.slice(10) : "todas";
+          $("#filtros-galeria").innerHTML = [["todas", "Todo"], ...cats.map(c => [slug(c), c])]
+            .map(([id, t]) => `<a class="filtro" href="${id === "todas" ? "galeria.html" : "#categoria-" + id}" aria-pressed="${filtro === id}">${esc(t)}</a>`).join("");
+          const lista = albumes.filter(a => filtro === "todas" || slug(a.categoria) === filtro);
+          $("#albumes").innerHTML = lista.length ? lista.map(tarjetaAlbum).join("")
+            : `<p class="vacio" style="grid-column:1/-1">Todavía no hay fotos ni vídeos en esta sección. ¡Pronto subiremos más!</p>`;
+        }
+        window.scrollTo(0, 0);
+      }
+      window.addEventListener("hashchange", pintar);
+      pintar();
+    },
+
     noticias(d) {
       const lista = (d.noticias || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha));
       function pintar() {
@@ -296,6 +360,16 @@
     const f = fechaLocal(iso);
     return `${f.getDate()} de ${["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"][f.getMonth()]} de ${f.getFullYear()}`;
   }
+  function tarjetaAlbum(a) {
+    const portada = a.portada || (a.fotos && a.fotos[0] && a.fotos[0].imagen) || "";
+    const nf = (a.fotos || []).length, nv = (a.videos || []).filter(v => idYoutube(v.url)).length;
+    const yt = !portada && nv ? idYoutube(a.videos.find(v => idYoutube(v.url)).url) : "";
+    const fondo = portada ? `background-image:url('${esc(encodeURI(portada))}')` : yt ? `background-image:url('https://i.ytimg.com/vi/${yt}/hqdefault.jpg')` : "";
+    return `<a class="noticia" href="galeria.html#${esc(a.id)}">
+      <div class="img" style="${fondo}"></div>
+      <div class="cuerpo"><span class="etq-album">${esc(a.categoria || "")}${a.fecha ? " · " + String(a.fecha).slice(0, 4) : ""}</span><h3>${esc(a.titulo)}</h3>
+      <p class="suave">${[nf && `${nf} foto${nf > 1 ? "s" : ""}`, nv && `${nv} vídeo${nv > 1 ? "s" : ""}`].filter(Boolean).join(" · ")}</p></div></a>`;
+  }
   function tarjetaNoticia(n) {
     return `<a class="noticia" href="noticias.html#${esc(n.id)}">
       <div class="img" style="${n.foto ? `background-image:url('${esc(n.foto)}')` : ""}"></div>
@@ -303,13 +377,13 @@
   }
 
   /* ---------- Arranque ---------- */
-  Promise.all(["ajustes", "agrupaciones", "agenda", "inicio", "noticias", "contrataciones"].map(n => cargar(n).catch(() => ({}))))
-    .then(([ajustes, agr, agenda, inicio, not, contr]) => {
+  Promise.all(["ajustes", "agrupaciones", "agenda", "inicio", "noticias", "contrataciones", "galeria"].map(n => cargar(n).catch(() => ({}))))
+    .then(([ajustes, agr, agenda, inicio, not, contr, gal]) => {
       const ens = agr.agrupaciones || [];
       const porId = Object.fromEntries(ens.map(e => [e.id, e]));
       cabecera(ajustes); pie(ajustes, ens); enlacesEnsembli(ajustes); prepararFormularios(ajustes);
       return eventosEnsembli(ajustes).then(extra => {
-        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra], noticias: not.noticias || [], actos: contr.actos || [] };
+        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [] };
         if (paginas[pagina]) paginas[pagina](datos);
       });
     });

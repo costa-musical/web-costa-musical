@@ -1,0 +1,98 @@
+{
+  "albumes": [
+    {
+      "id": "cibm-valencia-2018",
+      "titulo": "Certamen Internacional «Ciudad de Valencia» 2018",
+      "fecha": "2018-07-01",
+      "categoria": "Certámenes",
+      "descripcion": "Tercer premio en la Primera Sección, en el Palau de la Música de València, bajo la dirección de Francisco Andrés de la Poza.",
+      "portada": "/img/subidas/cibm-valencia-2018-2.jpg",
+      "fotos": [
+        {
+          "imagen": "/img/subidas/cibm-valencia-2018-1.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/cibm-valencia-2018-2.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/cibm-valencia-2018-3.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/cibm-valencia-2018-4.jpg",
+          "pie": ""
+        }
+      ],
+      "videos": []
+    },
+    {
+      "id": "momentos",
+      "titulo": "Momentos de la banda",
+      "fecha": "2016-01-01",
+      "categoria": "Conciertos",
+      "descripcion": "Conciertos, viajes y celebraciones de la Banda de Música de Punta Umbría.",
+      "portada": "/img/subidas/img_5255.jpg",
+      "fotos": [
+        {
+          "imagen": "/img/subidas/12837388.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/12840384.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/13098132.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/5dee80cc-d228-4fba-a1cf-4e6a6fc747b5.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/688.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/80542d17-0dd3-4b79-9550-f22a7e6f238b.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_0004.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_0006.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_0178.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_0377.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_0976.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_1817.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_4746.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/img_5255.jpg",
+          "pie": ""
+        }
+      ],
+      "videos": []
+    }
+  ]
+}

@@ -99,3 +99,10 @@ body{background:var(--cielo)}
 .ficha-ens:not(.proyecto):first-child{background:var(--marino) !important;color:#fff !important}
 .ficha-ens .etq{color:#8a6d1f;letter-spacing:.1em}
 .ficha-ens:first-child .etq{color:var(--amarillo)}
+
+/* Logo y galería en el tema institucional */
+.logo .logo-img{color:var(--amarillo)}
+.logo-txt{display:inline;color:#fff}
+.logo-txt span{color:var(--amarillo)}
+.etq-album{color:#8a6d1f}
+.cinta a:hover{color:#8a6d1f}

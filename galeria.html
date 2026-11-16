@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galería · Costa Musical</title>
+<meta name="description" content="Fotos y vídeos de la Banda de Música de Punta Umbría y de Costa Musical: conciertos, certámenes, procesiones, cursos y eventos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Inter:wght@400..700&amp;display=swap" rel="stylesheet">
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="css/estilo.css">
+<link rel="stylesheet" href="css/tema-institucional.css">
+</head>
+<body data-pagina="galeria">
+<a class="oculto" href="#contenido">Saltar al contenido</a>
+<div id="cabecera"></div>
+<main id="contenido">
+<section class="banda-azul con-borde" style="border-top:none"><div class="envoltorio pila" style="padding-top:56px;padding-bottom:56px">
+  <h1 class="titulo-xl">Galería</h1>
+  <p class="entradilla">Conciertos, certámenes, procesiones, cursos y eventos: nuestra historia en fotos y vídeos.</p>
+  <p id="canal-youtube" hidden><a class="boton amarillo" href="#" rel="noopener">Ver todos nuestros vídeos en YouTube →</a></p>
+</div></section>
+<section class="seccion"><div class="envoltorio">
+  <div id="lista-albumes">
+    <nav class="filtros" id="filtros-galeria" aria-label="Filtrar por tipo"></nav>
+    <div class="noticias" id="albumes"></div>
+  </div>
+  <article class="pila" id="album" hidden></article>
+</div></section>
+<dialog id="visor" class="visor" aria-label="Foto ampliada">
+  <img src="" alt="">
+  <p id="visor-pie"></p>
+  <div class="visor-botones">
+    <button type="button" class="boton blanco peq" id="visor-ant" aria-label="Foto anterior">←</button>
+    <button type="button" class="boton blanco peq" id="visor-cerrar">Cerrar</button>
+    <button type="button" class="boton blanco peq" id="visor-sig" aria-label="Foto siguiente">→</button>
+  </div>
+</dialog>
+</main>
+<div id="pie"></div>
+<dialog id="aviso-ensembli">
+  <h3>Enlace pendiente</h3>
+  <p>El área de socios en Ensembli todavía no está enlazada. Cuando lo esté, este botón te llevará directamente.</p>
+  <button class="boton marino" id="cerrar-aviso">Entendido</button>
+</dialog>
+<script src="js/sitio.js"></script>
+</body>
+</html>

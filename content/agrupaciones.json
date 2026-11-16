@@ -8,37 +8,98 @@
       "color": "#ffcc29",
       "etiqueta": "Desde 1996",
       "lema": "Unos cuarenta músicos de viento y percusión. En la calle, en el teatro y en los certámenes desde 1996.",
-      "foto": "",
-      "descripcion": "La fundó Francisco Escobar el 22 de noviembre de 1996, día de Santa Cecilia. Desde entonces ha formado a varias generaciones de músicos en la Escuela Municipal de Música «Francisco Rodríguez Cermeño», ha viajado a Francia, se ha hermanado con Loulé y ha grabado por primera vez el Himno de Punta Umbría.\n\nHoy la dirige Sergio del Toro y toca en conciertos, en las procesiones de los patrones y de Semana Santa, y en el Festival de Bandas de verano.",
+      "foto": "/img/subidas/cibm-valencia-2018-2.jpg",
+      "descripcion": "La Banda de Música de Punta Umbría nació el 22 de noviembre de 1996, día de Santa Cecilia, de la mano de su fundador y primer director, Francisco Escobar. Desde entonces se ha formado en las aulas de la Escuela Municipal de Música «Francisco Rodríguez Cermeño», por donde han pasado varias generaciones de músicos del pueblo.\n\nMuy pronto la banda empezó a salir a certámenes: en 2002 obtuvo el tercer premio en el Certamen de Bandas de Villafranca de los Barros (Badajoz) y en 2004 participó en el Certamen de Bandas de Música de Andalucía, en Chauchina (Granada), el más antiguo de la comunidad, donde volvió a tocar en 2012.\n\nEn esos años la banda abrió Punta Umbría al exterior: se hermanó con la banda de Loulé (Portugal) y con una formación italiana, y entre 2006 y 2009 acogió el festival internacional Eurochestries, que reunió en el municipio a jóvenes músicos de toda Europa. En 2009 fue la banda la que viajó al Eurochestries de Jonzac, en Francia.\n\nEn 2016, con motivo de su 20 aniversario, grabó un disco con la música más ligada al pueblo, que incluye la primera grabación del Himno de Punta Umbría. Al año siguiente llegó su mayor éxito en competición, el primer premio en el Certamen Nacional «Villa de Olivares» (Sevilla). En 2018 logró el tercer premio en la Primera Sección del Certamen Internacional de Bandas «Ciudad de Valencia», uno de los más prestigiosos del mundo, ambos bajo la dirección de Francisco Andrés de la Poza.\n\nA lo largo de estos años han dirigido la banda Francisco Escobar, Ildefonso Moreno, José Colomé, Nicolás Díaz, Francisco Andrés de la Poza y, desde 2021, Sergio del Toro.\n\nHoy la forman unos cuarenta músicos de viento y percusión. Toca en conciertos de temporada, en las procesiones de los patrones y de Semana Santa, en pasacalles y en el Festival de Bandas de verano, que en 2026 celebró su 30.ª edición dedicada a Manuel Retamales Martín. Desde 2025 la gestiona la Asociación Cultural Costa Musical, y en este curso 2026/2027 celebra sus 30 años de historia.",
       "formacion": "~40 músicos de viento y percusión",
-      "direccion": "Sergio del Toro, desde 2021",
+      "direccion": "Sergio del Toro",
       "repertorio": "Concierto, pasodobles, marchas y bandas sonoras",
       "ensayos": "Semanales, Escuela Municipal de Música",
       "cifras": [
-        { "valor": "1996", "texto": "Año de fundación, en Santa Cecilia" },
-        { "valor": "~40", "texto": "Músicos en plantilla" },
-        { "valor": "1.º", "texto": "«Villa de Olivares», 2017" },
-        { "valor": "3.º", "texto": "«Ciudad de Valencia», 1.ª Sección, 2018" }
+        {
+          "valor": "1996",
+          "texto": "Año de fundación, en Santa Cecilia"
+        },
+        {
+          "valor": "~40",
+          "texto": "Músicos en plantilla"
+        },
+        {
+          "valor": "1.º",
+          "texto": "«Villa de Olivares», 2017"
+        },
+        {
+          "valor": "3.º",
+          "texto": "«Ciudad de Valencia», 1.ª Sección, 2018"
+        },
+        {
+          "valor": "3.º",
+          "texto": "«Villafranca de los Barros», 2002"
+        }
       ],
       "historia": [
-        { "anio": "1996", "texto": "Francisco Escobar funda la banda en Santa Cecilia." },
-        { "anio": "~2005", "texto": "Hermanamientos con Loulé (Portugal) y con una banda italiana." },
-        { "anio": "2009", "texto": "Viaje al festival Eurochestries de Jonzac (Francia)." },
-        { "anio": "2016", "texto": "Primera grabación del Himno de Punta Umbría." },
-        { "anio": "2017–18", "texto": "Premios en Olivares y en Valencia." },
-        { "anio": "2025", "texto": "Nace Costa Musical y la banda vuelve a la Semana Santa." }
+        {
+          "anio": "1996",
+          "texto": "Francisco Escobar funda la banda en Santa Cecilia."
+        },
+        {
+          "anio": "~2005",
+          "texto": "Hermanamientos con Loulé (Portugal) y con una banda italiana."
+        },
+        {
+          "anio": "2009",
+          "texto": "Viaje al festival Eurochestries de Jonzac (Francia)."
+        },
+        {
+          "anio": "2016",
+          "texto": "Primera grabación del Himno de Punta Umbría."
+        },
+        {
+          "anio": "2017–18",
+          "texto": "Premios en Olivares y en Valencia."
+        },
+        {
+          "anio": "2025",
+          "texto": "Nace Costa Musical y la banda vuelve a la Semana Santa."
+        }
       ],
       "directores": [
-        { "periodo": "1996–2007", "nombre": "Francisco Escobar (fundador)" },
-        { "periodo": "2008–2009", "nombre": "Ildefonso Moreno" },
-        { "periodo": "2009–2010", "nombre": "Francisco Escobar" },
-        { "periodo": "2010–2013", "nombre": "Ildefonso Moreno" },
-        { "periodo": "2013–2014", "nombre": "José Colomé" },
-        { "periodo": "2014–2015", "nombre": "Nicolás Díaz" },
-        { "periodo": "2016–2021", "nombre": "Francisco Andrés de la Poza" },
-        { "periodo": "2021–hoy", "nombre": "Sergio del Toro" }
+        {
+          "periodo": "1996–2007",
+          "nombre": "Francisco Escobar (fundador)"
+        },
+        {
+          "periodo": "2008–2013",
+          "nombre": "Ildefonso Moreno"
+        },
+        {
+          "periodo": "2013–2014",
+          "nombre": "José Colomé"
+        },
+        {
+          "periodo": "2014–2015",
+          "nombre": "Nicolás Díaz"
+        },
+        {
+          "periodo": "2016–2021",
+          "nombre": "Francisco Andrés de la Poza"
+        },
+        {
+          "periodo": "2021–hoy",
+          "nombre": "Sergio del Toro"
+        }
       ],
-      "buscamos": ["Flauta", "Oboe", "Fagot", "Clarinete", "Saxofón", "Trompeta", "Trompa", "Trombón", "Bombardino o tuba", "Percusión"],
+      "buscamos": [
+        "Flauta",
+        "Oboe",
+        "Fagot",
+        "Clarinete",
+        "Saxofón",
+        "Trompeta",
+        "Trompa",
+        "Trombón",
+        "Bombardino o tuba",
+        "Percusión"
+      ],
       "servicio": "Procesiones, pasacalles, conciertos y actos institucionales"
     },
     {
@@ -57,13 +118,30 @@
       "ensayos": "Por anunciar",
       "cifras": [],
       "historia": [
-        { "anio": "2006", "texto": "Nace a partir del grupo de cuerda de la Escuela de Música." },
-        { "anio": "2006–2009", "texto": "Participa en los festivales Eurochestries de Punta Umbría." },
-        { "anio": "2012", "texto": "Última temporada, dirigida por Ildefonso Moreno." },
-        { "anio": "Hoy", "texto": "La orquesta vuelve a formarse dentro de Costa Musical." }
+        {
+          "anio": "2006",
+          "texto": "Nace a partir del grupo de cuerda de la Escuela de Música."
+        },
+        {
+          "anio": "2006–2009",
+          "texto": "Participa en los festivales Eurochestries de Punta Umbría."
+        },
+        {
+          "anio": "2012",
+          "texto": "Última temporada, dirigida por Ildefonso Moreno."
+        },
+        {
+          "anio": "Hoy",
+          "texto": "La orquesta vuelve a formarse dentro de Costa Musical."
+        }
       ],
       "directores": [],
-      "buscamos": ["Violín", "Viola", "Violonchelo", "Contrabajo"],
+      "buscamos": [
+        "Violín",
+        "Viola",
+        "Violonchelo",
+        "Contrabajo"
+      ],
       "servicio": "Conciertos sinfónicos y de cuerda"
     },
     {
@@ -83,7 +161,14 @@
       "cifras": [],
       "historia": [],
       "directores": [],
-      "buscamos": ["Saxofón", "Trompeta", "Trombón", "Piano", "Guitarra o bajo", "Batería"],
+      "buscamos": [
+        "Saxofón",
+        "Trompeta",
+        "Trombón",
+        "Piano",
+        "Guitarra o bajo",
+        "Batería"
+      ],
       "servicio": "Conciertos, bodas, galas y eventos de empresa"
     },
     {
@@ -103,7 +188,13 @@
       "cifras": [],
       "historia": [],
       "directores": [],
-      "buscamos": ["Trompeta", "Trombón", "Saxofón", "Bombardino o tuba", "Percusión"],
+      "buscamos": [
+        "Trompeta",
+        "Trombón",
+        "Saxofón",
+        "Bombardino o tuba",
+        "Percusión"
+      ],
       "servicio": "Fiestas, bodas y pasacalles (próximamente)"
     },
     {
@@ -123,7 +214,15 @@
       "cifras": [],
       "historia": [],
       "directores": [],
-      "buscamos": ["Violín", "Viola", "Violonchelo", "Flauta", "Clarinete", "Trompa", "Piano"],
+      "buscamos": [
+        "Violín",
+        "Viola",
+        "Violonchelo",
+        "Flauta",
+        "Clarinete",
+        "Trompa",
+        "Piano"
+      ],
       "servicio": "Conciertos íntimos y ceremonias (próximamente)"
     }
   ]

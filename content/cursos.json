@@ -1,21 +1,26 @@
 {
   "cursos": [
     {
-      "id": "trumpet-academy",
       "titulo": "Punta Umbría Trumpet Academy",
+      "id": "trumpet-academy",
       "tipo": "Durante el curso",
-      "estado": "proximamente",
+      "estado": "abierto",
+      "inscripcion_abierta": true,
       "resumen": "Academia de trompeta que organizamos desde 2025 en Punta Umbría.",
       "descripcion": "La Punta Umbría Trumpet Academy reúne a estudiantes de trompeta con profesorado especializado a lo largo del curso.\n\nMuy pronto publicaremos aquí las fechas, el profesorado y la inscripción de la próxima edición.",
-      "fechas": "",
-      "lugar": "Punta Umbría",
+      "fechas": "20-21 de noviembre de 2026",
+      "lugar": "Escuela Municipal de Música \"Francisco Rodríguez Cermeño\", Punta Umbría",
       "dirigido": "",
       "precio": "",
       "plazas": "",
       "foto": "",
-      "profesorado": [],
-      "enlace_pago": "",
-      "inscripcion_abierta": false
+      "profesorado": [
+        {
+          "nombre": "Salvador Ibáñez",
+          "descripcion": "Trompeta de la Orquesta de Extremadura"
+        }
+      ],
+      "enlace_pago": ""
     }
   ]
 }

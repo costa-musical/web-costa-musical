@@ -13,14 +13,21 @@
       ],
       "encuentros": [
         {
+          "fecha": "2026-11-06",
+          "fecha_fin": "2026-11-07",
+          "titulo": "Primer Encuentro",
+          "horario": "",
+          "lugar": ""
+        },
+        {
           "fecha": "2026-11-20",
           "fecha_fin": "2026-11-21",
-          "titulo": "Primer encuentro",
+          "titulo": "Segundo Encuentro",
           "horario": "",
           "lugar": ""
         }
       ],
-      "encuentros_sueltos": false,
+      "encuentros_sueltos": true,
       "fechas": "",
       "lugar": "Escuela Municipal de Música \"Francisco Rodríguez Cermeño\", Punta Umbría",
       "dirigido": "",

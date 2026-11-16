@@ -80,7 +80,32 @@ collections:
                   - { name: obra, label: Obra, widget: string }
                   - { name: autor, label: "Autor / arreglista", widget: string, required: false }
               - { name: video, label: "Vídeo de YouTube (opcional)", widget: string, required: false, hint: "Un adelanto o, cuando ya se haya celebrado, la grabación." }
-              - { name: album, label: "Álbum de fotos de la galería (opcional)", widget: string, required: false, hint: "La «dirección corta» del álbum, por ejemplo cuaresma-2026. Aparece un botón «Ver fotos»." }
+              - name: fotos
+                label: "Fotos del evento"
+                widget: image
+                multiple: true
+                required: false
+                hint: "Puedes seleccionar todas las fotos de una carpeta a la vez (Ctrl+A o Cmd+A) o arrastrarlas de golpe. El evento aparece solo como álbum en la Galería."
+              - name: album
+                label: "…o enlazar un álbum que ya existe en la galería (opcional)"
+                widget: relation
+                collection: contenido
+                file: galeria
+                value_field: "albumes.*.id"
+                search_fields: ["albumes.*.titulo"]
+                display_fields: ["albumes.*.titulo"]
+                required: false
+                hint: "Si eliges un álbum, las fotos de arriba se suman a él."
+              - name: apoyos
+                label: "Patrocinadores / con el apoyo de (este evento)"
+                label_singular: patrocinador
+                widget: list
+                required: false
+                summary: "{{fields.nombre}}"
+                fields:
+                  - { name: nombre, label: Nombre, widget: string }
+                  - { name: logo, label: "Logo", widget: image, required: false, hint: "Mejor PNG con fondo transparente." }
+                  - { name: web, label: "Web (opcional)", widget: string, required: false, hint: "Con https://, por ejemplo https://www.puntaumbria.es" }
               - { name: mapa_url, label: "Enlace al mapa (opcional)", widget: string, required: false, hint: "Si lo dejas vacío, el botón «Cómo llegar» busca el lugar en Google Maps." }
 
       - name: noticias
@@ -200,6 +225,12 @@ collections:
                 fields:
                   - { name: imagen, label: Foto, widget: image, hint: "Mejor fotos de menos de 1 MB (unos 2000 px de ancho)." }
                   - { name: pie, label: "Pie de foto (opcional)", widget: string, required: false }
+              - name: fotos_lote
+                label: "Añadir muchas fotos de golpe"
+                widget: image
+                multiple: true
+                required: false
+                hint: "Selecciona todas las fotos de una carpeta a la vez (Ctrl+A o Cmd+A) o arrástralas. Se muestran después de las fotos con pie."
               - name: videos
                 label: "Vídeos de YouTube"
                 label_singular: vídeo
@@ -243,11 +274,16 @@ collections:
               - { name: instrumento, label: Instrumento, widget: string, required: false }
               - { name: desde, label: "En la banda desde (año)", widget: string, required: false }
           - name: colaboradores
-            label: Colaboradores
+            label: "Patrocinadores y colaboradores"
+            label_singular: patrocinador
             widget: list
+            summary: "{{fields.nombre}}"
+            hint: "Salen en la portada y, con logo, al pie de todas las páginas."
             fields:
               - { name: nombre, label: Nombre, widget: string }
-              - { name: detalle, label: Detalle, widget: string, required: false }
+              - { name: logo, label: "Logo", widget: image, required: false, hint: "Mejor PNG con fondo transparente." }
+              - { name: web, label: "Web (opcional)", widget: string, required: false, hint: "Con https://. Al pulsar el logo se abre su web." }
+              - { name: detalle, label: "Detalle (opcional)", widget: string, required: false, hint: "Por ejemplo «Patrocinador de la Big Band» o «Institución colaboradora»." }
 
       - name: agrupaciones
         label: Agrupaciones

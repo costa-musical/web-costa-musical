@@ -89,7 +89,7 @@
     ].filter(Boolean);
   }
 
-  function pie(aj, ens) {
+  function pie(aj, ens, colab) {
     const tel = aj.telefono ? String(aj.telefono).replace(/[^\d+]/g, "") : "";
     const contacto = [aj.correo && `<li><a href="mailto:${esc(aj.correo)}">${esc(aj.correo)}</a></li>`,
       aj.telefono && `<li><a href="tel:${esc(tel)}">${esc(aj.telefono)}</a></li>`,
@@ -99,6 +99,7 @@
         <div class="bloque"><b>COSTA MUSICAL</b><span>${esc(aj.nombre)}. Música en Punta Umbría (Huelva) desde 1996.</span></div>
         <div class="bloque"><b>AGRUPACIONES</b><ul>${ens.map(e => `<li><a href="agrupacion.html#${esc(e.id)}">${esc(e.nombre)}</a></li>`).join("")}</ul></div>
         <div class="bloque"><b>CONTACTO</b><ul>${contacto || "<li>Escríbenos desde <a href=\"unete.html#contacto\">el formulario</a></li>"}</ul></div>
+        ${(colab || []).some(c => c && c.logo) ? `<div class="pie-apoyos"><b>CON EL APOYO DE</b>${logosApoyo((colab || []).filter(c => c && c.logo), "logos claros")}</div>` : ""}
         <p class="legal">© ${new Date().getFullYear()} ${esc(aj.nombre)}${aj.cif ? " · CIF " + esc(aj.cif) : ""} · <a href="unete.html#transparencia">Transparencia</a> · <a href="unete.html#privacidad">Privacidad y aviso legal</a></p>
       </div></footer>`;
   }
@@ -133,6 +134,27 @@
     const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
     return eventos.filter(e => e.fecha && fechaLocal(e.fecha) >= hoy).sort((a, b) => a.fecha.localeCompare(b.fecha));
   }
+  /* ---------- Galería: álbumes + fotos subidas en los eventos ---------- */
+  const CAT_TIPO = { concierto: "Conciertos", procesion: "Procesiones", pasacalles: "Pasacalles", otro: "Eventos" };
+  function albumesCompletos(albumes, eventos) {
+    const lista = albumes.map(a => ({ ...a, fotos: [...(a.fotos || []).filter(f => f && f.imagen), ...(a.fotos_lote || []).filter(Boolean).map(src => ({ imagen: src, pie: "" }))] }));
+    (eventos || []).forEach(ev => {
+      if (ev.enlace || ev.tipo === "curso") return;
+      const fotos = (Array.isArray(ev.fotos) ? ev.fotos : ev.fotos ? [ev.fotos] : []).filter(Boolean).map(src => ({ imagen: src, pie: "" }));
+      const ya = ev.album && lista.find(a => a.id === ev.album);
+      if (ya) { ya.fotos.push(...fotos); ya.evento = idEvento(ev); return; }
+      if (!fotos.length) return;
+      lista.push({ titulo: ev.titulo, id: idEvento(ev), fecha: ev.fecha, categoria: CAT_TIPO[ev.tipo] || "Conciertos", descripcion: ev.descripcion || "",
+        portada: "", fotos, videos: ev.video ? [{ url: ev.video, titulo: "" }] : [], evento: idEvento(ev) });
+    });
+    return lista;
+  }
+  function logosApoyo(lista, clase = "logos") {
+    const l = (lista || []).filter(c => c && c.nombre);
+    if (!l.length) return "";
+    return `<div class="${clase}">${l.map(c => { const dentro = c.logo ? `<img src="${esc(encodeURI(c.logo))}" alt="${esc(c.nombre)}" loading="lazy">` : `<b>${esc(c.nombre)}</b>`;
+      return c.web ? `<a href="${esc(c.web)}" target="_blank" rel="noopener" title="${esc(c.nombre)}">${dentro}</a>` : `<span title="${esc(c.nombre)}">${dentro}</span>`; }).join("")}</div>`;
+  }
   /* ---------- Página de cada evento ---------- */
   function horaDe(ev) { const m = String(ev.hora || "").match(/(\d{1,2})[:.h](\d{2})/); return m ? [+m[1], +m[2]] : null; }
   function icsEvento(ev) {
@@ -147,7 +169,7 @@
   function pintarEvento(ev, d) {
     const e = d.porId[ev.agrupacion] || { corto: "Costa Musical", nombre: "Costa Musical" };
     const pasado = fechaLocal(ev.fecha) < hoy0();
-    const album = ev.album && (d.albumes || []).find(a => a.id === ev.album);
+    const album = (d.albumes || []).find(a => a.evento === idEvento(ev) || (ev.album && a.id === ev.album));
     const yt = idYoutube(ev.video);
     const cuando = ev.fecha_texto ? `${ev.fecha_texto} · ${fechaLocal(ev.fecha).getFullYear()}` : fechaLarga(ev.fecha);
     const mapa = ev.mapa_url || (ev.lugar ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.lugar)}` : "");
@@ -167,12 +189,15 @@
             ${ev.entradas_url && !pasado ? `<a class="boton amarillo" href="${esc(ev.entradas_url)}" target="_blank" rel="noopener">Comprar entradas</a>` : ""}
             ${!pasado ? `<button type="button" class="boton blanco" id="ev-calendario">Añadir a mi calendario</button>` : ""}
             <button type="button" class="boton blanco" id="ev-compartir">Compartir</button>
-            ${album ? `<a class="boton marino" href="galeria.html#${esc(album.id)}">Ver fotos</a>` : ""}
+            ${album && album.fotos.length ? `<a class="boton marino" href="galeria.html#${esc(album.id)}">Ver fotos (${album.fotos.length})</a>` : ""}
           </div>
           <p class="aviso" id="ev-aviso" role="status" hidden></p>
           ${ev.texto ? `<div class="texto pila">${parrafos(ev.texto)}</div>` : ""}
           ${(ev.programa || []).length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Programa</h2>
             <ol class="programa-lista">${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol>` : ""}
+          ${album && album.fotos.length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Fotos</h2>
+            <div class="fotos-evento">${album.fotos.slice(0, 8).map((f, i) => `<a href="galeria.html#${esc(album.id)}" class="${i === 7 && album.fotos.length > 8 ? "mas" : ""}"><img src="${esc(encodeURI(f.imagen))}" alt="" loading="lazy">${i === 7 && album.fotos.length > 8 ? `<span>+${album.fotos.length - 8}</span>` : ""}</a>`).join("")}</div>` : ""}
+          ${(ev.apoyos || []).length ? `<div class="pila apoyos-evento"><p class="quien-evento">Con el apoyo de</p>${logosApoyo(ev.apoyos)}</div>` : ""}
           ${yt ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">${pasado ? "Vídeo" : "Adelanto"}</h2>
             <div class="video"><button type="button" class="video-lite" data-yt="${esc(yt)}" style="background-image:url('https://i.ytimg.com/vi/${esc(yt)}/hqdefault.jpg')" aria-label="Reproducir: ${esc(ev.titulo)}"><span class="play" aria-hidden="true">▶</span></button></div>` : ""}
         </div>
@@ -338,7 +363,8 @@
       pintarEventos($("#agenda-inicio"), proximos(eventos).slice(0, 3), porId, "Pronto anunciaremos nuevos conciertos.");
       const n = (noticias || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha)).slice(0, 3);
       if (n.length) { $("#bloque-noticias").hidden = false; $("#lista-noticias").innerHTML = n.map(tarjetaNoticia).join(""); }
-      $("#colaboradores").innerHTML = (ini.colaboradores || []).map(c => `<div><b>${esc(c.nombre)}</b><span class="suave">${esc(c.detalle)}</span></div>`).join("") +
+      $("#colaboradores").innerHTML = (ini.colaboradores || []).filter(c => c && c.nombre).map(c => { const dentro = `${c.logo ? `<img src="${esc(encodeURI(c.logo))}" alt="">` : ""}<b>${esc(c.nombre)}</b>${c.detalle ? `<span class="suave">${esc(c.detalle)}</span>` : ""}`;
+        return c.web ? `<a class="colab-item" href="${esc(c.web)}" target="_blank" rel="noopener">${dentro}</a>` : `<div class="colab-item">${dentro}</div>`; }).join("") +
         `<div class="hueco"><b>Tu empresa aquí</b><a href="unete.html#contacto">Patrocina una agrupación</a></div>`;
     },
 
@@ -365,7 +391,9 @@
         $("#ens-directores").hidden = !dir.length;
         $("#ens-directores ul").innerHTML = dir.map(x => `<li><b>${esc(x.periodo)}</b> · ${esc(x.nombre)}</li>`).join("");
         const foto = $("#ens-foto");
-        foto.hidden = !e.foto; if (e.foto) foto.style.backgroundImage = `url("${encodeURI(e.foto)}")`;
+        foto.hidden = false; foto.classList.toggle("sin-foto", !e.foto);
+        foto.style.backgroundImage = e.foto ? `url("${encodeURI(e.foto)}")` : "";
+        foto.textContent = e.foto ? "" : "Foto próximamente";
         const hist = e.historia || [];
         $("#ens-historia").hidden = !hist.length;
         $("#ens-historia ol").innerHTML = hist.map(h => `<li><b>${esc(h.anio)}</b>${esc(h.texto)}</li>`).join("");
@@ -562,6 +590,7 @@
             <p class="etq-album">${esc(album.categoria || "")}${album.fecha ? " · " + String(album.fecha).slice(0, 4) : ""}</p>
             <h1 class="titulo">${esc(album.titulo)}</h1>
             ${album.descripcion ? `<p class="entradilla">${esc(album.descripcion)}</p>` : ""}
+            ${album.evento ? `<p><a class="boton blanco peq" href="agenda.html#${esc(album.evento)}">Ver la página del evento</a></p>` : ""}
             ${vids.length ? `<div class="videos">${vids.map(v => `<div class="video"><button type="button" class="video-lite" data-yt="${esc(v.id)}" style="background-image:url('https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg')" aria-label="Reproducir: ${esc(v.titulo || "vídeo")}"><span class="play" aria-hidden="true">▶</span></button>${v.titulo ? `<p>${esc(v.titulo)}</p>` : ""}</div>`).join("")}</div>` : ""}
             ${fotosVisor.length ? `<div class="fotos">${fotosVisor.map((f, i) => `<button type="button" class="miniatura" data-i="${i}" aria-label="Ampliar foto ${i + 1}${f.pie ? ": " + esc(f.pie) : ""}"><img src="${esc(encodeURI(f.imagen))}" alt="${esc(f.pie || "")}" loading="lazy"></button>`).join("")}</div>` : ""}`;
           $$("#album .miniatura").forEach(b => b.addEventListener("click", () => { verFoto(+b.dataset.i); try { visor.showModal(); } catch (_) { visor.setAttribute("open", ""); } }));
@@ -663,9 +692,10 @@
     .then(([ajustes, agr, agenda, inicio, not, contr, gal, cur]) => {
       const ens = agr.agrupaciones || [];
       const porId = Object.fromEntries(ens.map(e => [e.id, e]));
-      cabecera(ajustes); pie(ajustes, ens); enlacesEnsembli(ajustes); prepararFormularios(ajustes);
+      cabecera(ajustes); pie(ajustes, ens, (inicio || {}).colaboradores); enlacesEnsembli(ajustes); prepararFormularios(ajustes);
       return eventosEnsembli(ajustes).then(extra => {
-        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra, ...eventosCursos(cur.cursos)], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [], cursos: cur.cursos || [] };
+        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra, ...eventosCursos(cur.cursos)], noticias: not.noticias || [], actos: contr.actos || [], albumes: [], cursos: cur.cursos || [] };
+        datos.albumes = albumesCompletos(gal.albumes || [], datos.eventos);
         if (paginas[pagina]) paginas[pagina](datos);
         if (pagina === "unete") paginas.asociacion(datos);
       });

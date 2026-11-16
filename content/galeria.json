@@ -1,8 +1,8 @@
 {
   "albumes": [
     {
-      "id": "cibm-valencia-2018",
       "titulo": "Certamen Internacional «Ciudad de Valencia» 2018",
+      "id": "cibm-valencia-2018",
       "fecha": "2018-07-01",
       "categoria": "Certámenes",
       "descripcion": "Tercer premio en la Primera Sección, en el Palau de la Música de València, bajo la dirección de Francisco Andrés de la Poza.",
@@ -28,8 +28,8 @@
       "videos": []
     },
     {
-      "id": "momentos",
       "titulo": "Momentos de la banda",
+      "id": "momentos",
       "fecha": "2016-01-01",
       "categoria": "Conciertos",
       "descripcion": "Conciertos, viajes y celebraciones de la Banda de Música de Punta Umbría.",
@@ -89,6 +89,29 @@
         },
         {
           "imagen": "/img/subidas/img_5255.jpg",
+          "pie": ""
+        }
+      ],
+      "videos": []
+    },
+    {
+      "titulo": "Concierto de Cuaresma 2026",
+      "id": "cuaresma-2026",
+      "fecha": "2026-03-27",
+      "categoria": "Conciertos",
+      "descripcion": "",
+      "portada": "/img/subidas/Concierto Cuaresma 2026/DSC04880.jpg",
+      "fotos": [
+        {
+          "imagen": "/img/subidas/Concierto Cuaresma 2026/DSC04840.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/Concierto Cuaresma 2026/DSC04880.jpg",
+          "pie": ""
+        },
+        {
+          "imagen": "/img/subidas/Concierto Cuaresma 2026/DSC04882.jpg",
           "pie": ""
         }
       ],

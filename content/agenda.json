@@ -7,8 +7,12 @@
       "agrupacion": "banda",
       "hora": "12:00",
       "lugar": "Teatro del Mar, Punta Umbría",
-      "descripcion": "Con este concierto comenzamos a celebrar el 30 aniversario de la banda, nacida un día de Santa Cecilia de 1996.",
+      "descripcion": "Concierto de inicio a la celebraión de la temporada del 30 aniversario de la Banda, nacida un día de Santa Cecilia de 1996.",
+      "cartel": "",
+      "texto": "",
       "gratis": true,
+      "precio": "",
+      "entradas_url": "",
       "programa": [
         {
           "obra": "Overture to a New Age",
@@ -31,8 +35,9 @@
           "autor": "Emilio Molero Monis"
         }
       ],
-      "precio": "",
-      "entradas_url": ""
+      "video": "",
+      "album": "",
+      "mapa_url": ""
     },
     {
       "titulo": "Musical Disney de Navidad",
@@ -42,10 +47,15 @@
       "hora": "12:00",
       "lugar": "Teatro del Mar, Punta Umbría",
       "descripcion": "Música de películas de animación con el coro de alumnos de primaria.",
+      "cartel": "",
+      "texto": "",
       "gratis": true,
-      "programa": [],
       "precio": "",
-      "entradas_url": ""
+      "entradas_url": "",
+      "programa": [],
+      "video": "",
+      "album": "",
+      "mapa_url": ""
     },
     {
       "titulo": "Concierto de Viernes de Dolores",
@@ -55,10 +65,15 @@
       "hora": "",
       "lugar": "",
       "descripcion": "Nuestro tradicional concierto de marchas procesionales.",
+      "cartel": "",
+      "texto": "",
       "gratis": true,
-      "programa": [],
       "precio": "",
-      "entradas_url": ""
+      "entradas_url": "",
+      "programa": [],
+      "video": "",
+      "album": "",
+      "mapa_url": ""
     },
     {
       "titulo": "Semana Santa",
@@ -68,10 +83,15 @@
       "hora": "",
       "lugar": "",
       "descripcion": "Acompañamiento musical a las hermandades de Punta Umbría.",
+      "cartel": "",
+      "texto": "",
       "gratis": true,
-      "programa": [],
       "precio": "",
-      "entradas_url": ""
+      "entradas_url": "",
+      "programa": [],
+      "video": "",
+      "album": "",
+      "mapa_url": ""
     },
     {
       "titulo": "Festival de Bandas «Manuel Retamales Martín»",
@@ -81,10 +101,15 @@
       "hora": "",
       "lugar": "Punta Umbría",
       "descripcion": "El festival de verano de Punta Umbría, con banda invitada.",
+      "cartel": "",
+      "texto": "",
       "gratis": true,
-      "programa": [],
       "precio": "",
-      "entradas_url": ""
+      "entradas_url": "",
+      "programa": [],
+      "video": "",
+      "album": "",
+      "mapa_url": ""
     }
   ]
 }

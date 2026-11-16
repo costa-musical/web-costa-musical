@@ -160,7 +160,7 @@
       $("#entradilla").textContent = ini.entradilla;
       $("#cinta").innerHTML = (ini.cinta || []).map((t, i) => (i ? "<span aria-hidden=\"true\">·</span>" : "") + `<span>${esc(t)}</span>`).join("");
       const foto = $("#foto-portada");
-      if (ini.foto_portada) { foto.style.backgroundImage = `url("${ini.foto_portada}")`; foto.textContent = ""; foto.setAttribute("aria-label", ini.pie_foto || "Foto de la banda"); }
+      if (ini.foto_portada) { foto.classList.remove("sin-foto"); foto.style.backgroundImage = `url("${encodeURI(ini.foto_portada)}")`; foto.setAttribute("aria-label", ini.pie_foto || "Foto de la banda"); }
       const t = ini.testimonio || {};
       if (t.texto) $("#cita").innerHTML = `<p>«${esc(t.texto)}»</p><footer>${esc([t.nombre, t.instrumento].filter(Boolean).join(", "))}${t.desde ? ", en la banda desde " + esc(t.desde) : ""}</footer>`;
       $("#rejilla-ens").innerHTML = ens.map(e => `
@@ -196,7 +196,7 @@
         $("#ens-directores").hidden = !dir.length;
         $("#ens-directores ul").innerHTML = dir.map(x => `<li><b>${esc(x.periodo)}</b> · ${esc(x.nombre)}</li>`).join("");
         const foto = $("#ens-foto");
-        foto.hidden = !e.foto; if (e.foto) foto.style.backgroundImage = `url("${e.foto}")`;
+        foto.hidden = !e.foto; if (e.foto) foto.style.backgroundImage = `url("${encodeURI(e.foto)}")`;
         const hist = e.historia || [];
         $("#ens-historia").hidden = !hist.length;
         $("#ens-historia ol").innerHTML = hist.map(h => `<li><b>${esc(h.anio)}</b>${esc(h.texto)}</li>`).join("");

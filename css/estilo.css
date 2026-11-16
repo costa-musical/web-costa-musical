@@ -90,7 +90,7 @@ body.sobria .titulo-xl{font-size:clamp(48px,8vw,88px);line-height:.95}
 
 /* Foto + cita */
 .foto-cita{display:flex;flex-wrap:wrap;gap:24px;align-items:stretch}
-.foto{flex:1.6 1 520px;min-height:380px;border:var(--borde) solid var(--marino);border-radius:var(--radio);background:var(--cielo) center/cover no-repeat;overflow:hidden;display:flex;align-items:flex-end;padding:18px;color:var(--gris);font-weight:700;font-size:14px}
+.foto{flex:1.6 1 520px;min-height:380px;background-size:cover;background-position:center;border:var(--borde) solid var(--marino);border-radius:var(--radio);background:var(--cielo) center/cover no-repeat;overflow:hidden;display:flex;align-items:flex-end;padding:18px;color:var(--gris);font-weight:700;font-size:14px}
 .cita{flex:1 1 320px;margin:0;background:var(--amarillo);border:var(--borde) solid var(--marino);border-radius:var(--radio);padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}
 .cita p{font-family:var(--display);font-size:clamp(26px,3vw,34px);line-height:1.08;text-transform:uppercase}
 .cita footer{font-weight:700;font-size:15px}
@@ -206,3 +206,6 @@ dialog p{margin-bottom:18px}
 .programa summary{cursor:pointer;font-weight:700;color:var(--azul);min-height:32px;display:flex;align-items:center}
 .programa ol{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
 .programa li span{display:block;color:var(--gris);font-size:14px}
+
+/* Recuadro de foto sin foto: pentagrama decorativo */
+.foto.sin-foto{background-image:repeating-linear-gradient(to bottom,transparent 0 22px,#12305a33 22px 25px);background-size:100% 125px;background-position:0 40%;background-repeat:repeat-x}

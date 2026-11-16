@@ -37,7 +37,8 @@
       ],
       "video": "",
       "album": "",
-      "mapa_url": ""
+      "mapa_url": "",
+      "tipo": "concierto"
     },
     {
       "titulo": "Musical Disney de Navidad",
@@ -55,7 +56,8 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": ""
+      "mapa_url": "",
+      "tipo": "concierto"
     },
     {
       "titulo": "Concierto de Cuaresma 2027",
@@ -73,7 +75,8 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": ""
+      "mapa_url": "",
+      "tipo": "concierto"
     },
     {
       "titulo": "Semana Santa",
@@ -91,7 +94,8 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": ""
+      "mapa_url": "",
+      "tipo": "procesion"
     },
     {
       "titulo": "XXXI Festival de Bandas «Manuel Retamales Martín»",
@@ -109,7 +113,8 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": ""
+      "mapa_url": "",
+      "tipo": "concierto"
     },
     {
       "titulo": "Gala XX Aniversario Teatro del Mar",
@@ -127,7 +132,8 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": ""
+      "mapa_url": "",
+      "tipo": "concierto"
     }
   ]
 }

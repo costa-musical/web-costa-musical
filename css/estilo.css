@@ -341,10 +341,18 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .entradas.anteriores .entrada:hover{opacity:1}
 @media (max-width:820px){.evento-rejilla{grid-template-columns:1fr}.evento-cartel{position:static;order:-1;max-width:420px}}
 
-/* Cartel en las tarjetas de la agenda: arriba, a todo lo ancho */
-.entrada:has(.cartel-mini){flex-wrap:wrap}
-.entrada:has(.cartel-mini) .info{flex:1;min-width:0}
-.cartel-mini{order:-1;flex:0 0 100%;height:230px;display:block;overflow:hidden;border-bottom:1px solid #d8d3c4;background:#f1ede3}
-.cartel-mini img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;transition:transform .4s ease}
-.entrada:hover .cartel-mini img,.cartel-mini:focus-visible img{transform:scale(1.04)}
-@media (max-width:600px){.cartel-mini{height:200px}}
+/* Agenda: color de acento por tipo y cartel en lugar del bloque de fecha */
+.entrada{--acento:var(--amarillo);--acento-txt:#8a6d1f}
+.entrada.tipo-procesion{--acento:#7a4a8f;--acento-txt:#6a3d7d}
+.entrada.tipo-curso{--acento:#2e8b74;--acento-txt:#1f6e5b}
+.entrada.tipo-pasacalles{--acento:#c46a3a;--acento-txt:#9c4f25}
+.entrada.tipo-otro{--acento:#4f78b0;--acento-txt:#3c6296}
+.entrada .info{flex:1;min-width:0}
+.entrada.con-cartel{min-height:200px}
+.dia-cartel{position:relative;width:140px !important;padding:0 !important;overflow:hidden;text-decoration:none;justify-content:flex-end !important;background:#0d1b35 !important}
+.dia-cartel .cartel-fondo{position:absolute;inset:-12px;background:center/cover no-repeat;filter:blur(14px) brightness(.55);transform:scale(1.1)}
+.dia-cartel img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .35s ease}
+.entrada:hover .dia-cartel img,.dia-cartel:focus-visible img{transform:scale(1.04)}
+.dia-cartel .fecha-chip{position:relative;z-index:1;margin:0 8px 8px;padding:4px 9px;border-radius:999px;background:var(--marino);color:#fff;font-family:var(--texto);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+.dia-cartel .fecha-chip b{font-size:15px;color:var(--acento);font-weight:800;letter-spacing:0}
+@media (max-width:600px){.dia-cartel{width:112px !important}.entrada.con-cartel{min-height:170px}}

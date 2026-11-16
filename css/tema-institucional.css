@@ -132,3 +132,11 @@ body{background:var(--cielo)}
 .ficha-ens:not(.proyecto):hover,.ficha-ens:not(.proyecto):focus-visible{background:var(--marino) !important;color:#fff !important;transform:translateY(-3px)}
 .ficha-ens:not(.proyecto):hover .etq,.ficha-ens:not(.proyecto):focus-visible .etq{color:var(--amarillo)}
 @media (prefers-reduced-motion:reduce){.menu a::after,.ficha-ens,.boton{transition:none}}
+
+/* Colores por tipo de evento en la agenda */
+.entrada .dia b{color:var(--acento)}
+.entrada:not(.tipo-concierto) .dia:not(.dia-cartel){background:var(--acento) !important}
+.entrada:not(.tipo-concierto) .dia:not(.dia-cartel) b{color:#fff}
+.entrada .quien{color:var(--acento-txt)}
+.entrada{border-left:0;box-shadow:inset 0 3px 0 var(--acento),0 10px 24px -14px rgba(18,38,74,.35)}
+.filtro[data-f^="tipo-"]{border-style:dashed}

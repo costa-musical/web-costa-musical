@@ -31,6 +31,16 @@ collections:
             fields:
               - { name: titulo, label: Título, widget: string }
               - { name: fecha, label: Fecha, widget: datetime, type: date, format: "YYYY-MM-DD", hint: "Si aún no sabes el día exacto, pon el día 1 del mes y escribe abajo el texto que quieres que se vea." }
+              - name: tipo
+                label: Tipo
+                widget: select
+                default: concierto
+                hint: "Cada tipo sale con su color en la agenda."
+                options:
+                  - { label: Concierto, value: concierto }
+                  - { label: "Procesión", value: procesion }
+                  - { label: "Pasacalles / desfile", value: pasacalles }
+                  - { label: "Otro (festival, encuentro, acto…)", value: otro }
               - { name: fecha_texto, label: "Texto de fecha (opcional)", widget: string, required: false, hint: "Por ejemplo «Nov» o «21–28». Si lo dejas vacío se muestra el día." }
               - name: agrupacion
                 label: Agrupación

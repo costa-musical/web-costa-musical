@@ -12,6 +12,18 @@ locale: es
 media_folder: img/subidas
 public_folder: /img/subidas
 
+# Las fotos que se suben desde el panel se reducen solas antes de guardarse:
+# se pasan a WebP (formato ligero que entienden todos los navegadores) y a 2000 px como máximo.
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 2000
+          height: 2000
+
 collections:
   - name: contenido
     label: Contenido de la web

@@ -44,6 +44,14 @@ collections:
               - { name: lugar, label: "Lugar (opcional)", widget: string, required: false }
               - { name: descripcion, label: "Descripción corta", widget: text, required: false }
               - { name: gratis, label: "Entrada libre", widget: boolean, default: true }
+              - name: programa
+                label: "Programa (opcional)"
+                widget: list
+                required: false
+                summary: "{{fields.obra}}"
+                fields:
+                  - { name: obra, label: Obra, widget: string }
+                  - { name: autor, label: "Autor / arreglista", widget: string, required: false }
 
       - name: noticias
         label: Noticias
@@ -154,6 +162,8 @@ collections:
           - { name: correo, label: Correo, widget: string, required: false }
           - { name: telefono, label: Teléfono, widget: string, required: false }
           - { name: instagram, label: "Instagram (con @)", widget: string, required: false }
+          - { name: tiktok, label: "TikTok (con @)", widget: string, required: false }
+          - { name: youtube, label: "YouTube (con @)", widget: string, required: false }
           - { name: facebook, label: "Facebook (enlace)", widget: string, required: false }
           - { name: cif, label: CIF, widget: string, required: false }
           - { name: lugar_ensayos, label: "Lugar de ensayos", widget: string }

@@ -58,11 +58,21 @@
     b.addEventListener("click", () => b.setAttribute("aria-expanded", m.classList.toggle("abierto")));
   }
 
+  function redes(aj) {
+    const sin = h => String(h || "").replace(/^@/, "");
+    return [
+      aj.instagram && ["Instagram", "https://www.instagram.com/" + encodeURIComponent(sin(aj.instagram)) + "/", aj.instagram],
+      aj.tiktok && ["TikTok", "https://www.tiktok.com/@" + encodeURIComponent(sin(aj.tiktok)), aj.tiktok],
+      aj.youtube && ["YouTube", "https://www.youtube.com/@" + encodeURIComponent(sin(aj.youtube)), aj.youtube],
+      aj.facebook && ["Facebook", aj.facebook, "Facebook"]
+    ].filter(Boolean);
+  }
+
   function pie(aj, ens) {
+    const tel = aj.telefono ? String(aj.telefono).replace(/[^\d+]/g, "") : "";
     const contacto = [aj.correo && `<li><a href="mailto:${esc(aj.correo)}">${esc(aj.correo)}</a></li>`,
-      aj.telefono && `<li>${esc(aj.telefono)}</li>`,
-      aj.instagram && `<li><a href="https://instagram.com/${esc(aj.instagram.replace(/^@/, ""))}" rel="noopener">Instagram ${esc(aj.instagram)}</a></li>`,
-      aj.facebook && `<li><a href="${esc(aj.facebook)}" rel="noopener">Facebook</a></li>`].filter(Boolean).join("");
+      aj.telefono && `<li><a href="tel:${esc(tel)}">${esc(aj.telefono)}</a></li>`,
+      ...redes(aj).map(([red, url, txt]) => `<li><a href="${esc(url)}" rel="noopener">${red}${red === "Facebook" ? "" : " " + esc(txt)}</a></li>`)].filter(Boolean).join("");
     $("#pie").innerHTML = `
       <footer class="pie"><div class="envoltorio">
         <div class="bloque"><b>COSTA MUSICAL</b><span>${esc(aj.nombre)}. Música en Punta Umbría (Huelva) desde 1996.</span></div>
@@ -109,7 +119,8 @@
     return `<li class="entrada" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
       <div class="dia"><b>${esc(f.grande)}</b><span>${esc(f.peq)}</span></div>
       <div class="info"><span class="quien">${esc(e.corto)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${esc(ev.titulo)}</h3>
-      ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}</div></li>`;
+      ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}
+      ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div></li>`;
   }
   function pintarEventos(destino, lista, porId, vacio) {
     destino.innerHTML = lista.length ? lista.map(ev => tarjetaEvento(ev, porId)).join("")
@@ -249,8 +260,8 @@
     asociacion(d) {
       const aj = d.ajustes;
       $("#cuota").textContent = aj.cuota_socio ? `Cuota anual: ${aj.cuota_socio} €` : "Escríbenos y te contamos la cuota de este año.";
-      const datos = [["Correo", aj.correo && `<a href="mailto:${esc(aj.correo)}">${esc(aj.correo)}</a>`], ["Teléfono", esc(aj.telefono)],
-        ["Instagram", aj.instagram && `<a href="https://instagram.com/${esc(aj.instagram.replace(/^@/, ""))}" rel="noopener">${esc(aj.instagram)}</a>`],
+      const datos = [["Correo", aj.correo && `<a href="mailto:${esc(aj.correo)}">${esc(aj.correo)}</a>`], ["Teléfono", aj.telefono && `<a href="tel:${esc(String(aj.telefono).replace(/[^\d+]/g, ""))}">${esc(aj.telefono)}</a>`],
+        ...redes(aj).map(([red, url, txt]) => [red, `<a href="${esc(url)}" rel="noopener">${esc(red === "Facebook" ? "Ver página" : txt)}</a>`]),
         ["Ensayos", esc(aj.lugar_ensayos)]].filter(([, v]) => v);
       $("#datos-contacto").innerHTML = datos.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
       $$(".d-cif").forEach(n => n.textContent = aj.cif ? `CIF ${aj.cif}` : "");

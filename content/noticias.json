@@ -1,6 +1,14 @@
 {
   "noticias": [
     {
+      "id": "santa-cecilia-2026",
+      "titulo": "Santa Cecilia: arranca el 30 aniversario de la banda",
+      "fecha": "2026-11-16",
+      "foto": "",
+      "resumen": "Domingo 22 de noviembre a las 12:00 en el Teatro del Mar. Entrada libre.",
+      "texto": "El domingo 22 de noviembre, día de Santa Cecilia, la Banda de Música de Punta Umbría ofrece su concierto en honor a la patrona de la música a las 12:00 en el Teatro del Mar. La entrada es libre.\n\nCon este concierto comenzamos a celebrar el 30 aniversario de la banda, que nació un día de Santa Cecilia de 1996.\n\nPrograma: Overture to a New Age (Jan de Haan), Pepita Greus (Pascual Pérez Choví), Ross Roy (Jacob de Haan), selección de The Phantom of the Opera (Andrew Lloyd Webber, arr. Johan de Meij) y Punta Umbría (Emilio Molero Monis)."
+    },
+    {
       "id": "nueva-web",
       "titulo": "Estrenamos web",
       "fecha": "2026-11-15",

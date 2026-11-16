@@ -3,12 +3,34 @@
     {
       "titulo": "Concierto de Santa Cecilia",
       "fecha": "2026-11-22",
-      "fecha_texto": "Nov",
+      "fecha_texto": "",
       "agrupacion": "banda",
-      "hora": "",
-      "lugar": "Lugar por anunciar",
-      "descripcion": "El día de la patrona de la música, el mismo en que nació la banda.",
-      "gratis": true
+      "hora": "12:00",
+      "lugar": "Teatro del Mar, Punta Umbría",
+      "descripcion": "Con este concierto comenzamos a celebrar el 30 aniversario de la banda, nacida un día de Santa Cecilia de 1996.",
+      "gratis": true,
+      "programa": [
+        {
+          "obra": "Overture to a New Age",
+          "autor": "Jan de Haan"
+        },
+        {
+          "obra": "Pepita Greus",
+          "autor": "Pascual Pérez Choví"
+        },
+        {
+          "obra": "Ross Roy",
+          "autor": "Jacob de Haan"
+        },
+        {
+          "obra": "The Phantom of the Opera (selección)",
+          "autor": "Andrew Lloyd Webber · arr. Johan de Meij"
+        },
+        {
+          "obra": "Punta Umbría",
+          "autor": "Emilio Molero Monis"
+        }
+      ]
     },
     {
       "titulo": "Concierto de Navidad con el coro infantil",
@@ -18,7 +40,8 @@
       "hora": "",
       "lugar": "",
       "descripcion": "Música de películas de animación con alumnos de primaria.",
-      "gratis": true
+      "gratis": true,
+      "programa": []
     },
     {
       "titulo": "Concierto de Viernes de Dolores",
@@ -28,7 +51,8 @@
       "hora": "",
       "lugar": "",
       "descripcion": "Nuestro tradicional concierto de marchas procesionales.",
-      "gratis": true
+      "gratis": true,
+      "programa": []
     },
     {
       "titulo": "Semana Santa",
@@ -38,7 +62,8 @@
       "hora": "",
       "lugar": "",
       "descripcion": "Acompañamiento musical a las hermandades de Punta Umbría.",
-      "gratis": true
+      "gratis": true,
+      "programa": []
     },
     {
       "titulo": "Festival de Bandas «Manuel Retamales Martín»",
@@ -48,7 +73,8 @@
       "hora": "",
       "lugar": "Punta Umbría",
       "descripcion": "El festival de verano de Punta Umbría, con banda invitada.",
-      "gratis": true
+      "gratis": true,
+      "programa": []
     }
   ]
 }

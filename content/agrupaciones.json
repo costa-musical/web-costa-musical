@@ -25,15 +25,15 @@
         },
         {
           "valor": "1.º",
-          "texto": "«Villa de Olivares», 2017"
+          "texto": "IV Certamen de Bandas de Música \"Villa de Olivares\", 2017"
         },
         {
           "valor": "3.º",
-          "texto": "«Ciudad de Valencia», 1.ª Sección, 2018"
+          "texto": "132º Certamen Internacional de Bandes de Música «Ciutat de València», 1.ª Sección, 2018"
         },
         {
           "valor": "3.º",
-          "texto": "«Villafranca de los Barros», 2002"
+          "texto": "«Concurso de Bandas de Música de Villafranca de los Barros», 2002"
         }
       ],
       "historia": [
@@ -42,16 +42,24 @@
           "texto": "Francisco Escobar funda la banda en Santa Cecilia."
         },
         {
+          "anio": "2004",
+          "texto": "1º Viaje al festival Eurochestries de Jonzac (Francia)."
+        },
+        {
           "anio": "~2005",
-          "texto": "Hermanamientos con Loulé (Portugal) y con una banda italiana."
+          "texto": "Hermanamientos con Loulé (Portugal) y Roma (Italia)."
+        },
+        {
+          "anio": "2006-2009",
+          "texto": "Organización del festival Eurochestries en Punta Umbría."
         },
         {
           "anio": "2009",
-          "texto": "Viaje al festival Eurochestries de Jonzac (Francia)."
+          "texto": "2º Viaje al festival Eurochestries de Jonzac (Francia)."
         },
         {
           "anio": "2016",
-          "texto": "Primera grabación del Himno de Punta Umbría."
+          "texto": "Primera grabación del Pasodoble de Punta Umbría."
         },
         {
           "anio": "2017–18",
@@ -59,7 +67,7 @@
         },
         {
           "anio": "2025",
-          "texto": "Nace Costa Musical y la banda vuelve a la Semana Santa."
+          "texto": "Nace Costa Musical."
         }
       ],
       "directores": [
@@ -98,7 +106,9 @@
         "Trompa",
         "Trombón",
         "Bombardino o tuba",
-        "Percusión"
+        "Percusión",
+        "Violonchello",
+        "Contrabajo"
       ],
       "servicio": "Procesiones, pasacalles, conciertos y actos institucionales"
     },

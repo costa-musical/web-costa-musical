@@ -313,3 +313,12 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .encuentros-elegir legend{font-weight:600;padding:0 4px}
 .encuentros-elegir div{display:grid;gap:6px}
 @media (max-width:600px){.encuentros li{grid-template-columns:1fr}}
+.encuentros li:has(.enc-cartel){grid-template-columns:minmax(150px,220px) 1fr auto}
+.enc-profes{margin-top:4px;font-weight:600;color:var(--marino)}
+.enc-cartel{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:700;text-decoration:none;color:var(--marino)}
+.enc-cartel img{width:72px;height:96px;object-fit:cover;border-radius:6px;border:1px solid #d8d3c4;transition:transform .2s ease,box-shadow .2s ease}
+.enc-cartel:hover img,.enc-cartel:focus-visible img{transform:translateY(-2px) scale(1.04);box-shadow:0 8px 18px -8px rgba(18,38,74,.5)}
+.profe{display:flex;gap:16px;align-items:flex-start}
+.profe img{width:88px;height:88px;border-radius:50%;object-fit:cover;flex:none}
+.etq-esp{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8a6d1f;margin-bottom:2px}
+@media (max-width:600px){.encuentros li:has(.enc-cartel){grid-template-columns:1fr}.enc-cartel{align-items:flex-start}}

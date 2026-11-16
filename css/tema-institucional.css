@@ -111,3 +111,24 @@ body{background:var(--cielo)}
 @media (max-width:1180px){.menu{background:var(--marino)}}
 .carr-btn{background:rgba(18,38,74,.75);color:#fff}
 .estado-curso{background:#efe8d4;color:#6d5517}
+
+/* Respuesta al pasar el ratón en la cabecera */
+.menu a{position:relative;transition:color .2s ease}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--amarillo);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.menu a:hover,.menu a:focus-visible{color:var(--amarillo)}
+.menu a:hover::after,.menu a:focus-visible::after,.menu a[aria-current="page"]::after{transform:scaleX(1)}
+.cabecera .boton.marino{transition:background .2s ease,color .2s ease}
+.cabecera .boton.marino:hover,.cabecera .boton.marino:focus-visible{background:var(--amarillo);color:var(--marino);filter:none}
+.boton-menu{transition:background .2s ease,color .2s ease}
+.boton-menu:hover,.boton-menu:focus-visible{background:var(--amarillo);color:var(--marino);border-color:var(--amarillo)}
+.boton{transition:filter .2s ease,transform .2s ease,box-shadow .2s ease}
+.boton:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,38,74,.6)}
+@media (max-width:980px){.menu a::after{display:none}}
+
+/* Agrupaciones de la portada: todas iguales; se ponen en azul marino al pasar el ratón */
+.ficha-ens:not(.proyecto):first-child{background:#fff !important;color:var(--marino) !important}
+.ficha-ens:not(.proyecto):first-child .etq{color:#8a6d1f}
+.ficha-ens:not(.proyecto){transition:background .2s ease,color .2s ease,transform .2s ease}
+.ficha-ens:not(.proyecto):hover,.ficha-ens:not(.proyecto):focus-visible{background:var(--marino) !important;color:#fff !important;transform:translateY(-3px)}
+.ficha-ens:not(.proyecto):hover .etq,.ficha-ens:not(.proyecto):focus-visible .etq{color:var(--amarillo)}
+@media (prefers-reduced-motion:reduce){.menu a::after,.ficha-ens,.boton{transition:none}}

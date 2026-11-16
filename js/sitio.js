@@ -381,7 +381,11 @@
         $("#lista-cursos").hidden = !!c; $("#curso").hidden = !c;
         if (c) {
           document.title = `${c.titulo} · Cursos · Costa Musical`;
-          const st = estadoCurso(c), enc = encuentrosDe(c), esp = (c.especialidades || []).filter(Boolean);
+          const st = estadoCurso(c), enc = encuentrosDe(c), profes = (c.profesorado || []).filter(p => p && p.nombre);
+          let esp = (c.especialidades || []).filter(Boolean);
+          if (!esp.length) esp = [...new Set(profes.map(p => (p.especialidad || "").trim()).filter(Boolean))];
+          const conEsp = n => { const p = profes.find(x => x.nombre.trim().toLowerCase() === String(n).trim().toLowerCase()); return p ? (p.especialidad ? `${p.nombre} (${p.especialidad.toLowerCase()})` : p.nombre) : n; };
+          const profesDe = e => (e.profesores || []).filter(Boolean);
           const datos = [["Fechas", resumenFechas(c)], ["Lugar", c.lugar], ["Dirigido a", c.dirigido], [esp.length > 1 ? "Especialidades" : "Especialidad", esp.join(", ")],
             ["Precio", c.precio], ["Plazas", c.plazas], ["Inscripción hasta", st.abierta && c.fecha_limite ? rangoFechas({ ini: fechaLocal(c.fecha_limite), fin: fechaLocal(c.fecha_limite) }) : ""]].filter(([, v]) => v);
           $("#curso-info").innerHTML = `<a href="cursos.html" style="font-weight:700">← Todos los cursos</a>
@@ -390,12 +394,14 @@
             ${c.foto ? `<img class="foto-curso" src="${esc(encodeURI(c.foto))}" alt="">` : ""}
             ${datos.length ? `<dl class="ficha-datos">${datos.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
             <div class="pila">${parrafos(c.descripcion)}</div>
-            ${enc.length > 1 || (enc.length === 1 && (enc[0].titulo || enc[0].horario)) ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">${enc.length > 1 ? "Encuentros" : "Fecha"}</h2>
+            ${enc.length > 1 || (enc.length === 1 && (enc[0].titulo || enc[0].horario || enc[0].cartel || profesDe(enc[0]).length)) ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">${enc.length > 1 ? "Encuentros" : "Fecha"}</h2>
             <ol class="encuentros">${enc.map((e, i) => { const pas = e.fin < hoy0(), prox = !!st.proximo && e.fecha === st.proximo.fecha;
               return `<li class="${pas ? "pasado" : ""}${prox ? " proximo" : ""}"><div class="enc-fecha">${esc(rangoFechas(e))}</div>
                 <div><b>${esc(e.titulo || (enc.length > 1 ? `Encuentro ${i + 1}` : c.titulo))}</b>${pas ? ' <span class="enc-marca">Celebrado</span>' : prox ? ' <span class="enc-marca prox">Próximo</span>' : ""}
-                ${[e.horario, e.lugar].filter(Boolean).length ? `<p class="suave">${esc([e.horario, e.lugar].filter(Boolean).join(" · "))}</p>` : ""}</div></li>`; }).join("")}</ol>` : ""}
-            ${(c.profesorado || []).length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Profesorado</h2><div class="rejilla">${c.profesorado.map(p => `<div class="caja"><h3>${esc(p.nombre)}</h3><p>${esc(p.descripcion || "")}</p></div>`).join("")}</div>` : ""}`;
+                ${[e.horario, e.lugar].filter(Boolean).length ? `<p class="suave">${esc([e.horario, e.lugar].filter(Boolean).join(" · "))}</p>` : ""}
+                ${profesDe(e).length ? `<p class="enc-profes">Con ${esc(profesDe(e).map(conEsp).join(" y "))}</p>` : ""}</div>
+                ${e.cartel ? `<a class="enc-cartel" href="${esc(encodeURI(e.cartel))}" target="_blank" rel="noopener" aria-label="Ver cartel de ${esc(e.titulo || "este encuentro")}"><img src="${esc(encodeURI(e.cartel))}" alt="" loading="lazy"><span>Ver cartel</span></a>` : ""}</li>`; }).join("")}</ol>` : ""}
+            ${profes.length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Profesorado</h2><div class="rejilla profes">${profes.map(p => `<div class="caja profe">${p.foto ? `<img src="${esc(encodeURI(p.foto))}" alt="" loading="lazy">` : ""}<div>${p.especialidad ? `<span class="etq-esp">${esc(p.especialidad)}</span>` : ""}<h3>${esc(p.nombre)}</h3><p>${esc(p.descripcion || "")}</p></div></div>`).join("")}</div>` : ""}`;
           if (st.abierta) {
             form.hidden = false; form.curso.value = c.titulo; form.dataset.pago = c.enlace_pago || ""; hueco.hidden = false; $("#cerrado").hidden = true;
             // Especialidad: desplegable si hay varias, fija si hay una, texto libre si no hay
@@ -407,7 +413,8 @@
             const fs = $("#i-encuentros"), futuros = enc.filter(e => e.fin >= hoy0()), oculto = $('input[name="encuentros"]', fs);
             if (c.encuentros_sueltos && futuros.length > 1) {
               fs.hidden = false;
-              $("div", fs).innerHTML = futuros.map((e, i) => `<label class="check"><input type="checkbox" value="${esc(rangoFechas(e) + (e.titulo ? " · " + e.titulo : ""))}" checked> <span>${esc(rangoFechas(e))}${e.titulo ? " · " + esc(e.titulo) : ""}</span></label>`).join("");
+              $("div", fs).innerHTML = futuros.map(e => { const t = [rangoFechas(e), e.titulo, profesDe(e).join(" y ")].filter(Boolean).join(" · ");
+                return `<label class="check"><input type="checkbox" value="${esc(t)}" checked> <span>${esc(t)}</span></label>`; }).join("");
               const sync = () => { oculto.value = $$('input[type="checkbox"]', fs).filter(x => x.checked).map(x => x.value).join(" | "); oculto.required = true; };
               $$('input[type="checkbox"]', fs).forEach(x => x.addEventListener("change", sync)); sync();
             } else { fs.hidden = true; oculto.value = ""; oculto.required = false; }

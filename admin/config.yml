@@ -118,6 +118,14 @@ collections:
                   - { name: titulo, label: "Nombre (opcional)", widget: string, required: false, hint: "Por ejemplo «Primer encuentro» o «Clase magistral con…»." }
                   - { name: horario, label: "Horario (opcional)", widget: string, required: false }
                   - { name: lugar, label: "Lugar, si cambia (opcional)", widget: string, required: false }
+                  - name: profesores
+                    label: "Profesorado de este encuentro (opcional)"
+                    label_singular: profesor
+                    widget: list
+                    required: false
+                    hint: "Escribe cada nombre igual que en la lista de Profesorado de abajo, así se muestra también su especialidad."
+                    field: { name: nombre, label: Nombre, widget: string }
+                  - { name: cartel, label: "Cartel de este encuentro (opcional)", widget: image, required: false }
               - { name: encuentros_sueltos, label: "Permitir apuntarse a encuentros sueltos", widget: boolean, default: false, required: false, hint: "Si lo activas y hay varios encuentros, el formulario deja marcar a cuáles se apunta cada alumno." }
               - { name: fechas, label: "Fechas en texto (solo si aún no hay encuentros con fecha)", widget: string, required: false, hint: "Por ejemplo «Julio de 2027». Si añades encuentros, se usan ellos y esto se ignora." }
               - { name: lugar, label: Lugar, widget: string, required: false }
@@ -129,9 +137,12 @@ collections:
                 label: Profesorado
                 widget: list
                 required: false
+                summary: "{{fields.nombre}} ({{fields.especialidad}})"
                 fields:
                   - { name: nombre, label: Nombre, widget: string }
+                  - { name: especialidad, label: "Especialidad (instrumento)", widget: string, required: false, hint: "Por ejemplo Trompeta. Si el curso no tiene especialidades puestas arriba, el formulario usa las del profesorado." }
                   - { name: descripcion, label: "Breve currículum", widget: text, required: false }
+                  - { name: foto, label: "Foto (opcional)", widget: image, required: false }
               - { name: enlace_pago, label: "Enlace de pago (opcional)", widget: string, required: false, hint: "Si lo pones, al enviar la inscripción aparece un botón «Pagar inscripción» con este enlace (por ejemplo, un enlace de pago de Stripe)." }
 
       - name: galeria

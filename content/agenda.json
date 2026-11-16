@@ -110,6 +110,24 @@
       "video": "",
       "album": "",
       "mapa_url": ""
+    },
+    {
+      "titulo": "Gala XX Aniversario Teatro del Mar",
+      "fecha": "2026-11-06",
+      "fecha_texto": "",
+      "agrupacion": "banda",
+      "hora": "20:30",
+      "lugar": "Teatro del Mar, Punta Umbría",
+      "descripcion": "Celebración del 20 aniversario del Teatro del Mar de Punta Umbría, inaugurado un 3 de noviembre de 2006 y en torno al cual la banda y demás agrupaciones de la asociación han relizado gran parte de su programación cultural estas últimas dos décadas.",
+      "cartel": "",
+      "texto": "",
+      "gratis": true,
+      "precio": "",
+      "entradas_url": "",
+      "programa": [],
+      "video": "",
+      "album": "",
+      "mapa_url": ""
     }
   ]
 }

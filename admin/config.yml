@@ -81,16 +81,45 @@ collections:
             label: Cursos
             label_singular: curso
             widget: list
-            summary: "{{fields.titulo}} ({{fields.estado}})"
+            summary: "{{fields.titulo}}"
             fields:
               - { name: titulo, label: Nombre del curso, widget: string }
-              - { name: id, label: "Dirección corta", widget: string, hint: "Sin espacios ni tildes, por ejemplo curso-verano-2027." }
+              - { name: id, label: "Dirección corta", widget: string, hint: "Sin espacios ni tildes, por ejemplo curso-verano-2027. Para una nueva edición, crea un curso nuevo con otra dirección (trumpet-academy-2027)." }
               - { name: tipo, label: Tipo, widget: select, options: ["Curso de verano", "Durante el curso", "Clase magistral", "Encuentro"] }
-              - { name: estado, label: Estado, widget: select, options: [{ label: "Inscripción abierta", value: abierto }, { label: Próximamente, value: proximamente }, { label: "Edición finalizada", value: finalizado }] }
-              - { name: inscripcion_abierta, label: "Mostrar el formulario de inscripción", widget: boolean, default: false }
+              - name: inscripcion
+                label: Inscripción
+                widget: select
+                default: proximamente
+                hint: "Cuando pasa la última fecha del curso (o la fecha límite), la inscripción se cierra sola y el curso pasa a «Ediciones anteriores»."
+                options:
+                  - { label: "Abierta (muestra el formulario)", value: abierta }
+                  - { label: "Próximamente (aún no se puede apuntar)", value: proximamente }
+                  - { label: "Plazas agotadas", value: completa }
+              - { name: fecha_limite, label: "Fecha límite de inscripción (opcional)", widget: datetime, type: date, format: "YYYY-MM-DD", required: false }
               - { name: resumen, label: "Resumen (una frase)", widget: string }
               - { name: descripcion, label: Descripción, widget: text, hint: "Deja una línea en blanco entre párrafos." }
-              - { name: fechas, label: Fechas, widget: string, required: false }
+              - name: especialidades
+                label: "Especialidades (instrumentos)"
+                label_singular: especialidad
+                widget: list
+                required: false
+                hint: "Si pones más de una, en la inscripción aparece un desplegable para elegir. Si lo dejas vacío, se pregunta el instrumento con texto libre."
+                field: { name: especialidad, label: Especialidad, widget: string }
+              - name: encuentros
+                label: "Fechas / encuentros"
+                label_singular: encuentro
+                widget: list
+                required: false
+                summary: "{{fields.fecha}} {{fields.titulo}}"
+                hint: "Añade una entrada por cada fecha o encuentro. Un curso de verano suele tener una (con fecha de fin); una academia anual, varias."
+                fields:
+                  - { name: fecha, label: "Día (o primer día)", widget: datetime, type: date, format: "YYYY-MM-DD" }
+                  - { name: fecha_fin, label: "Último día (si dura varios días)", widget: datetime, type: date, format: "YYYY-MM-DD", required: false }
+                  - { name: titulo, label: "Nombre (opcional)", widget: string, required: false, hint: "Por ejemplo «Primer encuentro» o «Clase magistral con…»." }
+                  - { name: horario, label: "Horario (opcional)", widget: string, required: false }
+                  - { name: lugar, label: "Lugar, si cambia (opcional)", widget: string, required: false }
+              - { name: encuentros_sueltos, label: "Permitir apuntarse a encuentros sueltos", widget: boolean, default: false, required: false, hint: "Si lo activas y hay varios encuentros, el formulario deja marcar a cuáles se apunta cada alumno." }
+              - { name: fechas, label: "Fechas en texto (solo si aún no hay encuentros con fecha)", widget: string, required: false, hint: "Por ejemplo «Julio de 2027». Si añades encuentros, se usan ellos y esto se ignora." }
               - { name: lugar, label: Lugar, widget: string, required: false }
               - { name: dirigido, label: "Dirigido a", widget: string, required: false }
               - { name: precio, label: Precio, widget: string, required: false }

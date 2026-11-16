@@ -21,7 +21,8 @@
   <p class="entradilla">Cursos de verano, academias y clases magistrales con profesorado de primer nivel, aquí en Punta Umbría.</p>
 </div></section>
 <section class="seccion"><div class="envoltorio">
-  <div id="lista-cursos"><div class="noticias" id="cursos"></div></div>
+  <div id="lista-cursos"><div class="noticias" id="cursos"></div>
+    <div id="bloque-pasados" class="pila" style="margin-top:64px" hidden><h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Ediciones anteriores</h2><div class="noticias" id="cursos-pasados"></div></div></div>
   <div id="curso" hidden>
     <div class="dos">
       <article class="ancha pila" id="curso-info"></article>
@@ -34,7 +35,8 @@
             <label class="ancho" for="i-curso">Curso<input id="i-curso" name="curso" readonly></label>
             <label class="ancho" for="i-nombre">Nombre y apellidos del alumno *<input id="i-nombre" name="nombre" required autocomplete="name"></label>
             <label for="i-edad">Edad<input id="i-edad" name="edad" inputmode="numeric"></label>
-            <label for="i-instrumento">Instrumento<input id="i-instrumento" name="instrumento"></label>
+            <label for="i-instrumento" id="l-instrumento">Instrumento<input id="i-instrumento" name="instrumento"></label>
+            <fieldset class="ancho encuentros-elegir" id="i-encuentros" hidden><legend>Encuentros a los que te apuntas *</legend><div></div><input type="hidden" name="encuentros"></fieldset>
             <label class="ancho" for="i-nivel">Nivel<select id="i-nivel" name="nivel"><option>Iniciación</option><option>Grado elemental</option><option>Grado profesional</option><option>Grado superior</option><option>Profesional</option><option>Aficionado</option></select></label>
             <label for="i-correo">Correo *<input id="i-correo" name="correo" type="email" required autocomplete="email"></label>
             <label for="i-telefono">Teléfono *<input id="i-telefono" name="telefono" type="tel" required autocomplete="tel"></label>
@@ -45,7 +47,7 @@
             <p class="aviso" role="status" hidden></p>
           </form>
         </div>
-        <div class="caja cielo" id="cerrado" hidden><h3>Inscripción</h3><p>La inscripción de este curso aún no está abierta. Escríbenos y te avisamos en cuanto se abra.</p><p style="margin-top:12px"><a class="boton marino peq" href="unete.html#contacto">Avisadme</a></p></div>
+        <div class="caja cielo" id="cerrado" hidden><h3>Inscripción</h3><p id="cerrado-txt">La inscripción de este curso aún no está abierta. Escríbenos y te avisamos en cuanto se abra.</p><p style="margin-top:12px"><a class="boton marino peq" href="unete.html#contacto" id="cerrado-btn">Avisadme</a></p></div>
       </aside>
     </div>
   </div>

@@ -133,15 +133,64 @@
     const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
     return eventos.filter(e => e.fecha && fechaLocal(e.fecha) >= hoy).sort((a, b) => a.fecha.localeCompare(b.fecha));
   }
+  /* ---------- Cursos: fechas y estado automático ---------- */
+  const MESES_L = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  function hoy0() { const h = new Date(); h.setHours(0, 0, 0, 0); return h; }
+  function encuentrosDe(c) {
+    return (c.encuentros || []).filter(e => e && e.fecha).map(e => {
+      const ini = fechaLocal(e.fecha), fin = e.fecha_fin ? fechaLocal(e.fecha_fin) : ini;
+      return { ...e, ini, fin: fin < ini ? ini : fin };
+    }).sort((a, b) => a.ini - b.ini);
+  }
+  function rangoFechas(e) {
+    const a = e.ini, b = e.fin, d = x => `${x.getDate()} de ${MESES_L[x.getMonth()]}`;
+    if (a.getTime() === b.getTime()) return `${d(a)} de ${a.getFullYear()}`;
+    if (a.getFullYear() !== b.getFullYear()) return `${d(a)} de ${a.getFullYear()} al ${d(b)} de ${b.getFullYear()}`;
+    if (a.getMonth() === b.getMonth()) return `${a.getDate()}–${b.getDate()} de ${MESES_L[a.getMonth()]} de ${a.getFullYear()}`;
+    return `${d(a)} al ${d(b)} de ${a.getFullYear()}`;
+  }
+  function resumenFechas(c) {
+    const e = encuentrosDe(c);
+    if (!e.length) return c.fechas || "";
+    if (e.length === 1) return rangoFechas(e[0]);
+    const a = e[0].ini, b = e[e.length - 1].fin;
+    const m = x => `${MESES_L[x.getMonth()]}${a.getFullYear() !== b.getFullYear() ? " de " + x.getFullYear() : ""}`;
+    return `${e.length} encuentros, de ${m(a)} a ${m(b)}${a.getFullYear() === b.getFullYear() ? " de " + b.getFullYear() : ""}`;
+  }
+  function estadoCurso(c) {
+    const e = encuentrosDe(c), h = hoy0();
+    const terminado = e.length > 0 && e.every(x => x.fin < h);
+    const hayPasado = e.some(x => x.fin < h), proximo = e.find(x => x.fin >= h);
+    const insc = c.inscripcion || (c.inscripcion_abierta ? "abierta" : "proximamente");
+    const plazoCerrado = !!c.fecha_limite && fechaLocal(c.fecha_limite) < h;
+    let clase, texto;
+    if (terminado) { clase = "finalizado"; texto = "Edición finalizada"; }
+    else if (insc === "completa") { clase = "completo"; texto = "Plazas agotadas"; }
+    else if (insc === "abierta" && plazoCerrado) { clase = "cerrado"; texto = hayPasado ? "En curso" : "Inscripción cerrada"; }
+    else if (insc === "abierta") { clase = "abierto"; texto = "Inscripción abierta"; }
+    else { clase = "proximamente"; texto = hayPasado ? "En curso" : "Próximamente"; }
+    return { clase, texto, abierta: clase === "abierto", proximo, hayPasado };
+  }
+  // Los encuentros futuros de los cursos aparecen también en la agenda
+  function eventosCursos(cursos) {
+    const lista = [];
+    (cursos || []).forEach(c => encuentrosDe(c).forEach((e, i, todos) => lista.push({
+      fecha: e.fecha, titulo: e.titulo ? `${c.titulo}: ${e.titulo}` : (todos.length > 1 ? `${c.titulo} (encuentro ${i + 1})` : c.titulo),
+      hora: [e.fecha_fin && e.fecha_fin !== e.fecha ? "Hasta el " + rangoFechas({ ini: e.fin, fin: e.fin }) : "", e.horario].filter(Boolean).join(" · "),
+      lugar: e.lugar || c.lugar, quien: "Curso", enlace: `cursos.html#${c.id}`, agrupacion: ""
+    })));
+    return lista;
+  }
   function tarjetaEvento(ev, porId) {
     const e = porId[ev.agrupacion] || { corto: "Costa Musical", color: "#ffcc29" };
     const f = etiquetaFecha(ev);
     const detalles = [ev.hora, ev.lugar].filter(Boolean).join(" · ");
     return `<li class="entrada" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
       <div class="dia"><b>${esc(f.grande)}</b><span>${esc(f.peq)}</span></div>
-      <div class="info"><span class="quien">${esc(e.corto)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${esc(ev.titulo)}</h3>
+      <div class="info"><span class="quien">${esc(ev.quien || e.corto)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${esc(ev.titulo)}</h3>
       ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
       ${ev.entradas_url ? `<p><a class="boton amarillo peq" href="${esc(ev.entradas_url)}" rel="noopener" target="_blank">Comprar entradas</a></p>` : ""}
+      ${ev.enlace ? `<p><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : ""}
       ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div></li>`;
   }
   function pintarEventos(destino, lista, porId, vacio) {
@@ -318,32 +367,65 @@
     cursos(d) {
       const cursos = d.cursos || [];
       const form = $("#form-inscripcion"), hueco = $("#hueco-form");
-      const ESTADO = { abierto: "Inscripción abierta", proximamente: "Próximamente", finalizado: "Edición finalizada" };
+      const ord = c => { const e = encuentrosDe(c), p = e.find(x => x.fin >= hoy0()); return p ? p.ini.getTime() : Infinity; };
+      const ultimo = c => { const e = encuentrosDe(c); return e.length ? Math.max(...e.map(x => x.fin.getTime())) : 0; };
+      const tarjeta = c => { const st = estadoCurso(c); return `
+            <a class="noticia" href="#${esc(c.id)}">
+              <div class="img${c.foto ? "" : " sin-foto-curso"}" style="${c.foto ? `background-image:url('${esc(encodeURI(c.foto))}')` : ""}"></div>
+              <div class="cuerpo"><span class="estado-curso ${st.clase}">${esc(st.texto)}</span><h3>${esc(c.titulo)}</h3>
+              <p class="suave">${esc([c.tipo, resumenFechas(c)].filter(Boolean).join(" · "))}</p>
+              ${st.proximo && st.hayPasado ? `<p class="suave"><b>Próximo encuentro: ${esc(rangoFechas(st.proximo))}</b></p>` : ""}
+              <p>${esc(c.resumen || "")}</p></div></a>`; };
       function pintar() {
         const c = cursos.find(x => x.id === location.hash.slice(1));
         $("#lista-cursos").hidden = !!c; $("#curso").hidden = !c;
         if (c) {
           document.title = `${c.titulo} · Cursos · Costa Musical`;
-          const datos = [["Fechas", c.fechas], ["Lugar", c.lugar], ["Dirigido a", c.dirigido], ["Precio", c.precio], ["Plazas", c.plazas]].filter(([, v]) => v);
+          const st = estadoCurso(c), enc = encuentrosDe(c), esp = (c.especialidades || []).filter(Boolean);
+          const datos = [["Fechas", resumenFechas(c)], ["Lugar", c.lugar], ["Dirigido a", c.dirigido], [esp.length > 1 ? "Especialidades" : "Especialidad", esp.join(", ")],
+            ["Precio", c.precio], ["Plazas", c.plazas], ["Inscripción hasta", st.abierta && c.fecha_limite ? rangoFechas({ ini: fechaLocal(c.fecha_limite), fin: fechaLocal(c.fecha_limite) }) : ""]].filter(([, v]) => v);
           $("#curso-info").innerHTML = `<a href="cursos.html" style="font-weight:700">← Todos los cursos</a>
-            <span class="estado-curso ${esc(c.estado)}">${esc(ESTADO[c.estado] || "")}</span>
+            <span class="estado-curso ${st.clase}">${esc(st.texto)}</span>
             <h1 class="titulo-xl" style="font-size:clamp(40px,7vw,80px)">${esc(c.titulo)}</h1>
             ${c.foto ? `<img class="foto-curso" src="${esc(encodeURI(c.foto))}" alt="">` : ""}
             ${datos.length ? `<dl class="ficha-datos">${datos.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
             <div class="pila">${parrafos(c.descripcion)}</div>
+            ${enc.length > 1 || (enc.length === 1 && (enc[0].titulo || enc[0].horario)) ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">${enc.length > 1 ? "Encuentros" : "Fecha"}</h2>
+            <ol class="encuentros">${enc.map((e, i) => { const pas = e.fin < hoy0(), prox = !!st.proximo && e.fecha === st.proximo.fecha;
+              return `<li class="${pas ? "pasado" : ""}${prox ? " proximo" : ""}"><div class="enc-fecha">${esc(rangoFechas(e))}</div>
+                <div><b>${esc(e.titulo || (enc.length > 1 ? `Encuentro ${i + 1}` : c.titulo))}</b>${pas ? ' <span class="enc-marca">Celebrado</span>' : prox ? ' <span class="enc-marca prox">Próximo</span>' : ""}
+                ${[e.horario, e.lugar].filter(Boolean).length ? `<p class="suave">${esc([e.horario, e.lugar].filter(Boolean).join(" · "))}</p>` : ""}</div></li>`; }).join("")}</ol>` : ""}
             ${(c.profesorado || []).length ? `<h2 class="titulo" style="font-size:clamp(28px,4vw,40px)">Profesorado</h2><div class="rejilla">${c.profesorado.map(p => `<div class="caja"><h3>${esc(p.nombre)}</h3><p>${esc(p.descripcion || "")}</p></div>`).join("")}</div>` : ""}`;
-          if (c.inscripcion_abierta) {
+          if (st.abierta) {
             form.hidden = false; form.curso.value = c.titulo; form.dataset.pago = c.enlace_pago || ""; hueco.hidden = false; $("#cerrado").hidden = true;
-          } else { form.hidden = true; hueco.hidden = true; $("#cerrado").hidden = false; }
+            // Especialidad: desplegable si hay varias, fija si hay una, texto libre si no hay
+            const lab = $("#l-instrumento");
+            if (esp.length > 1) lab.innerHTML = `Especialidad *<select id="i-instrumento" name="especialidad" required><option value="">Elige…</option>${esp.map(x => `<option>${esc(x)}</option>`).join("")}</select>`;
+            else if (esp.length === 1) lab.innerHTML = `Especialidad<input id="i-instrumento" name="especialidad" value="${esc(esp[0])}" readonly>`;
+            else lab.innerHTML = `Instrumento<input id="i-instrumento" name="instrumento">`;
+            // Encuentros sueltos
+            const fs = $("#i-encuentros"), futuros = enc.filter(e => e.fin >= hoy0()), oculto = $('input[name="encuentros"]', fs);
+            if (c.encuentros_sueltos && futuros.length > 1) {
+              fs.hidden = false;
+              $("div", fs).innerHTML = futuros.map((e, i) => `<label class="check"><input type="checkbox" value="${esc(rangoFechas(e) + (e.titulo ? " · " + e.titulo : ""))}" checked> <span>${esc(rangoFechas(e))}${e.titulo ? " · " + esc(e.titulo) : ""}</span></label>`).join("");
+              const sync = () => { oculto.value = $$('input[type="checkbox"]', fs).filter(x => x.checked).map(x => x.value).join(" | "); oculto.required = true; };
+              $$('input[type="checkbox"]', fs).forEach(x => x.addEventListener("change", sync)); sync();
+            } else { fs.hidden = true; oculto.value = ""; oculto.required = false; }
+          } else {
+            form.hidden = true; hueco.hidden = true; $("#cerrado").hidden = false;
+            const txt = st.clase === "finalizado" ? ["Esta edición ya ha terminado. Escríbenos y te avisamos cuando abramos la próxima.", "Avisadme de la próxima"]
+              : st.clase === "completo" ? ["Las plazas están agotadas. Escríbenos y te apuntamos a la lista de espera.", "Lista de espera"]
+              : st.clase === "cerrado" ? ["El plazo de inscripción ya se ha cerrado. Escríbenos si tienes alguna duda.", "Escribirnos"]
+              : ["La inscripción de este curso aún no está abierta. Escríbenos y te avisamos en cuanto se abra.", "Avisadme"];
+            $("#cerrado-txt").textContent = txt[0]; $("#cerrado-btn").textContent = txt[1];
+          }
         } else {
           document.title = "Cursos · Costa Musical";
-          const orden = { abierto: 0, proximamente: 1, finalizado: 2 };
-          $("#cursos").innerHTML = cursos.length ? cursos.slice().sort((a, b) => (orden[a.estado] ?? 3) - (orden[b.estado] ?? 3)).map(c => `
-            <a class="noticia" href="#${esc(c.id)}">
-              <div class="img${c.foto ? "" : " sin-foto-curso"}" style="${c.foto ? `background-image:url('${esc(encodeURI(c.foto))}')` : ""}"></div>
-              <div class="cuerpo"><span class="estado-curso ${esc(c.estado)}">${esc(ESTADO[c.estado] || "")}</span><h3>${esc(c.titulo)}</h3>
-              <p class="suave">${esc([c.tipo, c.fechas].filter(Boolean).join(" · "))}</p><p>${esc(c.resumen || "")}</p></div></a>`).join("")
-            : `<p class="vacio">Pronto publicaremos nuestros próximos cursos.</p>`;
+          const activos = cursos.filter(c => estadoCurso(c).clase !== "finalizado").sort((a, b) => ord(a) - ord(b));
+          const pasados = cursos.filter(c => estadoCurso(c).clase === "finalizado").sort((a, b) => ultimo(b) - ultimo(a));
+          $("#cursos").innerHTML = activos.length ? activos.map(tarjeta).join("") : `<p class="vacio">Pronto publicaremos nuestros próximos cursos.</p>`;
+          $("#bloque-pasados").hidden = !pasados.length;
+          $("#cursos-pasados").innerHTML = pasados.map(tarjeta).join("");
         }
         window.scrollTo(0, 0);
       }
@@ -485,7 +567,7 @@
       const porId = Object.fromEntries(ens.map(e => [e.id, e]));
       cabecera(ajustes); pie(ajustes, ens); enlacesEnsembli(ajustes); prepararFormularios(ajustes);
       return eventosEnsembli(ajustes).then(extra => {
-        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [], cursos: cur.cursos || [] };
+        const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra, ...eventosCursos(cur.cursos)], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [], cursos: cur.cursos || [] };
         if (paginas[pagina]) paginas[pagina](datos);
         if (pagina === "unete") paginas.asociacion(datos);
       });

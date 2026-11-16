@@ -52,14 +52,13 @@
       ["unete.html", "Únete", "unete"],
       ["contrataciones.html", "Contrátanos", "contrataciones"],
       ["noticias.html", "Noticias", "noticias"],
-      ["asociacion.html", "Asociación", "asociacion"]
     ];
     $("#cabecera").innerHTML = `
       <header class="cabecera"><div class="envoltorio">
         <a class="logo" href="index.html" aria-label="Costa Musical, inicio"><span class="logo-img" aria-hidden="true"></span><span class="logo-txt">COSTA<span>MUSICAL</span></span></a>
         <button class="boton-menu" id="boton-menu" aria-expanded="false" aria-controls="menu">Menú</button>
         <ul class="menu" id="menu">${enlaces.map(([h, t, p]) => `<li><a href="${h}"${p === pagina ? ' aria-current="page"' : ""}>${t}</a></li>`).join("")}</ul>
-        <a class="boton marino peq enlace-ensembli" href="asociacion.html#socios" aria-label="Área de socios"><span class="socios-largo">Área de socios</span><span class="socios-corto" aria-hidden="true">Socios</span><span class="socios-txt" aria-hidden="true"> →</span></a>
+        <a class="boton marino peq enlace-ensembli" href="unete.html#socios" aria-label="Área de socios"><span class="socios-largo">Área de socios</span><span class="socios-corto" aria-hidden="true">Socios</span><span class="socios-txt" aria-hidden="true"> →</span></a>
       </div></header>`;
     const b = $("#boton-menu"), m = $("#menu");
     b.addEventListener("click", () => b.setAttribute("aria-expanded", m.classList.toggle("abierto")));
@@ -84,8 +83,8 @@
       <footer class="pie"><div class="envoltorio">
         <div class="bloque"><b>COSTA MUSICAL</b><span>${esc(aj.nombre)}. Música en Punta Umbría (Huelva) desde 1996.</span></div>
         <div class="bloque"><b>AGRUPACIONES</b><ul>${ens.map(e => `<li><a href="agrupacion.html#${esc(e.id)}">${esc(e.nombre)}</a></li>`).join("")}</ul></div>
-        <div class="bloque"><b>CONTACTO</b><ul>${contacto || "<li>Escríbenos desde <a href=\"asociacion.html#contacto\">el formulario</a></li>"}</ul></div>
-        <p class="legal">© ${new Date().getFullYear()} ${esc(aj.nombre)}${aj.cif ? " · CIF " + esc(aj.cif) : ""} · <a href="asociacion.html#transparencia">Transparencia</a> · <a href="asociacion.html#privacidad">Privacidad y aviso legal</a></p>
+        <div class="bloque"><b>CONTACTO</b><ul>${contacto || "<li>Escríbenos desde <a href=\"unete.html#contacto\">el formulario</a></li>"}</ul></div>
+        <p class="legal">© ${new Date().getFullYear()} ${esc(aj.nombre)}${aj.cif ? " · CIF " + esc(aj.cif) : ""} · <a href="unete.html#transparencia">Transparencia</a> · <a href="unete.html#privacidad">Privacidad y aviso legal</a></p>
       </div></footer>`;
   }
 
@@ -188,7 +187,7 @@
       const n = (noticias || []).slice().sort((a, b) => String(b.fecha).localeCompare(a.fecha)).slice(0, 3);
       if (n.length) { $("#bloque-noticias").hidden = false; $("#lista-noticias").innerHTML = n.map(tarjetaNoticia).join(""); }
       $("#colaboradores").innerHTML = (ini.colaboradores || []).map(c => `<div><b>${esc(c.nombre)}</b><span class="suave">${esc(c.detalle)}</span></div>`).join("") +
-        `<div class="hueco"><b>Tu empresa aquí</b><a href="asociacion.html#contacto">Patrocina una agrupación</a></div>`;
+        `<div class="hueco"><b>Tu empresa aquí</b><a href="unete.html#contacto">Patrocina una agrupación</a></div>`;
     },
 
     agrupacion(d) {
@@ -459,6 +458,7 @@
       return eventosEnsembli(ajustes).then(extra => {
         const datos = { ajustes, ens, porId, inicio, eventos: [...(agenda.eventos || []), ...extra], noticias: not.noticias || [], actos: contr.actos || [], albumes: gal.albumes || [], cursos: cur.cursos || [] };
         if (paginas[pagina]) paginas[pagina](datos);
+        if (pagina === "unete") paginas.asociacion(datos);
       });
     });
 })();

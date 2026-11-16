@@ -134,6 +134,36 @@
     const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
     return eventos.filter(e => e.fecha && fechaLocal(e.fecha) >= hoy).sort((a, b) => a.fecha.localeCompare(b.fecha));
   }
+  /* ---------- TikTok: perfil con los últimos vídeos (se carga al pulsar, por privacidad y ligereza) ---------- */
+  function bloqueTiktok(aj) {
+    const bloque = $("#bloque-tiktok");
+    const usuario = String(aj.tiktok || "").trim().replace(/^@/, "");
+    if (!bloque || !usuario || aj.mostrar_tiktok === false) return;
+    const url = `https://www.tiktok.com/@${encodeURIComponent(usuario)}`;
+    bloque.hidden = false;
+    $(".tiktok-seguir", bloque).href = url;
+    const caja = $(".tiktok-caja", bloque);
+    const cargar = () => {
+      try { localStorage.setItem("cm_tiktok", "1"); } catch (_) {}
+      caja.innerHTML = `<blockquote class="tiktok-embed" cite="${url}" data-unique-id="${esc(usuario)}" data-embed-type="creator" style="max-width:780px;min-width:288px;margin:0 auto"><section><a target="_blank" rel="noopener" href="${url}?refer=creator_embed">@${esc(usuario)}</a></section></blockquote>`;
+      const sc = document.createElement("script"); sc.async = true; sc.src = "https://www.tiktok.com/embed.js"; document.body.appendChild(sc);
+    };
+    let recordado = false; try { recordado = localStorage.getItem("cm_tiktok") === "1"; } catch (_) {}
+    if (recordado) {
+      // Ya lo aceptó antes: se carga solo cuando el bloque está a punto de verse
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); cargar(); } }, { rootMargin: "400px" });
+        io.observe(bloque);
+      } else cargar();
+      return;
+    }
+    caja.innerHTML = `<div class="tiktok-previa">
+      <div class="tiktok-icono" aria-hidden="true">♪</div>
+      <div><b>@${esc(usuario)}</b><p>Ensayos, conciertos y momentos entre bambalinas. Pulsa para ver nuestros últimos vídeos aquí mismo.</p>
+      <button type="button" class="boton marino">Ver vídeos de TikTok</button>
+      <p class="suave nota">Al pulsar se carga contenido de TikTok, que puede usar sus propias cookies.</p></div></div>`;
+    $("button", caja).addEventListener("click", cargar);
+  }
   /* ---------- Galería: álbumes + fotos subidas en los eventos ---------- */
   const CAT_TIPO = { concierto: "Conciertos", procesion: "Procesiones", pasacalles: "Pasacalles", otro: "Eventos" };
   function albumesCompletos(albumes, eventos) {
@@ -698,6 +728,7 @@
         datos.albumes = albumesCompletos(gal.albumes || [], datos.eventos);
         if (paginas[pagina]) paginas[pagina](datos);
         if (pagina === "unete") paginas.asociacion(datos);
+        bloqueTiktok(ajustes);
       });
     });
 })();

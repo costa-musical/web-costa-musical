@@ -379,3 +379,12 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .colab a.colab-item:hover,.colab a.colab-item:focus-visible{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(18,38,74,.5)}
 /* Agrupación sin foto: pentagrama en lugar de foto vacía */
 #ens-foto.sin-foto{background-color:var(--cielo)}
+
+/* TikTok */
+.tiktok-caja{min-height:120px}
+.tiktok-previa{display:flex;gap:22px;align-items:center;max-width:780px;margin:0 auto;padding:26px 28px;border:1px solid #d8d3c4;border-radius:var(--radio);background:var(--blanco);box-shadow:0 10px 24px -14px rgba(18,38,74,.35)}
+.tiktok-previa .tiktok-icono{flex:none;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:#fff;background:#111;box-shadow:-4px -3px 0 #25f4ee,4px 3px 0 #fe2c55}
+.tiktok-previa b{font-size:20px;color:var(--marino)}
+.tiktok-previa p{margin:6px 0 14px}
+.tiktok-previa .nota{font-size:13px;margin:10px 0 0}
+@media (max-width:600px){.tiktok-previa{flex-direction:column;align-items:flex-start;padding:22px}}

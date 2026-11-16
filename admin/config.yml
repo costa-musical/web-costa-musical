@@ -353,6 +353,7 @@ collections:
           - { name: telefono, label: Teléfono, widget: string, required: false }
           - { name: instagram, label: "Instagram (con @)", widget: string, required: false }
           - { name: tiktok, label: "TikTok (con @)", widget: string, required: false }
+          - { name: mostrar_tiktok, label: "Mostrar los vídeos de TikTok en Portada y Noticias", widget: boolean, default: true, required: false }
           - { name: youtube, label: "YouTube (con @)", widget: string, required: false }
           - { name: facebook, label: "Facebook (enlace)", widget: string, required: false }
           - { name: cif, label: CIF, widget: string, required: false }

@@ -1,0 +1,19 @@
+{
+  "titular": "Que suene",
+  "titular_destacado": "Punta Umbría",
+  "entradilla": "Banda, orquesta, big band y lo que está por venir. Si te gusta la música, aquí tienes sitio, para tocar o para escuchar.",
+  "foto_portada": "",
+  "pie_foto": "La banda en la Plaza de la Sal, El Portil",
+  "cinta": ["Conciertos", "Procesiones", "Pasacalles", "Festival de Bandas", "Bodas y eventos"],
+  "testimonio": {
+    "texto": "",
+    "nombre": "",
+    "instrumento": "",
+    "desde": ""
+  },
+  "colaboradores": [
+    { "nombre": "Ayuntamiento de Punta Umbría", "detalle": "Institución colaboradora" },
+    { "nombre": "Escuela Municipal de Música", "detalle": "«Francisco Rodríguez Cermeño»" },
+    { "nombre": "Hermandades de Punta Umbría", "detalle": "Semana Santa y patronales" }
+  ]
+}

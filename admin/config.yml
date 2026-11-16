@@ -1,0 +1,162 @@
+# Panel de edición de la web de Costa Musical (Sveltia CMS)
+# Repositorio: github.com/costa-musical/web-costa-musical
+backend:
+  name: github
+  repo: costa-musical/web-costa-musical
+  branch: main
+  # Si configuras el inicio de sesión con GitHub (ver LEEME.md), añade aquí:
+  # base_url: https://tu-worker-de-autenticacion.workers.dev
+
+locale: es
+media_folder: img/subidas
+public_folder: /img/subidas
+
+collections:
+  - name: contenido
+    label: Contenido de la web
+    editor:
+      preview: false
+    files:
+
+      - name: agenda
+        label: Agenda (conciertos y actuaciones)
+        file: content/agenda.json
+        fields:
+          - name: eventos
+            label: Eventos
+            label_singular: evento
+            widget: list
+            summary: "{{fields.fecha}} · {{fields.titulo}}"
+            fields:
+              - { name: titulo, label: Título, widget: string }
+              - { name: fecha, label: Fecha, widget: datetime, type: date, format: "YYYY-MM-DD", hint: "Si aún no sabes el día exacto, pon el día 1 del mes y escribe abajo el texto que quieres que se vea." }
+              - { name: fecha_texto, label: "Texto de fecha (opcional)", widget: string, required: false, hint: "Por ejemplo «Nov» o «21–28». Si lo dejas vacío se muestra el día." }
+              - name: agrupacion
+                label: Agrupación
+                widget: select
+                options:
+                  - { label: Banda, value: banda }
+                  - { label: Orquesta, value: orquesta }
+                  - { label: Big Band, value: big-band }
+                  - { label: Charanga, value: charanga }
+                  - { label: Música de cámara, value: camara }
+              - { name: hora, label: "Hora (opcional)", widget: string, required: false, hint: "Por ejemplo 20:30" }
+              - { name: lugar, label: "Lugar (opcional)", widget: string, required: false }
+              - { name: descripcion, label: "Descripción corta", widget: text, required: false }
+              - { name: gratis, label: "Entrada libre", widget: boolean, default: true }
+
+      - name: noticias
+        label: Noticias
+        file: content/noticias.json
+        fields:
+          - name: noticias
+            label: Noticias
+            label_singular: noticia
+            widget: list
+            summary: "{{fields.fecha}} · {{fields.titulo}}"
+            fields:
+              - { name: titulo, label: Título, widget: string }
+              - { name: id, label: "Dirección corta", widget: string, hint: "Sin espacios ni tildes, por ejemplo concierto-santa-cecilia. Se usa en el enlace." }
+              - { name: fecha, label: Fecha, widget: datetime, type: date, format: "YYYY-MM-DD" }
+              - { name: foto, label: Foto, widget: image, required: false }
+              - { name: resumen, label: "Resumen (una o dos frases)", widget: text }
+              - { name: texto, label: "Texto completo", widget: text, hint: "Deja una línea en blanco entre párrafos." }
+
+      - name: inicio
+        label: Página de inicio
+        file: content/inicio.json
+        fields:
+          - { name: titular, label: "Titular (primera línea)", widget: string }
+          - { name: titular_destacado, label: "Titular (línea en amarillo)", widget: string }
+          - { name: entradilla, label: Entradilla, widget: text }
+          - { name: foto_portada, label: "Foto grande", widget: image, required: false }
+          - { name: pie_foto, label: "Descripción de la foto", widget: string, required: false, hint: "Para personas que usan lector de pantalla." }
+          - { name: cinta, label: "Palabras de la cinta amarilla", widget: list, field: { name: palabra, label: Palabra, widget: string } }
+          - name: testimonio
+            label: "Cita de un músico"
+            widget: object
+            fields:
+              - { name: texto, label: Frase, widget: text, required: false, hint: "Si la dejas vacía se muestra «¿Tocas algo? Te estamos buscando»." }
+              - { name: nombre, label: Nombre, widget: string, required: false }
+              - { name: instrumento, label: Instrumento, widget: string, required: false }
+              - { name: desde, label: "En la banda desde (año)", widget: string, required: false }
+          - name: colaboradores
+            label: Colaboradores
+            widget: list
+            fields:
+              - { name: nombre, label: Nombre, widget: string }
+              - { name: detalle, label: Detalle, widget: string, required: false }
+
+      - name: agrupaciones
+        label: Agrupaciones
+        file: content/agrupaciones.json
+        fields:
+          - name: agrupaciones
+            label: Agrupaciones
+            label_singular: agrupación
+            widget: list
+            summary: "{{fields.nombre}} ({{fields.estado}})"
+            fields:
+              - { name: id, label: "Identificador", widget: string, hint: "No lo cambies una vez creado: lo usan la agenda y los enlaces." }
+              - { name: nombre, label: "Nombre completo", widget: string }
+              - { name: corto, label: "Nombre corto", widget: string }
+              - { name: estado, label: Estado, widget: select, options: [{ label: Activa, value: activa }, { label: En proyecto, value: proyecto }] }
+              - { name: color, label: Color, widget: color }
+              - { name: etiqueta, label: "Etiqueta (p. ej. «Desde 1996»)", widget: string }
+              - { name: lema, label: "Frase de presentación", widget: text }
+              - { name: foto, label: Foto, widget: image, required: false }
+              - { name: descripcion, label: "Quiénes somos", widget: text }
+              - { name: formacion, label: Formación, widget: string, required: false }
+              - { name: direccion, label: Dirección, widget: string, required: false }
+              - { name: repertorio, label: Repertorio, widget: string, required: false }
+              - { name: ensayos, label: Ensayos, widget: string, required: false }
+              - name: cifras
+                label: "Cifras destacadas"
+                widget: list
+                required: false
+                fields:
+                  - { name: valor, label: Valor, widget: string }
+                  - { name: texto, label: Texto, widget: string }
+              - name: historia
+                label: Historia
+                widget: list
+                required: false
+                fields:
+                  - { name: anio, label: Año, widget: string }
+                  - { name: texto, label: Texto, widget: string }
+              - name: directores
+                label: Directores
+                widget: list
+                required: false
+                fields:
+                  - { name: periodo, label: Periodo, widget: string }
+                  - { name: nombre, label: Nombre, widget: string }
+              - { name: buscamos, label: "Instrumentos que buscamos", widget: list, field: { name: instrumento, label: Instrumento, widget: string }, hint: "Escribe cada instrumento igual en todas las agrupaciones para que el buscador de «Únete» los junte." }
+              - { name: servicio, label: "Para qué se puede contratar", widget: string }
+
+      - name: contrataciones
+        label: Contrataciones (recomendador)
+        file: content/contrataciones.json
+        fields:
+          - name: actos
+            label: "Tipos de acto"
+            widget: list
+            fields:
+              - { name: nombre, label: "Tipo de acto", widget: string }
+              - { name: recomendacion, label: "Formación recomendada", widget: string }
+              - { name: explicacion, label: "Por qué", widget: string }
+
+      - name: ajustes
+        label: Ajustes y contacto
+        file: content/ajustes.json
+        fields:
+          - { name: nombre, label: "Nombre de la entidad", widget: string }
+          - { name: correo, label: Correo, widget: string, required: false }
+          - { name: telefono, label: Teléfono, widget: string, required: false }
+          - { name: instagram, label: "Instagram (con @)", widget: string, required: false }
+          - { name: facebook, label: "Facebook (enlace)", widget: string, required: false }
+          - { name: cif, label: CIF, widget: string, required: false }
+          - { name: lugar_ensayos, label: "Lugar de ensayos", widget: string }
+          - { name: cuota_socio, label: "Cuota anual de socio (€)", widget: string, required: false }
+          - { name: ensembli_url, label: "Dirección del área de socios (Ensembli)", widget: string, required: false }
+          - { name: ensembli_feed, label: "Enlace del calendario público de Ensembli (JSON)", widget: string, required: false, hint: "Si lo rellenas, la agenda añade sola los eventos públicos de Ensembli." }

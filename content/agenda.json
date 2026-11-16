@@ -1,0 +1,54 @@
+{
+  "eventos": [
+    {
+      "titulo": "Concierto de Santa Cecilia",
+      "fecha": "2026-11-22",
+      "fecha_texto": "Nov",
+      "agrupacion": "banda",
+      "hora": "",
+      "lugar": "Lugar por anunciar",
+      "descripcion": "El día de la patrona de la música, el mismo en que nació la banda.",
+      "gratis": true
+    },
+    {
+      "titulo": "Concierto de Navidad con el coro infantil",
+      "fecha": "2026-12-22",
+      "fecha_texto": "",
+      "agrupacion": "banda",
+      "hora": "",
+      "lugar": "",
+      "descripcion": "Música de películas de animación con alumnos de primaria.",
+      "gratis": true
+    },
+    {
+      "titulo": "Concierto de Viernes de Dolores",
+      "fecha": "2027-03-19",
+      "fecha_texto": "",
+      "agrupacion": "banda",
+      "hora": "",
+      "lugar": "",
+      "descripcion": "Nuestro tradicional concierto de marchas procesionales.",
+      "gratis": true
+    },
+    {
+      "titulo": "Semana Santa",
+      "fecha": "2027-03-21",
+      "fecha_texto": "21–28",
+      "agrupacion": "banda",
+      "hora": "",
+      "lugar": "",
+      "descripcion": "Acompañamiento musical a las hermandades de Punta Umbría.",
+      "gratis": true
+    },
+    {
+      "titulo": "Festival de Bandas «Manuel Retamales Martín»",
+      "fecha": "2027-07-01",
+      "fecha_texto": "Jul",
+      "agrupacion": "banda",
+      "hora": "",
+      "lugar": "Punta Umbría",
+      "descripcion": "El festival de verano de Punta Umbría, con banda invitada.",
+      "gratis": true
+    }
+  ]
+}

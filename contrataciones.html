@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contrataciones · Costa Musical</title>
+<meta name="description" content="Contrata la Banda de Música de Punta Umbría, la Orquesta o la Big Band para procesiones, pasacalles, conciertos y eventos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Rubik:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body data-pagina="contrataciones" class="sobria">
+<a class="oculto" href="#contenido">Saltar al contenido</a>
+<div id="cabecera"></div>
+<main id="contenido">
+<section class="banda-marino"><div class="envoltorio pila" style="padding-top:56px;padding-bottom:56px">
+  <h1 class="titulo-xl">Ponle música<br><span style="color:var(--amarillo)">a tu acto</span></h1>
+  <p class="entradilla suave">Hermandades, ayuntamientos, asociaciones, empresas y particulares. Te ayudamos a elegir la formación y te enviamos un presupuesto cerrado.</p>
+</div></section>
+<section class="seccion"><div class="envoltorio">
+  <h2 class="titulo" style="font-size:clamp(32px,4vw,44px);margin-bottom:20px">¿Para qué la necesitas?</h2>
+  <div class="selector" id="actos" role="group" aria-label="Tipo de acto"></div>
+  <div class="resultado">
+    <div class="txt"><span class="etq">Te recomendamos</span><span class="reco" id="reco"></span><span id="porque"></span></div>
+    <a class="boton marino" href="#presupuesto">Pedir presupuesto</a>
+  </div>
+</div></section>
+<section class="seccion compacta" style="padding-top:0"><div class="envoltorio">
+  <h2 class="titulo" style="font-size:clamp(32px,4vw,44px);margin-bottom:20px">Nuestras formaciones</h2>
+  <div class="rejilla" id="servicios"></div>
+</div></section>
+<section class="seccion banda-cielo con-borde" id="presupuesto"><div class="envoltorio dos">
+  <div class="pila"><h2 class="titulo">Pide presupuesto</h2><p class="suave">Te respondemos con una propuesta y un precio cerrado.</p></div>
+  <div class="ancha">
+    <form class="campos" name="presupuesto" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="presupuesto">
+      <p class="oculto"><label>No rellenes esto <input name="bot-field"></label></p>
+      <label for="c-entidad">Entidad o nombre *<input id="c-entidad" name="entidad" required autocomplete="organization"></label>
+      <label for="c-contacto">Teléfono o correo *<input id="c-contacto" name="contacto" required></label>
+      <label for="f-tipo">Tipo de acto<input id="f-tipo" name="tipo"></label>
+      <label for="f-formacion">Formación<input id="f-formacion" name="formacion"></label>
+      <label for="c-fecha">Fecha aproximada<input id="c-fecha" name="fecha" type="date"></label>
+      <label for="c-lugar">Localidad<input id="c-lugar" name="localidad"></label>
+      <label class="ancho" for="c-detalle">Cuéntanos el acto<textarea id="c-detalle" name="detalle" placeholder="Duración, recorrido, número de marchas, horario…"></textarea></label>
+      <label class="check ancho" for="presupuesto-priv"><input id="presupuesto-priv" type="checkbox" name="privacidad" value="si"> <span>He leído la <a href="asociacion.html#privacidad">política de privacidad</a> y acepto que la asociación use mis datos solo para responderme.</span></label>
+      <div><button class="boton marino" type="submit">Enviar solicitud</button></div>
+      <p class="aviso" role="status" hidden></p>
+    </form>
+  </div>
+</div></section>
+</main>
+<div id="pie"></div>
+<dialog id="aviso-ensembli">
+  <h3>Enlace pendiente</h3>
+  <p>El área de socios en Ensembli todavía no está enlazada. Cuando lo esté, este botón te llevará directamente.</p>
+  <button class="boton marino" id="cerrar-aviso">Entendido</button>
+</dialog>
+<script src="js/sitio.js"></script>
+</body>
+</html>

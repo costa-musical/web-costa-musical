@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Únete · Costa Musical</title>
+<meta name="description" content="Toca en la Banda de Música de Punta Umbría, la Orquesta o la Big Band. Pide un ensayo de prueba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Rubik:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body data-pagina="unete">
+<a class="oculto" href="#contenido">Saltar al contenido</a>
+<div id="cabecera"></div>
+<main id="contenido">
+<section class="banda-amarilla con-borde" style="border-top:none"><div class="envoltorio pila" style="padding-top:56px;padding-bottom:56px">
+  <h1 class="titulo-xl">¿Tocas algo?</h1>
+  <p class="entradilla" style="font-weight:500">Dinos qué instrumento tocas y te decimos dónde encajas. No hace falta ser profesional.</p>
+</div></section>
+<section class="seccion"><div class="envoltorio">
+  <h2 class="titulo" style="font-size:clamp(32px,4vw,44px);margin-bottom:20px">Elige tu instrumento</h2>
+  <div class="selector" id="instrumentos" role="group" aria-label="Instrumentos"></div>
+  <div class="resultado">
+    <div class="txt"><span class="etq">Con <span id="actual"></span> puedes tocar en</span><div class="destinos" id="destinos"></div></div>
+    <a class="boton amarillo" href="#prueba">Pedir ensayo de prueba</a>
+  </div>
+</div></section>
+<section class="seccion banda-cielo con-borde"><div class="envoltorio rejilla" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+  <div class="caja"><h3>No sé tocar</h3><p>Empieza en la Escuela Municipal de Música «Francisco Rodríguez Cermeño». Niños, jóvenes y adultos.</p></div>
+  <div class="caja"><h3>Ya toqué aquí</h3><p>Vuelve cuando quieras. Te guardamos el sitio.</p></div>
+  <div class="caja"><h3>Quiero ayudar</h3><p>Hazte socio o échanos una mano con conciertos y viajes. <a href="asociacion.html">Ver cómo</a></p></div>
+</div></section>
+<section class="seccion" id="prueba"><div class="envoltorio dos">
+  <div class="pila"><h2 class="titulo">Ven a probar</h2><p class="suave">Te contestamos con el día y la hora del próximo ensayo.</p></div>
+  <div class="ancha">
+    <form class="campos" name="ensayo-prueba" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="ensayo-prueba">
+      <p class="oculto"><label>No rellenes esto <input name="bot-field"></label></p>
+      <label for="f-nombre">Nombre *<input id="f-nombre" name="nombre" required autocomplete="name"></label>
+      <label for="f-contacto">Teléfono o correo *<input id="f-contacto" name="contacto" required></label>
+      <label for="f-instrumento">Instrumento<input id="f-instrumento" name="instrumento"></label>
+      <label for="f-agrupacion">Agrupación que te interesa<select id="f-agrupacion" name="agrupacion"></select></label>
+      <label class="ancho" for="f-mensaje">¿Algo más que debamos saber?<textarea id="f-mensaje" name="mensaje" placeholder="Años tocando, nivel, si tienes instrumento propio…"></textarea></label>
+      <label class="check ancho" for="ensayo-prueba-priv"><input id="ensayo-prueba-priv" type="checkbox" name="privacidad" value="si"> <span>He leído la <a href="asociacion.html#privacidad">política de privacidad</a> y acepto que la asociación use mis datos solo para responderme.</span></label>
+      <div><button class="boton azul" type="submit">¡Quiero probar!</button></div>
+      <p class="aviso" role="status" hidden></p>
+    </form>
+  </div>
+</div></section>
+</main>
+<div id="pie"></div>
+<dialog id="aviso-ensembli">
+  <h3>Enlace pendiente</h3>
+  <p>El área de socios en Ensembli todavía no está enlazada. Cuando lo esté, este botón te llevará directamente.</p>
+  <button class="boton marino" id="cerrar-aviso">Entendido</button>
+</dialog>
+<script src="js/sitio.js"></script>
+</body>
+</html>

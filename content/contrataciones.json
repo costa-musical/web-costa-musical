@@ -1,0 +1,9 @@
+{
+  "actos": [
+    { "nombre": "Procesión", "recomendacion": "La Banda", "explicacion": "Marchas procesionales con banda completa y percusión." },
+    { "nombre": "Pasacalles o fiesta", "recomendacion": "La Banda", "explicacion": "Pasodobles y música de calle. Pronto también con la charanga." },
+    { "nombre": "Concierto", "recomendacion": "Banda u Orquesta", "explicacion": "Según el espacio y el repertorio que busques." },
+    { "nombre": "Boda o evento privado", "recomendacion": "La Big Band", "explicacion": "Swing y latin para el cóctel y el baile. Pronto, también cámara para la ceremonia." },
+    { "nombre": "Acto institucional", "recomendacion": "La Banda", "explicacion": "Himnos, pasodobles y música de protocolo." }
+  ]
+}

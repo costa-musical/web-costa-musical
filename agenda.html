@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agenda · Costa Musical</title>
+<meta name="description" content="Conciertos y actuaciones de la Banda de Música de Punta Umbría y del resto de agrupaciones de Costa Musical.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Rubik:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body data-pagina="agenda">
+<a class="oculto" href="#contenido">Saltar al contenido</a>
+<div id="cabecera"></div>
+<main id="contenido">
+<section class="banda-azul con-borde" style="border-top:none"><div class="envoltorio pila" style="padding-top:56px;padding-bottom:56px">
+  <h1 class="titulo-xl">Agenda</h1>
+  <p class="entradilla">Apúntatelo: casi todos nuestros conciertos son gratis y en la calle.</p>
+</div></section>
+<section class="seccion"><div class="envoltorio">
+  <div class="filtros" id="filtros" role="group" aria-label="Filtrar por agrupación"></div>
+  <ul class="entradas" id="agenda-completa"></ul>
+</div></section>
+</main>
+<div id="pie"></div>
+<dialog id="aviso-ensembli">
+  <h3>Enlace pendiente</h3>
+  <p>El área de socios en Ensembli todavía no está enlazada. Cuando lo esté, este botón te llevará directamente.</p>
+  <button class="boton marino" id="cerrar-aviso">Entendido</button>
+</dialog>
+<script src="js/sitio.js"></script>
+</body>
+</html>

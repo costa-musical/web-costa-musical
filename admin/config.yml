@@ -5,7 +5,7 @@ backend:
   repo: costa-musical/web-costa-musical
   branch: main
   # Inicio de sesión con GitHub a través de la propia web (functions/api/*.js en Cloudflare Pages)
-  base_url: https://costa-musical.pages.dev
+  base_url: https://costamusical.pages.dev
   auth_endpoint: api/auth
 
 locale: es

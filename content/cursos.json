@@ -17,14 +17,18 @@
           "fecha_fin": "2026-11-07",
           "titulo": "Primer Encuentro",
           "horario": "",
-          "lugar": ""
+          "lugar": "",
+          "profesores": [],
+          "cartel": ""
         },
         {
           "fecha": "2026-11-20",
           "fecha_fin": "2026-11-21",
           "titulo": "Segundo Encuentro",
           "horario": "",
-          "lugar": ""
+          "lugar": "",
+          "profesores": [],
+          "cartel": "/img/subidas/Carteles/IMG_0764.jpg"
         }
       ],
       "encuentros_sueltos": true,
@@ -37,7 +41,9 @@
       "profesorado": [
         {
           "nombre": "Salvador Ibáñez",
-          "descripcion": "Trompeta de la Orquesta de Extremadura"
+          "especialidad": "",
+          "descripcion": "Trompeta de la Orquesta de Extremadura",
+          "foto": ""
         }
       ],
       "enlace_pago": ""

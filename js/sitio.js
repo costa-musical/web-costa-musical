@@ -312,11 +312,11 @@
     const detalles = [ev.hora, ev.lugar].filter(Boolean).join(" · ");
     const quien = tipo === "curso" ? "Curso" : [tipo !== "concierto" ? TIPOS[tipo] : "", e.corto].filter(Boolean).join(" · ");
     const dia = ev.cartel
-      ? `<a class="dia dia-cartel" href="${esc(destino)}" aria-label="Cartel: ${esc(ev.titulo)}"><span class="cartel-fondo" style="background-image:url('${esc(encodeURI(ev.cartel))}')"></span><img src="${esc(encodeURI(ev.cartel))}" alt="" loading="lazy"><span class="fecha-chip"><b>${esc(f.grande)}</b> ${esc(f.peq)}</span></a>`
+      ? `<a class="dia dia-cartel" href="${esc(destino)}" aria-label="Cartel: ${esc(ev.titulo)}"><span class="cartel-fondo" style="background-image:url('${esc(encodeURI(ev.cartel))}')"></span><img src="${esc(encodeURI(ev.cartel))}" alt="" loading="lazy"></a>`
       : `<div class="dia"><b>${esc(f.grande)}</b><span>${esc(f.peq)}</span></div>`;
     return `<li class="entrada tipo-${tipo}${ev.cartel ? " con-cartel" : ""}" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
       ${dia}
-      <div class="info"><span class="quien">${esc(quien)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${ev.enlace ? esc(ev.titulo) : `<a class="enlace-evento" href="${esc(destino)}">${esc(ev.titulo)}</a>`}</h3>
+      <div class="info">${ev.cartel ? `<span class="fecha-linea"><b>${esc(f.grande)}</b> ${esc(f.peq)}</span>` : ""}<span class="quien">${esc(quien)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${ev.enlace ? esc(ev.titulo) : `<a class="enlace-evento" href="${esc(destino)}">${esc(ev.titulo)}</a>`}</h3>
       ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
       ${ev.entradas_url ? `<p><a class="boton amarillo peq" href="${esc(ev.entradas_url)}" rel="noopener" target="_blank">Comprar entradas</a></p>` : ""}
       ${ev.enlace ? `<p><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : `<p><a class="mas-info" href="${esc(destino)}">Más información →</a></p>`}

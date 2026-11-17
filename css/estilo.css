@@ -348,14 +348,15 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .entrada.tipo-pasacalles{--acento:#c46a3a;--acento-txt:#9c4f25}
 .entrada.tipo-otro{--acento:#4f78b0;--acento-txt:#3c6296}
 .entrada .info{flex:1;min-width:0}
-.entrada.con-cartel{min-height:200px}
-.dia-cartel{position:relative;width:140px !important;padding:0 !important;overflow:hidden;text-decoration:none;justify-content:flex-end !important;background:#0d1b35 !important}
-.dia-cartel .cartel-fondo{position:absolute;inset:-12px;background:center/cover no-repeat;filter:blur(14px) brightness(.55);transform:scale(1.1)}
-.dia-cartel img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .35s ease}
-.entrada:hover .dia-cartel img,.dia-cartel:focus-visible img{transform:scale(1.04)}
-.dia-cartel .fecha-chip{position:relative;z-index:1;margin:0 8px 8px;padding:4px 9px;border-radius:999px;background:var(--marino);color:#fff;font-family:var(--texto);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.35)}
-.dia-cartel .fecha-chip b{font-size:15px;color:var(--acento);font-weight:800;letter-spacing:0}
-@media (max-width:600px){.dia-cartel{width:112px !important}.entrada.con-cartel{min-height:170px}}
+/* Con cartel: el cartel arriba, entero y a todo el ancho; el texto debajo */
+.entradas{align-items:start}
+.entrada.con-cartel{flex-direction:column}
+.dia-cartel{position:relative;display:block !important;width:100% !important;padding:0 !important;background:#0d1b35 !important;border-right:0 !important;border-bottom:1px solid #d8d3c4;overflow:hidden;text-decoration:none}
+.dia-cartel .cartel-fondo{display:none}
+.dia-cartel img{display:block;width:100%;height:auto;transition:transform .4s ease}
+.entrada:hover .dia-cartel img,.dia-cartel:focus-visible img{transform:scale(1.02)}
+.dia-cartel .fecha-chip{position:absolute;left:12px;bottom:12px;margin:0;padding:6px 12px;border-radius:999px;background:var(--marino);color:#fff;font-family:var(--texto);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.dia-cartel .fecha-chip b{font-size:17px;color:var(--acento);font-weight:800;letter-spacing:0}
 
 /* Fotos del evento */
 .fotos-evento{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(140px,45%),1fr));gap:8px}
@@ -390,3 +391,5 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .tiktok-previa p{margin:6px 0 14px}
 .tiktok-previa .nota{font-size:13px;margin:10px 0 0}
 @media (max-width:600px){.tiktok-previa{flex-direction:column;align-items:flex-start;padding:22px}}
+.fecha-linea{display:block;font-family:var(--texto);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--marino);margin-bottom:2px}
+.fecha-linea b{font-family:var(--display);font-size:24px;letter-spacing:0;color:var(--acento-txt);margin-right:2px}

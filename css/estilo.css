@@ -348,48 +348,25 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .entrada.tipo-pasacalles{--acento:#c46a3a;--acento-txt:#9c4f25}
 .entrada.tipo-otro{--acento:#4f78b0;--acento-txt:#3c6296}
 .entrada .info{flex:1;min-width:0}
-/* Con cartel: el cartel arriba, entero y a todo el ancho; el texto debajo */
-.entradas{align-items:start}
-.entrada.con-cartel{flex-direction:column}
-.dia-cartel{position:relative;display:block !important;width:100% !important;padding:0 !important;background:#0d1b35 !important;border-right:0 !important;border-bottom:1px solid #d8d3c4;overflow:hidden;text-decoration:none}
-.dia-cartel .cartel-fondo{display:none}
-.dia-cartel img{display:block;width:100%;height:auto;transition:transform .4s ease}
-.entrada:hover .dia-cartel img,.dia-cartel:focus-visible img{transform:scale(1.02)}
-.dia-cartel .fecha-chip{position:absolute;left:12px;bottom:12px;margin:0;padding:6px 12px;border-radius:999px;background:var(--marino);color:#fff;font-family:var(--texto);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.4)}
-.dia-cartel .fecha-chip b{font-size:17px;color:var(--acento);font-weight:800;letter-spacing:0}
-
-/* Fotos del evento */
-.fotos-evento{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(140px,45%),1fr));gap:8px}
-.fotos-evento a{position:relative;display:block;aspect-ratio:1;overflow:hidden;border-radius:10px;background:#eee}
-.fotos-evento img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
-.fotos-evento a:hover img,.fotos-evento a:focus-visible img{transform:scale(1.05)}
-.fotos-evento a.mas::after{content:"";position:absolute;inset:0;background:rgba(18,38,74,.6)}
-.fotos-evento a.mas span{position:absolute;inset:0;z-index:1;display:grid;place-items:center;color:#fff;font-size:28px;font-weight:800}
-
-/* Logos de patrocinadores */
-.logos{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px}
-.logos a,.logos span{display:flex;align-items:center;min-height:56px}
-.logos img{max-height:56px;max-width:160px;object-fit:contain;filter:grayscale(1);opacity:.8;transition:filter .2s ease,opacity .2s ease}
-.logos a:hover img,.logos a:focus-visible img{filter:none;opacity:1}
-.logos.fichas{gap:10px}
-.logos.fichas a,.logos.fichas span{min-height:0;background:#fff;border-radius:10px;padding:8px 14px;transition:transform .2s ease,box-shadow .2s ease}
-.logos.fichas img{max-height:40px;max-width:130px;filter:none;opacity:1}
-.logos.fichas a:hover,.logos.fichas a:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.35)}
-.pie-apoyos{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)}
-.pie-apoyos b{font-size:12px;letter-spacing:.1em}
-.colab .colab-item{border:2px solid var(--marino);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;color:inherit;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
-.colab .colab-item img{max-height:64px;max-width:180px;object-fit:contain;align-self:flex-start;margin-bottom:6px}
-.colab a.colab-item:hover,.colab a.colab-item:focus-visible{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(18,38,74,.5)}
-/* Agrupación sin foto: pentagrama en lugar de foto vacía */
-#ens-foto.sin-foto{background-color:var(--cielo)}
-
-/* TikTok */
-.tiktok-caja{min-height:120px}
-.tiktok-previa{display:flex;gap:22px;align-items:center;max-width:780px;margin:0 auto;padding:26px 28px;border:1px solid #d8d3c4;border-radius:var(--radio);background:var(--blanco);box-shadow:0 10px 24px -14px rgba(18,38,74,.35)}
-.tiktok-previa .tiktok-icono{flex:none;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:#fff;background:#111;box-shadow:-4px -3px 0 #25f4ee,4px 3px 0 #fe2c55}
-.tiktok-previa b{font-size:20px;color:var(--marino)}
-.tiktok-previa p{margin:6px 0 14px}
-.tiktok-previa .nota{font-size:13px;margin:10px 0 0}
-@media (max-width:600px){.tiktok-previa{flex-direction:column;align-items:flex-start;padding:22px}}
 .fecha-linea{display:block;font-family:var(--texto);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--marino);margin-bottom:2px}
 .fecha-linea b{font-family:var(--display);font-size:24px;letter-spacing:0;color:var(--acento-txt);margin-right:2px}
+
+/* ---------- Tarjetas de la agenda: todas iguales (cartel o cartel genérico arriba, texto debajo) ---------- */
+.entradas{grid-template-columns:repeat(auto-fill,minmax(min(255px,100%),1fr));align-items:stretch;gap:22px}
+.entrada{flex-direction:column;min-height:0}
+.cartel-caja{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:#0d1b35;text-decoration:none;border-bottom:1px solid #d8d3c4}
+.cartel-caja .cartel-fondo{position:absolute;inset:-20px;background:center/cover no-repeat;filter:blur(18px) brightness(.5);transform:scale(1.1)}
+.cartel-caja img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .4s ease}
+.entrada:hover .cartel-caja img{transform:scale(1.03)}
+.cartel-generico{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:24px 18px;color:#fff;text-align:center;background:radial-gradient(120% 90% at 50% 0%,#1d3866 0%,#12264a 60%,#0d1b35 100%);box-shadow:inset 0 6px 0 var(--acento)}
+.cartel-generico .cg-tipo{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acento)}
+.cartel-generico .cg-dia{font-family:var(--display);font-size:clamp(56px,7vw,84px);line-height:1;color:var(--amarillo);margin-top:6px}
+.cartel-generico .cg-mes{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.cartel-generico .cg-logo{width:38px;height:50px;margin-top:22px;color:rgba(255,255,255,.35)}
+.cartel-generico .cg-quien{font-family:var(--display);font-size:15px;line-height:1.25;color:rgba(255,255,255,.75);max-width:20ch}
+.entrada:hover .cartel-generico .cg-dia{color:#fff}
+.entrada .info{flex:1;padding:16px 18px 18px}
+.entrada h3{font-size:19px}
+.entrada .desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.entrada .pie-tarjeta{margin-top:auto;padding-top:6px}
+.fecha-linea b{font-size:22px}

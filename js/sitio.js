@@ -311,16 +311,16 @@
     const destino = ev.enlace || `agenda.html#${idEvento(ev)}`;
     const detalles = [ev.hora, ev.lugar].filter(Boolean).join(" · ");
     const quien = tipo === "curso" ? "Curso" : [tipo !== "concierto" ? TIPOS[tipo] : "", e.corto].filter(Boolean).join(" · ");
-    const dia = ev.cartel
-      ? `<a class="dia dia-cartel" href="${esc(destino)}" aria-label="Cartel: ${esc(ev.titulo)}"><span class="cartel-fondo" style="background-image:url('${esc(encodeURI(ev.cartel))}')"></span><img src="${esc(encodeURI(ev.cartel))}" alt="" loading="lazy"></a>`
-      : `<div class="dia"><b>${esc(f.grande)}</b><span>${esc(f.peq)}</span></div>`;
-    return `<li class="entrada tipo-${tipo}${ev.cartel ? " con-cartel" : ""}" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
-      ${dia}
-      <div class="info">${ev.cartel ? `<span class="fecha-linea"><b>${esc(f.grande)}</b> ${esc(f.peq)}</span>` : ""}<span class="quien">${esc(quien)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${ev.enlace ? esc(ev.titulo) : `<a class="enlace-evento" href="${esc(destino)}">${esc(ev.titulo)}</a>`}</h3>
-      ${ev.descripcion ? `<p>${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
+    const visual = ev.cartel
+      ? `<a class="cartel-caja" href="${esc(destino)}" aria-label="Cartel: ${esc(ev.titulo)}"><span class="cartel-fondo" style="background-image:url('${esc(encodeURI(ev.cartel))}')"></span><img src="${esc(encodeURI(ev.cartel))}" alt="" loading="lazy"></a>`
+      : `<a class="cartel-caja cartel-generico" href="${esc(destino)}" tabindex="-1" aria-hidden="true"><span class="cg-tipo">${esc(tipo === "curso" ? "Curso" : TIPOS[tipo])}</span><span class="cg-dia">${esc(f.grande)}</span><span class="cg-mes">${esc(f.peq)}</span><span class="logo-img cg-logo"></span><span class="cg-quien">${esc(tipo === "curso" ? "Costa Musical" : (e.nombre || e.corto))}</span></a>`;
+    return `<li class="entrada tipo-${tipo}" style="--c:${esc(e.color)};--t:${tintaPara(e.color)}">
+      ${visual}
+      <div class="info"><span class="fecha-linea"><b>${esc(f.grande)}</b> ${esc(f.peq)}</span><span class="quien">${esc(quien)}${ev.gratis ? " · Entrada libre" : ""}</span><h3>${ev.enlace ? esc(ev.titulo) : `<a class="enlace-evento" href="${esc(destino)}">${esc(ev.titulo)}</a>`}</h3>
+      ${ev.descripcion ? `<p class="desc">${esc(ev.descripcion)}</p>` : ""}${detalles ? `<p><b>${esc(detalles)}</b></p>` : ""}${ev.precio ? `<p><b>${esc(ev.precio)}</b></p>` : ""}
+      ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}
       ${ev.entradas_url ? `<p><a class="boton amarillo peq" href="${esc(ev.entradas_url)}" rel="noopener" target="_blank">Comprar entradas</a></p>` : ""}
-      ${ev.enlace ? `<p><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : `<p><a class="mas-info" href="${esc(destino)}">Más información →</a></p>`}
-      ${(ev.programa || []).length ? `<details class="programa"><summary>Ver programa</summary><ol>${ev.programa.map(o => `<li><b>${esc(o.obra)}</b>${o.autor ? `<span>${esc(o.autor)}</span>` : ""}</li>`).join("")}</ol></details>` : ""}</div></li>`;
+      ${ev.enlace ? `<p class="pie-tarjeta"><a class="boton marino peq" href="${esc(ev.enlace)}">Ver curso</a></p>` : `<p class="pie-tarjeta"><a class="mas-info" href="${esc(destino)}">Más información →</a></p>`}</div></li>`;
   }
   function pintarEventos(destino, lista, porId, vacio) {
     destino.innerHTML = lista.length ? lista.map(ev => tarjetaEvento(ev, porId)).join("")

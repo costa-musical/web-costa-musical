@@ -51,6 +51,7 @@
       ["galeria.html", "Galería", "galeria"],
       ["unete.html", "Únete", "unete"],
       ["contrataciones.html", "Contrátanos", "contrataciones"],
+      ["historia.html", "Historia", "historia"],
       ["noticias.html", "Noticias", "noticias"],
     ];
     $("#cabecera").innerHTML = `

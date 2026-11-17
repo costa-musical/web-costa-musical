@@ -3,6 +3,7 @@
     {
       "titulo": "Concierto de Santa Cecilia",
       "fecha": "2026-11-22",
+      "tipo": "concierto",
       "fecha_texto": "",
       "agrupacion": "banda",
       "hora": "12:00",
@@ -37,12 +38,12 @@
       ],
       "video": "",
       "album": "",
-      "mapa_url": "",
-      "tipo": "concierto"
+      "mapa_url": ""
     },
     {
       "titulo": "Musical Disney de Navidad",
       "fecha": "2026-12-20",
+      "tipo": "concierto",
       "fecha_texto": "",
       "agrupacion": "banda",
       "hora": "12:00",
@@ -56,12 +57,12 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": "",
-      "tipo": "concierto"
+      "mapa_url": ""
     },
     {
       "titulo": "Concierto de Cuaresma 2027",
       "fecha": "2027-03-19",
+      "tipo": "concierto",
       "fecha_texto": "",
       "agrupacion": "banda",
       "hora": "",
@@ -75,12 +76,12 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": "",
-      "tipo": "concierto"
+      "mapa_url": ""
     },
     {
       "titulo": "Semana Santa",
       "fecha": "2027-03-21",
+      "tipo": "procesion",
       "fecha_texto": "21–28",
       "agrupacion": "banda",
       "hora": "",
@@ -94,12 +95,12 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": "",
-      "tipo": "procesion"
+      "mapa_url": ""
     },
     {
       "titulo": "XXXI Festival de Bandas «Manuel Retamales Martín»",
       "fecha": "2027-07-01",
+      "tipo": "concierto",
       "fecha_texto": "Jul",
       "agrupacion": "banda",
       "hora": "",
@@ -113,18 +114,18 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": "",
-      "tipo": "concierto"
+      "mapa_url": ""
     },
     {
       "titulo": "Gala XX Aniversario Teatro del Mar",
       "fecha": "2026-11-06",
+      "tipo": "concierto",
       "fecha_texto": "",
       "agrupacion": "banda",
       "hora": "20:30",
       "lugar": "Teatro del Mar, Punta Umbría",
       "descripcion": "Celebración del 20 aniversario del Teatro del Mar de Punta Umbría, inaugurado un 3 de noviembre de 2006 y en torno al cual la banda y demás agrupaciones de la asociación han relizado gran parte de su programación cultural estas últimas dos décadas.",
-      "cartel": "/img/subidas/IMG_0525.jpg",
+      "cartel": "/img/subidas/Carteles/IMG_0525.jpg",
       "texto": "",
       "gratis": true,
       "precio": "",
@@ -132,8 +133,7 @@
       "programa": [],
       "video": "",
       "album": "",
-      "mapa_url": "",
-      "tipo": "concierto"
+      "mapa_url": ""
     }
   ]
 }

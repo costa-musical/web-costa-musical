@@ -99,7 +99,7 @@
         <div class="bloque"><b>COSTA MUSICAL</b><span>${esc(aj.nombre)}. Música en Punta Umbría (Huelva) desde 1996.</span></div>
         <div class="bloque"><b>AGRUPACIONES</b><ul>${ens.map(e => `<li><a href="agrupacion.html#${esc(e.id)}">${esc(e.nombre)}</a></li>`).join("")}</ul></div>
         <div class="bloque"><b>CONTACTO</b><ul>${contacto || "<li>Escríbenos desde <a href=\"unete.html#contacto\">el formulario</a></li>"}</ul></div>
-        ${(colab || []).some(c => c && c.logo) ? `<div class="pie-apoyos"><b>CON EL APOYO DE</b>${logosApoyo((colab || []).filter(c => c && c.logo), "logos claros")}</div>` : ""}
+        ${pagina !== "inicio" && (colab || []).some(c => c && c.logo) ? `<div class="pie-apoyos"><b>CON EL APOYO DE</b>${logosApoyo((colab || []).filter(c => c && c.logo), "logos fichas")}</div>` : ""}
         <p class="legal">© ${new Date().getFullYear()} ${esc(aj.nombre)}${aj.cif ? " · CIF " + esc(aj.cif) : ""} · <a href="unete.html#transparencia">Transparencia</a> · <a href="unete.html#privacidad">Privacidad y aviso legal</a></p>
       </div></footer>`;
   }

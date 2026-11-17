@@ -370,8 +370,10 @@ a.filtro[aria-pressed="true"]{background:var(--marino);color:var(--blanco)}
 .logos a,.logos span{display:flex;align-items:center;min-height:56px}
 .logos img{max-height:56px;max-width:160px;object-fit:contain;filter:grayscale(1);opacity:.8;transition:filter .2s ease,opacity .2s ease}
 .logos a:hover img,.logos a:focus-visible img{filter:none;opacity:1}
-.logos.claros img{max-height:44px;filter:grayscale(1) brightness(0) invert(1);opacity:.75}
-.logos.claros a:hover img,.logos.claros a:focus-visible img{filter:none;opacity:1}
+.logos.fichas{gap:10px}
+.logos.fichas a,.logos.fichas span{min-height:0;background:#fff;border-radius:10px;padding:8px 14px;transition:transform .2s ease,box-shadow .2s ease}
+.logos.fichas img{max-height:40px;max-width:130px;filter:none;opacity:1}
+.logos.fichas a:hover,.logos.fichas a:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.35)}
 .pie-apoyos{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)}
 .pie-apoyos b{font-size:12px;letter-spacing:.1em}
 .colab .colab-item{border:2px solid var(--marino);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;color:inherit;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}

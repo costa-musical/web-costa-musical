@@ -448,7 +448,7 @@
         $("#filtros").innerHTML = [["todas", "Todo"], ...usadas.map(e => [e.id, e.corto]), ...tipos.map(t => ["tipo-" + t, TIPOS_PLURAL[t]])]
           .map(([id, t]) => `<button type="button" class="filtro" data-f="${esc(id)}" aria-pressed="${filtro === id}">${esc(t)}</button>`).join("");
         const f = e => filtro === "todas" || (filtro.startsWith("tipo-") ? e.tipo === filtro.slice(5) : e.agrupacion === filtro);
-        pintarEventos($("#agenda-completa"), lista.filter(f), porId, "Próximas actuaciones por anunciar. ¡Atento a Instagram!");
+        pintarEventos($("#agenda-completa"), lista.filter(f), porId, "Próximos eventos por anunciar. ¡Atento a Instagram!");
         const ant = anteriores.filter(f).slice(0, 12);
         $("#bloque-anteriores").hidden = !ant.length;
         $("#agenda-anteriores").innerHTML = ant.map(ev => tarjetaEvento(ev, porId)).join("");

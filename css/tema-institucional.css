@@ -148,7 +148,7 @@ body{background:var(--cielo)}
 .logo .logo-txt{overflow:hidden;text-overflow:clip}
 @media (max-width:440px){
   .cabecera .envoltorio{gap:8px}
-  .logo{font-size:clamp(14px,4.9vw,20px);gap:7px}
+  .logo{font-size:clamp(13px,4.3vw,19px);gap:7px}
   .logo .logo-img{width:24px;height:32px;flex:none}
   .boton-menu{padding:7px 11px}
   .menu-icono{display:inline}.menu-txt{display:none}

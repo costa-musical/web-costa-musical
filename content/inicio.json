@@ -4,12 +4,48 @@
   "entradilla": "Banda, orquesta, big band y lo que está por venir. Si te gusta la música, aquí tienes sitio, para tocar o para escuchar.",
   "carrusel": [
     {
+      "imagen": "/img/subidas/2018 CIBM Valencia/02 Bada Municipal de M+¦sica de Punta Umbria Huelva 868A9658868A9658.webp",
+      "pie": "Certamen Internacional de Bandas de Música de Valencia, 2018"
+    },
+    {
+      "imagen": "/img/subidas/2018 CIBM Valencia/02 Bada Municipal de M+¦sica de Punta Umbria Huelva 868A9533868A9533.webp",
+      "pie": "Certamen Internacional de Bandas de Música de Valencia, 2018"
+    },
+    {
       "imagen": "/img/subidas/2026 Concierto Cuaresma/DSC05103.jpg",
-      "pie": ""
+      "pie": "Concierto de Cuaresma, 2026"
+    },
+    {
+      "imagen": "/img/subidas/2026 Concierto Cuaresma/DSC04926.jpg",
+      "pie": "Concierto de Cuaresma, 2026"
+    },
+    {
+      "imagen": "/img/subidas/2026 Concierto Cuaresma/DSC04882.jpg",
+      "pie": "Concierto de Cuaresma, 2026"
+    },
+    {
+      "imagen": "/img/subidas/2025 Carmen/44e16664-88c1-4297-8f87-6fafff83cb3b.webp",
+      "pie": "Procesión del Carmen, 2025"
+    },
+    {
+      "imagen": "/img/subidas/0000 Momentos Banda/img_4746.jpg",
+      "pie": "Festival de Bandas de Punta Umbría, 2012"
+    },
+    {
+      "imagen": "/img/subidas/0000 Momentos Banda/img_5255.jpg",
+      "pie": "Concierto de Santa Cecilia, 2012"
+    },
+    {
+      "imagen": "/img/subidas/0000 Conciertos de Verano/645.webp",
+      "pie": "Conciertos de Verano, 2010"
+    },
+    {
+      "imagen": "/img/subidas/2006-2012 Orquesta de Punta Umbría/1802.webp",
+      "pie": "Orquesta de Punta Umbría, 2010"
     }
   ],
   "foto_portada": "/img/subidas/2026 Concierto Cuaresma/DSC04880.jpg",
-  "pie_foto": "La Banda de Punta Umbría en la Iglesia del Carmen, 2026",
+  "pie_foto": "Concierto de Cuaresma, 2026",
   "cinta": [
     {
       "texto": "Conciertos",

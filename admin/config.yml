@@ -125,6 +125,42 @@ collections:
               - { name: resumen, label: "Resumen (una o dos frases)", widget: text }
               - { name: texto, label: "Texto completo", widget: text, hint: "Deja una línea en blanco entre párrafos." }
 
+      - name: historia
+        label: Nuestra historia
+        file: content/historia.json
+        fields:
+          - { name: titulo, label: "Título", widget: string }
+          - { name: entradilla, label: Entradilla, widget: text }
+          - name: hitos
+            label: "Línea del tiempo"
+            label_singular: hito
+            widget: list
+            summary: "{{fields.anio}} · {{fields.titulo}}"
+            hint: "Ordénalos del más antiguo al más reciente arrastrándolos."
+            fields:
+              - { name: anio, label: "Año (o periodo)", widget: string, hint: "Por ejemplo 1996 o 2006–2012" }
+              - { name: titulo, label: "Título", widget: string }
+              - { name: texto, label: Texto, widget: text, required: false }
+              - { name: imagen, label: "Foto (opcional)", widget: image, required: false, hint: "Si no pones foto y eliges un álbum, se usa la portada del álbum." }
+              - name: album
+                label: "Álbum de la galería (opcional)"
+                widget: relation
+                collection: contenido
+                file: galeria
+                value_field: "albumes.*.id"
+                search_fields: ["albumes.*.titulo"]
+                display_fields: ["albumes.*.titulo"]
+                required: false
+          - name: directores
+            label: Directores de la banda
+            label_singular: director
+            widget: list
+            summary: "{{fields.nombre}} ({{fields.periodo}})"
+            fields:
+              - { name: nombre, label: Nombre, widget: string }
+              - { name: periodo, label: Periodo, widget: string }
+          - { name: cierre, label: "Texto final (llamada a antiguos músicos)", widget: text, required: false }
+
       - name: cursos
         label: Cursos e inscripciones
         file: content/cursos.json
@@ -354,6 +390,8 @@ collections:
           - { name: instagram, label: "Instagram (con @)", widget: string, required: false }
           - { name: tiktok, label: "TikTok (con @)", widget: string, required: false }
           - { name: mostrar_tiktok, label: "Mostrar los vídeos de TikTok en Portada y Noticias", widget: boolean, default: true, required: false }
+          - { name: canal_whatsapp, label: "Enlace del canal de WhatsApp (opcional)", widget: string, required: false, hint: "En WhatsApp: Novedades → tu canal → Compartir enlace. Si lo rellenas, aparece «Síguenos en WhatsApp» en la portada y en el pie." }
+          - { name: boletin_url, label: "Enlace para apuntarse a la lista de correo (opcional)", widget: string, required: false }
           - { name: youtube, label: "YouTube (con @)", widget: string, required: false }
           - { name: facebook, label: "Facebook (enlace)", widget: string, required: false }
           - { name: cif, label: CIF, widget: string, required: false }

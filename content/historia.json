@@ -1,0 +1,117 @@
+{
+  "titulo": "Nuestra historia",
+  "entradilla": "Treinta años de música en Punta Umbría. Una banda que nació un día de Santa Cecilia, una orquesta que salió de un grupo de alumnos de cuerda y cientos de músicos que han pasado por nuestros atriles.",
+  "hitos": [
+    {
+      "anio": "1996",
+      "titulo": "Nace la Banda de Música de Punta Umbría",
+      "texto": "El 22 de noviembre de 1996, día de Santa Cecilia, patrona de los músicos, la banda da sus primeros pasos de la mano de su fundador y primer director, Francisco Escobar.",
+      "imagen": "",
+      "album": ""
+    },
+    {
+      "anio": "2002",
+      "titulo": "Certamen de Bandas de Villafranca de los Barros",
+      "texto": "Primera gran salida a concurso: la banda obtiene el tercer premio en el certamen de Villafranca de los Barros (Badajoz).",
+      "imagen": "",
+      "album": ""
+    },
+    {
+      "anio": "2004",
+      "titulo": "Certamen de Andalucía en Chauchina",
+      "texto": "La banda participa en el Certamen de Bandas de Música de Andalucía, en Chauchina (Granada).",
+      "imagen": "",
+      "album": ""
+    },
+    {
+      "anio": "2005",
+      "titulo": "Hermanamientos internacionales",
+      "texto": "Intercambios y hermanamientos con la banda de Loulé (Portugal) y con una localidad italiana cercana a Roma.",
+      "imagen": "",
+      "album": ""
+    },
+    {
+      "anio": "2006",
+      "titulo": "Nace la Orquesta de Punta Umbría",
+      "texto": "Un grupo de cuerdas formado por alumnos de la Escuela de Música crece hasta convertirse en una pequeña orquesta sinfónica, dirigida por Francisco José Escobar Hernández. Entre 2006 y 2009 Punta Umbría acoge además el festival Eurochestries.",
+      "imagen": "",
+      "album": "orquesta-historico"
+    },
+    {
+      "anio": "2012",
+      "titulo": "Vuelta a Chauchina y última temporada de la orquesta",
+      "texto": "La banda vuelve al certamen de Chauchina y la orquesta cierra su etapa tras seis temporadas.",
+      "imagen": "",
+      "album": ""
+    },
+    {
+      "anio": "2015",
+      "titulo": "VII Festival Interprovincial de Bandas de Almería",
+      "texto": "La banda lleva su música a Almería.",
+      "imagen": "",
+      "album": "almeria-2015"
+    },
+    {
+      "anio": "2017",
+      "titulo": "IV Certamen «Villa de Olivares»",
+      "texto": "Nueva participación en certamen, en Olivares (Sevilla).",
+      "imagen": "",
+      "album": "olivares-2017"
+    },
+    {
+      "anio": "2018",
+      "titulo": "132.º Certamen Internacional «Ciutat de València»",
+      "texto": "La banda sube al escenario del Palau de la Música de Valencia en uno de los certámenes de bandas más prestigiosos del mundo.",
+      "imagen": "",
+      "album": "valencia-2018"
+    },
+    {
+      "anio": "2021",
+      "titulo": "Sergio del Toro, director",
+      "texto": "Comienza una nueva etapa artística con Sergio del Toro al frente de la banda.",
+      "imagen": "",
+      "album": ""
+    },
+    {
+      "anio": "2025",
+      "titulo": "Nace la Asociación Cultural Costa Musical",
+      "texto": "Se crea la asociación que hoy reúne a la banda y a las nuevas agrupaciones, y arranca la Punta Umbría Trumpet Academy.",
+      "imagen": "",
+      "album": "berrocal-2025"
+    },
+    {
+      "anio": "2026",
+      "titulo": "30 aniversario",
+      "texto": "El Festival de Bandas de Punta Umbría celebra su 30.ª edición y pasa a llevar el nombre de Manuel Retamales Martín, trompetista de la banda. El concierto de Santa Cecilia abre la temporada del 30 aniversario.",
+      "imagen": "",
+      "album": "cuaresma-2026"
+    }
+  ],
+  "directores": [
+    {
+      "nombre": "Francisco Escobar",
+      "periodo": "1996–2007 y 2009–2010"
+    },
+    {
+      "nombre": "Ildefonso Moreno",
+      "periodo": "2008–2009 y 2010–2013"
+    },
+    {
+      "nombre": "José Colomé",
+      "periodo": "2013–2014"
+    },
+    {
+      "nombre": "Nicolás Díaz",
+      "periodo": "2014–2015"
+    },
+    {
+      "nombre": "Francisco de la Poza",
+      "periodo": "2016–2021"
+    },
+    {
+      "nombre": "Sergio del Toro",
+      "periodo": "2021–hoy"
+    }
+  ],
+  "cierre": "¿Tocaste con nosotros en algún momento de estos treinta años? Escríbenos: estamos reuniendo fotos, recuerdos y a antiguos músicos para celebrarlo juntos."
+}

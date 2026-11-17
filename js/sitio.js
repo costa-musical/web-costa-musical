@@ -93,6 +93,8 @@
     const tel = aj.telefono ? String(aj.telefono).replace(/[^\d+]/g, "") : "";
     const contacto = [aj.correo && `<li><a href="mailto:${esc(aj.correo)}">${esc(aj.correo)}</a></li>`,
       aj.telefono && `<li><a href="tel:${esc(tel)}">${esc(aj.telefono)}</a></li>`,
+      aj.canal_whatsapp && `<li><a href="${esc(aj.canal_whatsapp)}" target="_blank" rel="noopener">Canal de WhatsApp</a></li>`,
+      aj.boletin_url && `<li><a href="${esc(aj.boletin_url)}" target="_blank" rel="noopener">Lista de correo</a></li>`,
       ...redes(aj).map(([red, url, txt]) => `<li><a href="${esc(url)}" rel="noopener">${red}${red === "Facebook" ? "" : " " + esc(txt)}</a></li>`)].filter(Boolean).join("");
     $("#pie").innerHTML = `
       <footer class="pie"><div class="envoltorio">
@@ -100,7 +102,7 @@
         <div class="bloque"><b>AGRUPACIONES</b><ul>${ens.map(e => `<li><a href="agrupacion.html#${esc(e.id)}">${esc(e.nombre)}</a></li>`).join("")}</ul></div>
         <div class="bloque"><b>CONTACTO</b><ul>${contacto || "<li>Escríbenos desde <a href=\"unete.html#contacto\">el formulario</a></li>"}</ul></div>
         ${pagina !== "inicio" && (colab || []).some(c => c && c.logo) ? `<div class="pie-apoyos"><b>CON EL APOYO DE</b>${logosApoyo((colab || []).filter(c => c && c.logo), "logos fichas")}</div>` : ""}
-        <p class="legal">© ${new Date().getFullYear()} ${esc(aj.nombre)}${aj.cif ? " · CIF " + esc(aj.cif) : ""} · <a href="unete.html#transparencia">Transparencia</a> · <a href="unete.html#privacidad">Privacidad y aviso legal</a></p>
+        <p class="legal">© ${new Date().getFullYear()} ${esc(aj.nombre)}${aj.cif ? " · CIF " + esc(aj.cif) : ""} · <a href="historia.html">Nuestra historia</a> · <a href="unete.html#transparencia">Transparencia</a> · <a href="unete.html#privacidad">Privacidad y aviso legal</a></p>
       </div></footer>`;
   }
 
@@ -241,10 +243,11 @@
       a.download = `${slug(ev.titulo) || "evento"}.ics`; document.body.appendChild(a); a.click(); a.remove();
     });
     $("#ev-compartir").addEventListener("click", async () => {
-      const datos = { title: ev.titulo, text: `${ev.titulo} · ${cuando}${ev.lugar ? " · " + ev.lugar : ""}`, url: location.href };
+      const enlace = `${location.origin}/evento/${encodeURIComponent(idEvento(ev))}`;
+      const datos = { title: ev.titulo, text: `${ev.titulo} · ${cuando}${ev.lugar ? " · " + ev.lugar : ""}`, url: enlace };
       try {
         if (navigator.share) { await navigator.share(datos); return; }
-        await navigator.clipboard.writeText(location.href); aviso.hidden = false; aviso.textContent = "Enlace copiado. Pégalo donde quieras.";
+        await navigator.clipboard.writeText(enlace); aviso.hidden = false; aviso.textContent = "Enlace copiado. Pégalo donde quieras.";
       } catch (_) { /* cancelado */ }
     });
     const v = $("#evento .video-lite");
@@ -308,7 +311,7 @@
   function tarjetaEvento(ev, porId) {
     const e = porId[ev.agrupacion] || { corto: "Costa Musical", color: "#ffcc29" };
     const f = etiquetaFecha(ev), tipo = TIPOS[ev.tipo] ? ev.tipo : "concierto";
-    const destino = ev.enlace || `agenda.html#${idEvento(ev)}`;
+    const destino = ev.enlace || `/evento/${encodeURIComponent(idEvento(ev))}`;
     const detalles = [ev.hora, ev.lugar].filter(Boolean).join(" · ");
     const quien = tipo === "curso" ? "Curso" : [tipo !== "concierto" ? TIPOS[tipo] : "", e.corto].filter(Boolean).join(" · ");
     const visual = ev.cartel
@@ -454,7 +457,7 @@
         $("#agenda-anteriores").innerHTML = ant.map(ev => tarjetaEvento(ev, porId)).join("");
       }
       function pintar() {
-        const h = decodeURIComponent(location.hash.slice(1));
+        const h = document.body.dataset.evento || decodeURIComponent(location.hash.slice(1));
         const ev = eventos.find(e => !e.enlace && idEvento(e) === h);
         $("#vista-agenda").hidden = !!ev; $("#cab-agenda").hidden = !!ev; $("#evento").hidden = !ev;
         if (ev) { pintarEvento(ev, d); window.scrollTo(0, 0); return; }
@@ -462,6 +465,16 @@
         if (porId[h] || h.startsWith("tipo-")) filtro = h === "tipo-cursos" ? "tipo-curso" : h;
         pintarLista();
       }
+      // Suscribirse a la agenda (se actualiza sola en el calendario del móvil)
+      const ics = `${location.host}/agenda.ics`;
+      const sus = $("#suscribir");
+      if (sus) sus.innerHTML = `<details class="suscribir"><summary class="boton blanco peq">📅 Añadir la agenda a mi calendario</summary>
+        <div class="suscribir-menu"><p>Los conciertos aparecerán en tu calendario y se actualizarán solos.</p>
+        <a class="boton marino peq" href="https://calendar.google.com/calendar/r?cid=${encodeURIComponent("webcal://" + ics)}" target="_blank" rel="noopener">Google Calendar / Android</a>
+        <a class="boton marino peq" href="webcal://${ics}">iPhone, Mac u Outlook</a>
+        <button type="button" class="boton blanco peq" id="copiar-ics">Copiar enlace</button></div></details>`;
+      const cp = $("#copiar-ics");
+      if (cp) cp.addEventListener("click", async () => { try { await navigator.clipboard.writeText("https://" + ics); cp.textContent = "Enlace copiado"; } catch (_) { prompt("Copia este enlace:", "https://" + ics); } });
       $("#filtros").addEventListener("click", ev => { const b = ev.target.closest("[data-f]"); if (b) { filtro = b.dataset.f; pintarLista(); } });
       window.addEventListener("hashchange", pintar);
       pintar();
@@ -620,7 +633,7 @@
             <p class="etq-album">${esc(album.categoria || "")}${album.fecha ? " · " + String(album.fecha).slice(0, 4) : ""}</p>
             <h1 class="titulo">${esc(album.titulo)}</h1>
             ${album.descripcion ? `<p class="entradilla">${esc(album.descripcion)}</p>` : ""}
-            ${album.evento ? `<p><a class="boton blanco peq" href="agenda.html#${esc(album.evento)}">Ver la página del evento</a></p>` : ""}
+            ${album.evento ? `<p><a class="boton blanco peq" href="/evento/${esc(encodeURIComponent(album.evento))}">Ver la página del evento</a></p>` : ""}
             ${vids.length ? `<div class="videos">${vids.map(v => `<div class="video"><button type="button" class="video-lite" data-yt="${esc(v.id)}" style="background-image:url('https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg')" aria-label="Reproducir: ${esc(v.titulo || "vídeo")}"><span class="play" aria-hidden="true">▶</span></button>${v.titulo ? `<p>${esc(v.titulo)}</p>` : ""}</div>`).join("")}</div>` : ""}
             ${fotosVisor.length ? `<div class="fotos">${fotosVisor.map((f, i) => `<button type="button" class="miniatura" data-i="${i}" aria-label="Ampliar foto ${i + 1}${f.pie ? ": " + esc(f.pie) : ""}"><img src="${esc(encodeURI(f.imagen))}" alt="${esc(f.pie || "")}" loading="lazy"></button>`).join("")}</div>` : ""}`;
           $$("#album .miniatura").forEach(b => b.addEventListener("click", () => { verFoto(+b.dataset.i); try { visor.showModal(); } catch (_) { visor.setAttribute("open", ""); } }));
@@ -644,6 +657,26 @@
       }
       window.addEventListener("hashchange", pintar);
       pintar();
+    },
+
+    historia(d) {
+      cargar("historia").then(h => {
+        if (h.titulo) $("#h-titulo").textContent = h.titulo;
+        $("#h-entradilla").textContent = h.entradilla || "";
+        const alb = id => (d.albumes || []).find(a => a.id === id);
+        $("#linea-tiempo").innerHTML = (h.hitos || []).filter(x => x && x.titulo).map(x => {
+          const a = x.album && alb(x.album);
+          const img = x.imagen || (a && (a.portada || (a.fotos[0] || {}).imagen)) || "";
+          return `<li class="hito">
+            <div class="hito-anio">${esc(x.anio)}</div>
+            <div class="hito-cuerpo">
+              ${img ? `<a class="hito-img" ${a ? `href="galeria.html#${esc(a.id)}"` : ""}><img src="${esc(encodeURI(img))}" alt="" loading="lazy"></a>` : ""}
+              <div class="pila"><h2>${esc(x.titulo)}</h2>${x.texto ? `<p>${esc(x.texto)}</p>` : ""}
+              ${a && a.fotos.length ? `<p><a class="mas-info" href="galeria.html#${esc(a.id)}">Ver fotos (${a.fotos.length}) →</a></p>` : ""}</div>
+            </div></li>`; }).join("");
+        $("#directores").innerHTML = (h.directores || []).filter(x => x && x.nombre).map(x => `<li><b>${esc(x.nombre)}</b><span>${esc(x.periodo || "")}</span></li>`).join("");
+        if (h.cierre) $("#h-cierre").textContent = h.cierre; else $("#h-cierre-caja").hidden = true;
+      }).catch(() => { $("#linea-tiempo").innerHTML = `<li class="vacio">No se ha podido cargar la historia.</li>`; });
     },
 
     noticias(d) {
@@ -729,6 +762,12 @@
         if (paginas[pagina]) paginas[pagina](datos);
         if (pagina === "unete") paginas.asociacion(datos);
         bloqueTiktok(ajustes);
+        const nov = $("#bloque-novedades");
+        if (nov && (ajustes.canal_whatsapp || ajustes.boletin_url)) {
+          nov.hidden = false;
+          $("#novedades-botones").innerHTML = [ajustes.canal_whatsapp && `<a class="boton amarillo" href="${esc(ajustes.canal_whatsapp)}" target="_blank" rel="noopener">Seguir el canal de WhatsApp</a>`,
+            ajustes.boletin_url && `<a class="boton blanco" href="${esc(ajustes.boletin_url)}" target="_blank" rel="noopener">Apuntarme a la lista de correo</a>`].filter(Boolean).join("");
+        }
       });
     });
 })();

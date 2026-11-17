@@ -8,7 +8,7 @@
       "color": "#ffcc29",
       "etiqueta": "Desde 1996",
       "lema": "Unos cuarenta músicos de viento y percusión. En la calle, en el teatro y en los certámenes desde 1996.",
-      "foto": "/img/subidas/cibm-valencia-2018-2.jpg",
+      "foto": "/img/subidas/2018 CIBM Valencia/cibm-valencia-2018-2.jpg",
       "descripcion": "La Banda de Música de Punta Umbría nació el 22 de noviembre de 1996, día de Santa Cecilia, de la mano de su fundador y primer director, Francisco Escobar. Desde entonces se ha formado en las aulas de la Escuela Municipal de Música «Francisco Rodríguez Cermeño», por donde han pasado varias generaciones de músicos del pueblo.\n\nMuy pronto la banda empezó a salir a certámenes: en 2002 obtuvo el tercer premio en el Certamen de Bandas de Villafranca de los Barros (Badajoz) y en 2004 participó en el Certamen de Bandas de Música de Andalucía, en Chauchina (Granada), el más antiguo de la comunidad, donde volvió a tocar en 2012.\n\nEn esos años la banda abrió Punta Umbría al exterior: se hermanó con la banda de Loulé (Portugal) y con una formación italiana, y entre 2006 y 2009 acogió el festival internacional Eurochestries, que reunió en el municipio a jóvenes músicos de toda Europa. En 2009 fue la banda la que viajó al Eurochestries de Jonzac, en Francia.\n\nEn 2016, con motivo de su 20 aniversario, grabó un disco con la música más ligada al pueblo, que incluye la primera grabación del Himno de Punta Umbría. Al año siguiente llegó su mayor éxito en competición, el primer premio en el Certamen Nacional «Villa de Olivares» (Sevilla). En 2018 logró el tercer premio en la Primera Sección del Certamen Internacional de Bandas «Ciudad de Valencia», uno de los más prestigiosos del mundo, ambos bajo la dirección de Francisco Andrés de la Poza.\n\nA lo largo de estos años han dirigido la banda Francisco Escobar, Ildefonso Moreno, José Colomé, Nicolás Díaz, Francisco Andrés de la Poza y, desde 2021, Sergio del Toro.\n\nHoy la forman unos cuarenta músicos de viento y percusión. Toca en conciertos de temporada, en las procesiones de los patrones y de Semana Santa, en pasacalles y en el Festival de Bandas de verano, que en 2026 celebró su 30.ª edición dedicada a Manuel Retamales Martín. Desde 2025 la gestiona la Asociación Cultural Costa Musical, y en este curso 2026/2027 celebra sus 30 años de historia.",
       "formacion": "~40 músicos de viento y percusión",
       "direccion": "Sergio del Toro",
@@ -110,17 +110,17 @@
         "Violonchello",
         "Contrabajo"
       ],
-      "servicio": "Procesiones, pasacalles, conciertos y actos institucionales"
+      "servicio": "Procesiones, pasacalles, conciertos, galas y actos institucionales"
     },
     {
       "id": "orquesta",
       "nombre": "Orquesta de Punta Umbría",
       "corto": "Orquesta",
-      "estado": "activa",
+      "estado": "proyecto",
       "color": "#e04f5f",
-      "etiqueta": "Desde 2006",
+      "etiqueta": "Desde 2006, Próximamente",
       "lema": "Nació en 2006 como grupo de cuerda de alumnos de la Escuela y llegó a ser una pequeña orquesta sinfónica.",
-      "foto": "/img/subidas/2006-2012 Orquesta de Punta Umbría/punta_umbria_orquesta_sinfonica.webp",
+      "foto": "/img/subidas/2006-2012 Orquesta de Punta Umbría/1802.webp",
       "descripcion": "A finales de 2006 un grupo de alumnos de cuerda de la Escuela Municipal de Música empezó a tocar junto. Fue creciendo hasta convertirse en una pequeña orquesta sinfónica, dirigida durante casi toda su trayectoria por Francisco José Escobar Hernández, y participó en los festivales Eurochestries de Punta Umbría.\n\nHoy estamos reuniendo de nuevo a músicos de cuerda, de entonces y de ahora.",
       "formacion": "Cuerda y vientos invitados",
       "direccion": "Por anunciar",
@@ -152,7 +152,7 @@
         "Violonchelo",
         "Contrabajo"
       ],
-      "servicio": "Conciertos sinfónicos y de cuerda"
+      "servicio": "Conciertos sinfónicos y de cuerda, galas y eventos de empresas"
     },
     {
       "id": "big-band",
@@ -214,7 +214,7 @@
       "estado": "proyecto",
       "color": "#9a86d0",
       "etiqueta": "Próximamente",
-      "lema": "Pequeños grupos en conciertos íntimos a la luz de las velas, en espacios singulares de Punta Umbría.",
+      "lema": "Pequeños grupos en conciertos íntimos a la luz de las velas, en espacios singulares de Punta Umbría y la provincia de Huelva.",
       "foto": "",
       "descripcion": "Cuartetos, quintetos y pequeños grupos de cámara con aforo reducido y cientos de velas. Clásicos, bandas sonoras y música popular arreglada para pequeño formato, en conciertos de unos 60 minutos.",
       "formacion": "Cuartetos y quintetos",

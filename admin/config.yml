@@ -36,6 +36,9 @@ collections:
         file: content/agenda.json
         fields:
           - name: eventos
+            collapsed: true
+            minimize_collapsed: true
+            add_to_top: true
             label: Eventos
             label_singular: evento
             widget: list
@@ -72,6 +75,7 @@ collections:
               - { name: precio, label: "Precio (si no es gratis)", widget: string, required: false, hint: "Por ejemplo «8 € · niños gratis»" }
               - { name: entradas_url, label: "Enlace para comprar entradas", widget: string, required: false, hint: "El enlace de la plataforma de venta. Aparecerá un botón «Comprar entradas»." }
               - name: programa
+                collapsed: true
                 label: "Programa (opcional)"
                 widget: list
                 required: false
@@ -97,6 +101,7 @@ collections:
                 required: false
                 hint: "Si eliges un álbum, las fotos de arriba se suman a él."
               - name: apoyos
+                collapsed: true
                 label: "Patrocinadores / con el apoyo de (este evento)"
                 label_singular: patrocinador
                 widget: list
@@ -113,6 +118,9 @@ collections:
         file: content/noticias.json
         fields:
           - name: noticias
+            collapsed: true
+            minimize_collapsed: true
+            add_to_top: true
             label: Noticias
             label_singular: noticia
             widget: list
@@ -132,6 +140,7 @@ collections:
           - { name: titulo, label: "Título", widget: string }
           - { name: entradilla, label: Entradilla, widget: text }
           - name: hitos
+            collapsed: true
             label: "Línea del tiempo"
             label_singular: hito
             widget: list
@@ -152,6 +161,7 @@ collections:
                 display_fields: ["albumes.*.titulo"]
                 required: false
           - name: directores
+            collapsed: true
             label: Directores de la banda
             label_singular: director
             widget: list
@@ -166,6 +176,9 @@ collections:
         file: content/cursos.json
         fields:
           - name: cursos
+            collapsed: true
+            minimize_collapsed: true
+            add_to_top: true
             label: Cursos
             label_singular: curso
             widget: list
@@ -194,6 +207,7 @@ collections:
                 hint: "Si pones más de una, en la inscripción aparece un desplegable para elegir. Si lo dejas vacío, se pregunta el instrumento con texto libre."
                 field: { name: especialidad, label: Especialidad, widget: string }
               - name: encuentros
+                collapsed: true
                 label: "Fechas / encuentros"
                 label_singular: encuentro
                 widget: list
@@ -222,6 +236,7 @@ collections:
               - { name: plazas, label: Plazas, widget: string, required: false }
               - { name: foto, label: Foto, widget: image, required: false }
               - name: profesorado
+                collapsed: true
                 label: Profesorado
                 widget: list
                 required: false
@@ -238,6 +253,9 @@ collections:
         file: content/galeria.json
         fields:
           - name: albumes
+            collapsed: true
+            minimize_collapsed: true
+            add_to_top: true
             label: Álbumes
             label_singular: álbum
             widget: list
@@ -253,6 +271,7 @@ collections:
               - { name: descripcion, label: "Descripción corta", widget: text, required: false }
               - { name: portada, label: "Foto de portada del álbum", widget: image, required: false, hint: "Si la dejas vacía se usa la primera foto o el primer vídeo." }
               - name: fotos
+                collapsed: true
                 label: Fotos
                 label_singular: foto
                 widget: list
@@ -268,6 +287,7 @@ collections:
                 required: false
                 hint: "Selecciona todas las fotos de una carpeta a la vez (Ctrl+A o Cmd+A) o arrástralas. Se muestran después de las fotos con pie."
               - name: videos
+                collapsed: true
                 label: "Vídeos de YouTube"
                 label_singular: vídeo
                 widget: list
@@ -285,6 +305,7 @@ collections:
           - { name: titular_destacado, label: "Titular (línea en amarillo)", widget: string }
           - { name: entradilla, label: Entradilla, widget: text }
           - name: carrusel
+            collapsed: true
             label: "Carrusel de fotos de portada"
             label_singular: foto
             widget: list
@@ -310,6 +331,7 @@ collections:
               - { name: instrumento, label: Instrumento, widget: string, required: false }
               - { name: desde, label: "En la banda desde (año)", widget: string, required: false }
           - name: colaboradores
+            collapsed: true
             label: "Patrocinadores y colaboradores"
             label_singular: patrocinador
             widget: list
@@ -326,6 +348,7 @@ collections:
         file: content/agrupaciones.json
         fields:
           - name: agrupaciones
+            collapsed: true
             label: Agrupaciones
             label_singular: agrupación
             widget: list
@@ -359,6 +382,7 @@ collections:
                   - { name: anio, label: Año, widget: string }
                   - { name: texto, label: Texto, widget: string }
               - name: directores
+                collapsed: true
                 label: Directores
                 widget: list
                 required: false
@@ -373,6 +397,7 @@ collections:
         file: content/contrataciones.json
         fields:
           - name: actos
+            collapsed: true
             label: "Tipos de acto"
             widget: list
             fields:

@@ -113,6 +113,33 @@
       "servicio": "Procesiones, pasacalles, conciertos, galas y actos institucionales"
     },
     {
+      "id": "big-band",
+      "nombre": "Big Band",
+      "corto": "Big Band",
+      "estado": "activa",
+      "color": "#12305a",
+      "etiqueta": "Swing · Latin · Funk",
+      "lema": "Saxofones, trompetas, trombones y sección rítmica para swing, latin y funk.",
+      "foto": "",
+      "descripcion": "La big band reúne a saxofones, trompetas, trombones y sección rítmica para tocar el repertorio clásico del jazz de gran formato y temas actuales arreglados para big band. Es la formación ideal para conciertos de verano, terrazas, festivales y eventos privados.",
+      "formacion": "Saxos, metales y sección rítmica",
+      "direccion": "Por anunciar",
+      "repertorio": "Swing, latin, funk y pop",
+      "ensayos": "Por anunciar",
+      "cifras": [],
+      "historia": [],
+      "directores": [],
+      "buscamos": [
+        "Saxofón",
+        "Trompeta",
+        "Trombón",
+        "Piano",
+        "Guitarra o bajo",
+        "Batería"
+      ],
+      "servicio": "Conciertos, bodas, galas y eventos de empresa"
+    },
+    {
       "id": "orquesta",
       "nombre": "Orquesta de Punta Umbría",
       "corto": "Orquesta",
@@ -155,59 +182,6 @@
       "servicio": "Conciertos sinfónicos y de cuerda, galas y eventos de empresas"
     },
     {
-      "id": "big-band",
-      "nombre": "Big Band",
-      "corto": "Big Band",
-      "estado": "activa",
-      "color": "#12305a",
-      "etiqueta": "Swing · Latin · Funk",
-      "lema": "Saxofones, trompetas, trombones y sección rítmica para swing, latin y funk.",
-      "foto": "",
-      "descripcion": "La big band reúne a saxofones, trompetas, trombones y sección rítmica para tocar el repertorio clásico del jazz de gran formato y temas actuales arreglados para big band. Es la formación ideal para conciertos de verano, terrazas, festivales y eventos privados.",
-      "formacion": "Saxos, metales y sección rítmica",
-      "direccion": "Por anunciar",
-      "repertorio": "Swing, latin, funk y pop",
-      "ensayos": "Por anunciar",
-      "cifras": [],
-      "historia": [],
-      "directores": [],
-      "buscamos": [
-        "Saxofón",
-        "Trompeta",
-        "Trombón",
-        "Piano",
-        "Guitarra o bajo",
-        "Batería"
-      ],
-      "servicio": "Conciertos, bodas, galas y eventos de empresa"
-    },
-    {
-      "id": "charanga",
-      "nombre": "Charanga",
-      "corto": "Charanga",
-      "estado": "proyecto",
-      "color": "#3f9a72",
-      "etiqueta": "Próximamente",
-      "lema": "Un grupo pequeño y ágil de metales, saxos y percusión para fiestas, pasacalles y celebraciones.",
-      "foto": "",
-      "descripcion": "Estamos formando una charanga que pueda ir a cualquier sitio, desde un pasacalles hasta una boda o una fiesta de barrio. Si te apetece formar parte desde el principio, este es el momento.",
-      "formacion": "8–12 músicos",
-      "direccion": "",
-      "repertorio": "Pasodobles y música de fiesta",
-      "ensayos": "",
-      "cifras": [],
-      "historia": [],
-      "directores": [],
-      "buscamos": [
-        "Trompeta",
-        "Trombón",
-        "Saxofón",
-        "Bombardino o tuba",
-        "Percusión"
-      ],
-      "servicio": "Fiestas, bodas y pasacalles (próximamente)"
-    },
-    {
       "id": "camara",
       "nombre": "Música de cámara",
       "corto": "Cámara",
@@ -234,6 +208,32 @@
         "Piano"
       ],
       "servicio": "Conciertos íntimos y ceremonias (próximamente)"
+    },
+    {
+      "id": "charanga",
+      "nombre": "Charanga",
+      "corto": "Charanga",
+      "estado": "proyecto",
+      "color": "#3f9a72",
+      "etiqueta": "Próximamente",
+      "lema": "Un grupo pequeño y ágil de metales, saxos y percusión para fiestas, pasacalles y celebraciones.",
+      "foto": "",
+      "descripcion": "Estamos formando una charanga que pueda ir a cualquier sitio, desde un pasacalles hasta una boda o una fiesta de barrio. Si te apetece formar parte desde el principio, este es el momento.",
+      "formacion": "8–12 músicos",
+      "direccion": "",
+      "repertorio": "Pasodobles y música de fiesta",
+      "ensayos": "",
+      "cifras": [],
+      "historia": [],
+      "directores": [],
+      "buscamos": [
+        "Trompeta",
+        "Trombón",
+        "Saxofón",
+        "Bombardino o tuba",
+        "Percusión"
+      ],
+      "servicio": "Fiestas, bodas y pasacalles (próximamente)"
     }
   ]
 }

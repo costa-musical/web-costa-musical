@@ -56,7 +56,7 @@
     $("#cabecera").innerHTML = `
       <header class="cabecera"><div class="envoltorio">
         <a class="logo" href="index.html" aria-label="Costa Musical, inicio"><span class="logo-img" aria-hidden="true"></span><span class="logo-txt">COSTA<span>MUSICAL</span></span></a>
-        <button class="boton-menu" id="boton-menu" aria-expanded="false" aria-controls="menu">Menú</button>
+        <button class="boton-menu" id="boton-menu" aria-expanded="false" aria-controls="menu" aria-label="Menú"><span class="menu-icono" aria-hidden="true">☰</span><span class="menu-txt">Menú</span></button>
         <ul class="menu" id="menu">${enlaces.map(([h, t, p]) => `<li><a href="${h}"${p === pagina ? ' aria-current="page"' : ""}>${t}</a></li>`).join("")}</ul>
         <a class="boton marino peq enlace-ensembli" href="unete.html#socios" aria-label="Área de socios"><span class="socios-largo">Área de socios</span><span class="socios-corto" aria-hidden="true">Socios</span><span class="socios-txt" aria-hidden="true"> →</span></a>
       </div></header>`;

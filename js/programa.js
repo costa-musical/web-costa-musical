@@ -26,7 +26,7 @@
     const apoyos = [...(ev.apoyos || []), ...((ini.colaboradores || []).filter(c => c && c.logo))].filter((c, i, t) => c && c.nombre && t.findIndex(x => x.nombre === c.nombre) === i);
     const hoy = fecha(ev.fecha);
     const proximos = eventos.filter(e => fecha(e.fecha) > hoy && e !== ev).sort((a, b) => a.fecha.localeCompare(b.fecha)).slice(0, 3);
-    const redes = [aj.instagram && `Instagram ${aj.instagram}`, aj.tiktok && `TikTok ${aj.tiktok}`, aj.youtube && `YouTube ${aj.youtube}`].filter(Boolean).join(" · ");
+    const redes = [aj.instagram && `Instagram ${aj.instagram}`, aj.tiktok && `TikTok ${aj.tiktok}`, aj.youtube && `YouTube ${aj.youtube}`].filter(Boolean);
     document.title = `Programa de mano · ${ev.titulo} · Costa Musical`;
     $("#volver").href = `/evento/${encodeURIComponent(idEvento(ev))}`;
 
@@ -36,10 +36,10 @@
 
     const contra = `<section class="panel contra">
       <div class="marca"><span class="lira"></span><b>COSTAMUSICAL</b><span>Asociación Cultural Costa Musical · Punta Umbría</span></div>
-      ${proximos.length ? `<div class="prox"><h3>Próximas citas</h3><ul>${proximos.map(e => `<li><b>${esc(corta(e))}</b><span>${esc(e.titulo)}${e.lugar ? " · " + esc(e.lugar.split(",")[0]) : ""}</span></li>`).join("")}</ul></div>` : ""}
+      ${proximos.length ? `<div class="prox"><h3>Próximas citas</h3><ul>${proximos.map(e => `<li><b>${esc(corta(e))}</b><span>${esc(e.titulo)}${e.lugar && !/^\s*salida/i.test(e.lugar) ? " · " + esc(e.lugar.split(",")[0]) : ""}</span></li>`).join("")}</ul></div>` : ""}
       <div class="qr"><img src="${qr(url)}" alt=""><div><b>Toda la información en la web</b><span>${esc(web.replace(/^https?:\/\//, ""))}<br>Agenda, fotos, cursos y cómo unirte.</span></div></div>
       ${apoyos.length ? `<div><h3>Con el apoyo de</h3><div class="apoyos">${apoyos.map(c => c.logo ? `<img src="${esc(encodeURI(c.logo))}" alt="${esc(c.nombre)}">` : `<b>${esc(c.nombre)}</b>`).join("")}</div></div>` : ""}
-      ${redes ? `<p class="redes">${esc(redes)}</p>` : ""}
+      ${redes.length ? `<p class="redes">${redes.map(r => `<span>${esc(r)}</span>`).join(" · ")}</p>` : ""}
     </section>`;
 
     const ficha = [["Dirección", director], ["Solistas", ev.solistas], ["Fecha", `${fechaLarga(ev)}${ev.hora ? " · " + ev.hora : ""}`], ["Lugar", ev.lugar]].filter(([, v]) => v);

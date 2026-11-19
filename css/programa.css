@@ -32,7 +32,7 @@ body{font-family:var(--texto);color:var(--marino);-webkit-print-color-adjust:exa
 .contra .marca span{font-size:8.5pt;color:var(--gris)}
 .contra h3{font-size:8pt;letter-spacing:.16em;text-transform:uppercase;color:#8a6d1f;margin-bottom:3mm}
 .contra .apoyos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4mm 7mm}
-.contra .apoyos img{max-height:14mm;max-width:38mm;object-fit:contain}
+.contra .apoyos img{max-height:16mm;max-width:42mm;object-fit:contain}
 .contra .apoyos b{font-size:9pt}
 .contra .qr{display:flex;align-items:center;gap:5mm;text-align:left;background:#fff;border:1px solid #e0dbcf;border-radius:4mm;padding:4mm 5mm}
 .contra .qr img{width:26mm;height:26mm;image-rendering:pixelated}
@@ -41,6 +41,7 @@ body{font-family:var(--texto);color:var(--marino);-webkit-print-color-adjust:exa
 .contra .prox{width:100%;text-align:left}
 .contra .prox li{list-style:none;display:flex;gap:4mm;font-size:8.5pt;padding:1.6mm 0;border-bottom:1px solid #e6e1d5}
 .contra .prox li b{min-width:19mm;white-space:nowrap;color:#8a6d1f}
+.contra .redes span{white-space:nowrap}
 .contra .redes{font-size:8.5pt;color:var(--gris);line-height:1.5}
 /* Interior */
 .interior{padding:15mm 14mm}

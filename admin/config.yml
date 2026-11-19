@@ -83,6 +83,10 @@ collections:
                 fields:
                   - { name: obra, label: Obra, widget: string }
                   - { name: autor, label: "Autor / arreglista", widget: string, required: false }
+              - { name: director, label: "Dirección (programa de mano)", widget: string, required: false, hint: "Si lo dejas vacío, se usa el director actual de la agrupación." }
+              - { name: solistas, label: "Solistas o colaboradores (opcional)", widget: string, required: false }
+              - { name: texto_folleto, label: "Texto para el programa de mano (opcional)", widget: text, required: false, hint: "Si lo dejas vacío, se usa el texto completo del evento. Ponlo más corto si no cabe en la hoja." }
+              - { name: agradecimientos, label: "Agradecimientos (programa de mano)", widget: text, required: false }
               - { name: video, label: "Vídeo de YouTube (opcional)", widget: string, required: false, hint: "Un adelanto o, cuando ya se haya celebrado, la grabación." }
               - name: fotos
                 label: "Fotos del evento"

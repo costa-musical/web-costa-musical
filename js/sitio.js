@@ -223,6 +223,7 @@
             ${!pasado ? `<button type="button" class="boton blanco" id="ev-calendario">Añadir a mi calendario</button>` : ""}
             <button type="button" class="boton blanco" id="ev-compartir">Compartir</button>
             ${album && album.fotos.length ? `<a class="boton marino" href="galeria.html#${esc(album.id)}">Ver fotos (${album.fotos.length})</a>` : ""}
+            ${(ev.programa || []).length ? `<a class="boton blanco" href="/programa.html#${esc(encodeURIComponent(idEvento(ev)))}" target="_blank" rel="noopener">Programa de mano</a>` : ""}
           </div>
           <p class="aviso" id="ev-aviso" role="status" hidden></p>
           ${ev.texto ? `<div class="texto pila">${parrafos(ev.texto)}</div>` : ""}

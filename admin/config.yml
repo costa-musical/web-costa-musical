@@ -414,6 +414,7 @@ collections:
         file: content/ajustes.json
         fields:
           - { name: nombre, label: "Nombre de la entidad", widget: string }
+          - { name: web_url, label: "Dirección de la web", widget: string, required: false, hint: "La que sale en el QR de los programas de mano. Por defecto https://costamusical.pages.dev (cámbiala cuando tengamos dominio propio)." }
           - { name: correo, label: Correo, widget: string, required: false }
           - { name: telefono, label: Teléfono, widget: string, required: false }
           - { name: instagram, label: "Instagram (con @)", widget: string, required: false }

@@ -8,7 +8,7 @@
   const DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
   const fecha = iso => { const [a, m, d] = iso.slice(0, 10).split("-").map(Number); return new Date(a, m - 1, d); };
   const fechaLarga = ev => { const f = fecha(ev.fecha); const t = ev.fecha_texto ? `${ev.fecha_texto} de ${f.getFullYear()}` : `${DIAS[f.getDay()]} ${f.getDate()} de ${MESES[f.getMonth()]} de ${f.getFullYear()}`; return t.charAt(0).toUpperCase() + t.slice(1); };
-  const corta = ev => { const f = fecha(ev.fecha); return `${f.getDate()} ${MESES[f.getMonth()].slice(0, 3)}`; };
+  const corta = ev => { const f = fecha(ev.fecha), m = MESES[f.getMonth()].slice(0, 3); const t = String(ev.fecha_texto || "").trim(); if (!t) return `${f.getDate()} ${m}`; return /^\d/.test(t) ? `${t} ${m}` : t.toLowerCase(); };
   const parrafos = t => String(t || "").split(/\n+/).map(x => x.trim()).filter(Boolean).map(p => `<p>${esc(p)}</p>`).join("");
   const cargar = n => fetch(`content/${n}.json`, { cache: "no-cache" }).then(r => r.ok ? r.json() : {}).catch(() => ({}));
   const qr = texto => { const q = qrcode(0, "M"); q.addData(texto); q.make(); return q.createDataURL(8, 2); };
@@ -21,10 +21,11 @@
     const agr = (ens.agrupaciones || []).find(a => a.id === ev.agrupacion) || {};
     const dirActual = (agr.directores || []).find(d => /hoy|actual/i.test(d.periodo || ""));
     const director = ev.director || (dirActual && dirActual.nombre) || "";
-    const url = `${location.origin}/evento/${encodeURIComponent(idEvento(ev))}`;
+    const web = String(aj.web_url || "https://costamusical.pages.dev").replace(/\/+$/, "");
+    const url = `${web}/evento/${encodeURIComponent(idEvento(ev))}`;
     const apoyos = [...(ev.apoyos || []), ...((ini.colaboradores || []).filter(c => c && c.logo))].filter((c, i, t) => c && c.nombre && t.findIndex(x => x.nombre === c.nombre) === i);
     const hoy = fecha(ev.fecha);
-    const proximos = eventos.filter(e => fecha(e.fecha) > hoy && e !== ev).sort((a, b) => a.fecha.localeCompare(b.fecha)).slice(0, 4);
+    const proximos = eventos.filter(e => fecha(e.fecha) > hoy && e !== ev).sort((a, b) => a.fecha.localeCompare(b.fecha)).slice(0, 3);
     const redes = [aj.instagram && `Instagram ${aj.instagram}`, aj.tiktok && `TikTok ${aj.tiktok}`, aj.youtube && `YouTube ${aj.youtube}`].filter(Boolean).join(" · ");
     document.title = `Programa de mano · ${ev.titulo} · Costa Musical`;
     $("#volver").href = `/evento/${encodeURIComponent(idEvento(ev))}`;
@@ -36,7 +37,7 @@
     const contra = `<section class="panel contra">
       <div class="marca"><span class="lira"></span><b>COSTAMUSICAL</b><span>Asociación Cultural Costa Musical · Punta Umbría</span></div>
       ${proximos.length ? `<div class="prox"><h3>Próximas citas</h3><ul>${proximos.map(e => `<li><b>${esc(corta(e))}</b><span>${esc(e.titulo)}${e.lugar ? " · " + esc(e.lugar.split(",")[0]) : ""}</span></li>`).join("")}</ul></div>` : ""}
-      <div class="qr"><img src="${qr(url)}" alt=""><div><b>Toda la información en la web</b><span>${esc(location.host)}<br>Agenda, fotos, cursos y cómo unirte.</span></div></div>
+      <div class="qr"><img src="${qr(url)}" alt=""><div><b>Toda la información en la web</b><span>${esc(web.replace(/^https?:\/\//, ""))}<br>Agenda, fotos, cursos y cómo unirte.</span></div></div>
       ${apoyos.length ? `<div><h3>Con el apoyo de</h3><div class="apoyos">${apoyos.map(c => c.logo ? `<img src="${esc(encodeURI(c.logo))}" alt="${esc(c.nombre)}">` : `<b>${esc(c.nombre)}</b>`).join("")}</div></div>` : ""}
       ${redes ? `<p class="redes">${esc(redes)}</p>` : ""}
     </section>`;

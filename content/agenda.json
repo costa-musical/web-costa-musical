@@ -23,6 +23,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     },
     {
@@ -48,6 +49,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     },
     {
@@ -73,6 +75,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     },
     {
@@ -98,6 +101,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     },
     {
@@ -112,7 +116,7 @@
       "cartel": "/img/subidas/Carteles/IMG_0903.webp",
       "texto": "La Banda de Música de Punta Umbría, inmersa en las celebraciones de su 30ª Temporada Aniversario, tiene el placer de invitaros a uno de los eventos más entrañables y esperados del año: nuestro tradicional Concierto de Navidad.\n\nEste domingo 20 de diciembre, el Teatro del Mar se transformará en un escenario de cuento para acoger un gran \"Musical Disney\". Para hacer de esta cita una mañana verdaderamente inolvidable, contaremos con unas voces de excepción: el Coro del CEIP Profesora Pilar Martínez Cruz, que nos acompañará en un viaje sonoro y visual por las bandas sonoras que han marcado a niños y adultos de todas las generaciones.\n\nPreparad vuestra imaginación, porque viajaremos desde la sabana africana hasta las nieves de Arendelle, pasando por las calles de Agrabah y el colorido mundo de Coco.",
       "gratis": false,
-      "precio": "Entradas disponibles a partir del 23/11/2026",
+      "precio": "Entradas disponibles más adelante",
       "entradas_url": "",
       "programa": [],
       "director": "",
@@ -123,6 +127,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     },
     {
@@ -169,6 +174,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     },
     {
@@ -194,6 +200,7 @@
       "fotos": [],
       "album": "",
       "apoyos": [],
+      "organizadores": [],
       "mapa_url": ""
     }
   ]

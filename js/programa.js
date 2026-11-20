@@ -23,7 +23,10 @@
     const director = ev.director || (dirActual && dirActual.nombre) || "";
     const web = String(aj.web_url || "https://costamusical.pages.dev").replace(/\/+$/, "");
     const url = `${web}/evento/${encodeURIComponent(idEvento(ev))}`;
-    const apoyos = [...(ev.apoyos || []), ...((ini.colaboradores || []).filter(c => c && c.logo))].filter((c, i, t) => c && c.nombre && t.findIndex(x => x.nombre === c.nombre) === i);
+    const organizan = ((ev.organizadores || []).length ? ev.organizadores : (aj.organizadores || [])).filter(c => c && c.nombre);
+    const apoyos = (ev.apoyos || []).filter((c, i, t) => c && c.nombre && t.findIndex(x => x.nombre === c.nombre) === i && !organizan.some(o => o.nombre === c.nombre));
+    const esLira = c => /(^|\/)logo\.png$/.test(c.logo || "");
+    const logo = c => esLira(c) ? `<span class="org-lira"><span class="lira"></span><b>${esc(c.nombre).replace(/ (Costa)/, "<br>$1")}</b></span>` : c.logo ? `<img src="${esc(encodeURI(c.logo))}" alt="${esc(c.nombre)}">` : `<b>${esc(c.nombre)}</b>`;
     const hoy = fecha(ev.fecha);
     const proximos = eventos.filter(e => fecha(e.fecha) > hoy && e !== ev).sort((a, b) => a.fecha.localeCompare(b.fecha)).slice(0, 3);
     const redes = [aj.instagram && `Instagram ${aj.instagram}`, aj.tiktok && `TikTok ${aj.tiktok}`, aj.youtube && `YouTube ${aj.youtube}`].filter(Boolean);
@@ -35,10 +38,10 @@
       : `<section class="panel portada sin-cartel"><div><span class="p-agr">${esc(agr.nombre || "Costa Musical")}</span><h1>${esc(ev.titulo)}</h1></div><span class="lira" style="width:30mm;height:40mm;color:var(--oro);opacity:.9"></span><div class="p-fecha"><b>${esc(fechaLarga(ev))}</b>${esc([ev.hora, ev.lugar].filter(Boolean).join(" · "))}</div></section>`;
 
     const contra = `<section class="panel contra">
-      <div class="marca"><span class="lira"></span><b>COSTAMUSICAL</b><span>Asociación Cultural Costa Musical · Punta Umbría</span></div>
+      <div class="marca"><span class="lira"></span><b>COSTAMUSICAL</b><span>${esc(agr.nombre || "Punta Umbría")}</span></div>
       ${proximos.length ? `<div class="prox"><h3>Próximas citas</h3><ul>${proximos.map(e => `<li><b>${esc(corta(e))}</b><span>${esc(e.titulo)}${e.lugar && !/^\s*salida/i.test(e.lugar) ? " · " + esc(e.lugar.split(",")[0]) : ""}</span></li>`).join("")}</ul></div>` : ""}
       <div class="qr"><img src="${qr(url)}" alt=""><div><b>Toda la información en la web</b><span>${esc(web.replace(/^https?:\/\//, ""))}<br>Agenda, fotos, cursos y cómo unirte.</span></div></div>
-      ${apoyos.length ? `<div><h3>Con el apoyo de</h3><div class="apoyos">${apoyos.map(c => c.logo ? `<img src="${esc(encodeURI(c.logo))}" alt="${esc(c.nombre)}">` : `<b>${esc(c.nombre)}</b>`).join("")}</div></div>` : ""}
+      ${organizan.length || apoyos.length ? `<div class="entidades">${organizan.length ? `<div><h3>Organizan</h3><div class="apoyos">${organizan.map(logo).join("")}</div></div>` : ""}${apoyos.length ? `<div><h3>Colaboran</h3><div class="apoyos">${apoyos.map(logo).join("")}</div></div>` : ""}</div>` : ""}
       ${redes.length ? `<p class="redes">${redes.map(r => `<span>${esc(r)}</span>`).join(" · ")}</p>` : ""}
     </section>`;
 

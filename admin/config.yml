@@ -106,7 +106,7 @@ collections:
                 hint: "Si eliges un álbum, las fotos de arriba se suman a él."
               - name: apoyos
                 collapsed: true
-                label: "Patrocinadores / con el apoyo de (este evento)"
+                label: "Patrocinadores / colaboradores (este evento)"
                 label_singular: patrocinador
                 widget: list
                 required: false
@@ -115,6 +115,17 @@ collections:
                   - { name: nombre, label: Nombre, widget: string }
                   - { name: logo, label: "Logo", widget: image, required: false, hint: "Mejor PNG con fondo transparente." }
                   - { name: web, label: "Web (opcional)", widget: string, required: false, hint: "Con https://, por ejemplo https://www.puntaumbria.es" }
+              - name: organizadores
+                collapsed: true
+                label: "Organizan (programa de mano, opcional)"
+                label_singular: organizador
+                widget: list
+                required: false
+                hint: "Déjalo vacío para usar los organizadores habituales de Ajustes. Rellénalo solo si este evento lo organiza otra gente."
+                summary: "{{fields.nombre}}"
+                fields:
+                  - { name: nombre, label: Nombre, widget: string }
+                  - { name: logo, label: "Logo", widget: image, required: false, hint: "PNG o WebP con fondo transparente. Si lo dejas vacío sale el nombre en texto." }
               - { name: mapa_url, label: "Enlace al mapa (opcional)", widget: string, required: false, hint: "Si lo dejas vacío, el botón «Cómo llegar» busca el lugar en Google Maps." }
 
       - name: noticias
@@ -414,6 +425,17 @@ collections:
         file: content/ajustes.json
         fields:
           - { name: nombre, label: "Nombre de la entidad", widget: string }
+          - name: organizadores
+            collapsed: true
+            label: "Organizadores habituales (programas de mano)"
+            label_singular: organizador
+            widget: list
+            required: false
+            hint: "Salen en el bloque «Organizan» de la contraportada. Para la asociación usa el logo /img/logo.png: se pinta la lira con su nombre."
+            summary: "{{fields.nombre}}"
+            fields:
+              - { name: nombre, label: Nombre, widget: string }
+              - { name: logo, label: "Logo", widget: image, required: false }
           - { name: web_url, label: "Dirección de la web", widget: string, required: false, hint: "La que sale en el QR de los programas de mano. Por defecto https://costamusical.pages.dev (cámbiala cuando tengamos dominio propio)." }
           - { name: correo, label: Correo, widget: string, required: false }
           - { name: telefono, label: Teléfono, widget: string, required: false }

@@ -14,5 +14,19 @@
   "formularios_clave": "c3ce09a1-299e-48f8-98da-007edfdb0d43",
   "mostrar_tiktok": true,
   "canal_whatsapp": "",
-  "boletin_url": ""
+  "boletin_url": "",
+  "organizadores": [
+    {
+      "nombre": "Ayuntamiento de Punta Umbría",
+      "logo": "/img/subidas/Logos/Ay Punta Umbría - Logo transparente azul.webp"
+    },
+    {
+      "nombre": "Escuela Municipal de Música «Francisco Rodríguez Cermeño»",
+      "logo": "/img/subidas/Logos/EMMPU SIN FONDO.webp"
+    },
+    {
+      "nombre": "Asociación Cultural Costa Musical",
+      "logo": "/img/logo.png"
+    }
+  ]
 }
